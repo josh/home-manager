@@ -29,6 +29,8 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@main
 
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: Install nixfmt
         run: |
           nix profile install github:NixOS/nixfmt
