@@ -13,7 +13,6 @@
     pkgs.git
     pkgs.hello
     pkgs.jq
-    pkgs.neovim
     pkgs.nixfmt-rfc-style
     pkgs.nodePackages.prettier
     pkgs.ripgrep
@@ -59,6 +58,13 @@
 
   programs.starship = {
     enable = true;
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
   };
 
   programs.home-manager.enable = true;
