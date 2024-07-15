@@ -31,7 +31,7 @@ jobs:
 
       - name: Install nixfmt
         run: |
-          nix-env --install --attr nixpkgs.nixfmt
+          nix profile install github:NixOS/nixfmt
 
       - name: Check nixfmt
         run: |
