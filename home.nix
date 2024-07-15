@@ -19,6 +19,7 @@
     pkgs.shellcheck
     pkgs.shfmt
     pkgs.wget
+    pkgs.zsh
   ];
 
   home.file = { };
@@ -29,6 +30,7 @@
     enable = true;
     nix-direnv.enable = true;
     enableBashIntegration = true;
+    enableZshIntegration = true;
   };
 
   programs.git = {
