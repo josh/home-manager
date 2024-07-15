@@ -17,15 +17,14 @@ jobs:
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - run: |
-          nix run home-manager/master -- switch -b bak --flake .
+      - name: Build home configuration
+        run: |
+          nix run home-manager/master -- build --flake .
 
-      - name: Run hello
-        run: hello
-
-  nixfmt:
-    name: nixfmt
+  switch:
+    name: Switch
     runs-on: ubuntu-latest
+    needs: build
 
     steps:
       - uses: actions/checkout@v4
@@ -34,9 +33,28 @@ jobs:
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Install nixfmt
+      - name: Activate home configuration
         run: |
-          nix profile install github:NixOS/nixfmt
+          nix run home-manager/master -- switch -b bak --flake .
+
+      - name: Run hello
+        run: hello
+
+  nixfmt:
+    name: nixfmt
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Activate home configuration
+        run: |
+          nix run home-manager/master -- switch -b bak --flake .
 
       - name: Check nixfmt
         run: |
