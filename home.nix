@@ -39,5 +39,21 @@
     userName = "Joshua Peek";
   };
 
+  programs.bash = {
+    enable = true;
+
+    shellAliases = {
+      "g" = "git";
+    };
+  };
+
+  programs.zsh = {
+    enable = true;
+
+    shellAliases = {
+      "g" = "git";
+    };
+  };
+
   programs.home-manager.enable = true;
 }
