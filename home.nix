@@ -10,6 +10,8 @@
     pkgs.hello
     pkgs.nixfmt-rfc-style
     pkgs.nodePackages.prettier
+    pkgs.shellcheck
+    pkgs.shfmt
   ];
 
   home.file = { };
