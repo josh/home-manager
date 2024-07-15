@@ -25,5 +25,10 @@
         inherit pkgs;
         modules = [ ./home-runner.nix ];
       };
+
+      homeConfigurations."vscode" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ ./home-vscode.nix ];
+      };
     };
 }
