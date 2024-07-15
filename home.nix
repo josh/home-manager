@@ -7,6 +7,7 @@
   home.stateVersion = "24.05";
 
   home.packages = [
+    pkgs.bash
     pkgs.direnv
     pkgs.fzf
     pkgs.git
@@ -18,6 +19,7 @@
     pkgs.ripgrep
     pkgs.shellcheck
     pkgs.shfmt
+    pkgs.starship
     pkgs.wget
     pkgs.zsh
   ];
@@ -53,6 +55,10 @@
     shellAliases = {
       "g" = "git";
     };
+  };
+
+  programs.starship = {
+    enable = true;
   };
 
   programs.home-manager.enable = true;
