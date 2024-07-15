@@ -20,6 +20,18 @@ jobs:
       - run: |
           nix run home-manager/master -- build --flake .
 
+  nixfmt:
+    name: nixfmt
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - run: |
+          nix run nixpkgs.nixfmt -c nixfmt .
+
   flake-checker:
     name: Nix Flake Checker
     runs-on: ubuntu-latest
