@@ -12,6 +12,7 @@
     pkgs.git
     pkgs.hello
     pkgs.jq
+    pkgs.neovim
     pkgs.nixfmt-rfc-style
     pkgs.nodePackages.prettier
     pkgs.shellcheck
