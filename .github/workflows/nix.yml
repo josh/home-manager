@@ -30,7 +30,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
 
       - run: |
-          nix run nixpkgs.nixfmt -c nixfmt .
+          nix run nixpkgs.nixfmt -- --check .
 
   flake-checker:
     name: Nix Flake Checker
