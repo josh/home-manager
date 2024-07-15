@@ -35,7 +35,7 @@ jobs:
 
       - name: Check nixfmt
         run: |
-          nix run nixpkgs.nixfmt -- --check .
+          nixfmt --check .
 
   flake-checker:
     name: Nix Flake Checker
