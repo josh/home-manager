@@ -15,6 +15,7 @@
     pkgs.neovim
     pkgs.nixfmt-rfc-style
     pkgs.nodePackages.prettier
+    pkgs.ripgrep
     pkgs.shellcheck
     pkgs.shfmt
   ];
