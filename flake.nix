@@ -1,5 +1,5 @@
 {
-  description = "Home Manager configuration of codespace";
+  description = "Home Manager configuration of josh";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -18,13 +18,12 @@
     {
       homeConfigurations."codespace" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-
-        modules = [ ./home.nix ];
+        modules = [ ./home-codespace.nix ];
       };
 
       homeConfigurations."runner" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ ./home.nix ];
+        modules = [ ./home-runner.nix ];
       };
     };
 }
