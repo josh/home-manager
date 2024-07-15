@@ -20,6 +20,11 @@ jobs:
       - run: |
           nix run home-manager/master -- build --flake .
 
+      - name: Activate home-manager
+        run: |
+          ./result/activate
+          hello
+
   nixfmt:
     name: nixfmt
     runs-on: ubuntu-latest
