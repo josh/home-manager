@@ -18,12 +18,10 @@ jobs:
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
       - run: |
-          nix run home-manager/master -- build --flake .
+          nix run home-manager/master -- switch -b bak --flake .
 
-      - name: Activate home-manager
-        run: |
-          ./result/activate
-          hello
+      - name: Run hello
+        run: hello
 
   nixfmt:
     name: nixfmt
