@@ -11,6 +11,7 @@
     pkgs.fzf
     pkgs.git
     pkgs.hello
+    pkgs.jq
     pkgs.nixfmt-rfc-style
     pkgs.nodePackages.prettier
     pkgs.shellcheck
