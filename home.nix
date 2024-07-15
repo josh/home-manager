@@ -18,6 +18,7 @@
     pkgs.ripgrep
     pkgs.shellcheck
     pkgs.shfmt
+    pkgs.wget
   ];
 
   home.file = { };
