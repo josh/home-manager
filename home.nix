@@ -6,7 +6,7 @@
 
   home.stateVersion = "24.05";
 
-  home.packages = [ pkgs.nixfmt-classic pkgs.nodePackages.prettier ];
+  home.packages = [ pkgs.hello pkgs.nixfmt-classic pkgs.nodePackages.prettier ];
 
   home.file = { };
 
