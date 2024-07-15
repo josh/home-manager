@@ -6,6 +6,18 @@ on:
     - cron: "0 0 1 * *"
 
 jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - run: |
+          nix run home-manager/master -- build --flake .
+
   flake-checker:
     name: Nix Flake Checker
     runs-on: ubuntu-latest
