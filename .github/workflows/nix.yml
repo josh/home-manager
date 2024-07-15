@@ -29,7 +29,12 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@main
 
-      - run: |
+      - name: Install nixfmt
+        run: |
+          nix-env --install --attr nixpkgs.nixfmt
+
+      - name: Check nixfmt
+        run: |
           nix run nixpkgs.nixfmt -- --check .
 
   flake-checker:
