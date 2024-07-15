@@ -8,6 +8,7 @@
 
   home.packages = [
     pkgs.direnv
+    pkgs.fzf
     pkgs.git
     pkgs.hello
     pkgs.nixfmt-rfc-style
