@@ -1,8 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  home.username = "codespace";
-  home.homeDirectory = "/home/codespace";
+  # home.username = "josh";
+  # home.homeDirectory = "/home/josh";
 
   home.stateVersion = "24.05";
 
