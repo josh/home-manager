@@ -1,0 +1,10 @@
+{
+  "name": "Nix",
+  "image": "mcr.microsoft.com/devcontainers/base:alpine",
+  "features": {
+    "ghcr.io/devcontainers/features/nix:1": {
+      "extraNixConfig": "experimental-features = nix-command flakes"
+    }
+  },
+  "postCreateCommand": "nix run home-manager/master -- switch -b bak --flake ."
+}
