@@ -7,7 +7,7 @@
 
 {
   home.username = "${username}";
-  home.homeDirectory = if "${username}" == "root" then "/root" then "/home/${username}";
+  home.homeDirectory = if "${username}" == "root" then "/root" else "/home/${username}";
 
   home.stateVersion = "24.05";
 
