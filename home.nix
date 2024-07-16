@@ -5,6 +5,11 @@
   ...
 }:
 
+let
+  shellAliases = {
+    "g" = "git";
+  };
+in
 {
   home.username = "${username}";
   home.homeDirectory = if "${username}" == "root" then "/root" else "/home/${username}";
@@ -51,18 +56,12 @@
 
   programs.bash = {
     enable = true;
-
-    shellAliases = {
-      "g" = "git";
-    };
+    shellAliases = shellAliases;
   };
 
   programs.zsh = {
     enable = true;
-
-    shellAliases = {
-      "g" = "git";
-    };
+    shellAliases = shellAliases;
   };
 
   programs.starship = {
