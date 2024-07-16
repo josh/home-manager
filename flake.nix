@@ -26,6 +26,12 @@
           modules = [ ./home.nix ];
         };
 
+        "root" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs.username = "root";
+          modules = [ ./home.nix ];
+        };
+
         "runner" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs.username = "runner";
