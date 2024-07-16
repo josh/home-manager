@@ -16,21 +16,42 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
       packages.x86_64-linux.nixfmt = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
-      homeConfigurations."codespace" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-codespace.nix ];
-      };
+      homeConfigurations = {
+        "codespace" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+            {
+              home.username = "codespace";
+              home.homeDirectory = "/home/codespace";
+            }
+          ];
+        };
 
-      homeConfigurations."runner" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-runner.nix ];
-      };
+        "runner" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+            {
+              home.username = "runner";
+              home.homeDirectory = "/home/runner";
+            }
+          ];
+        };
 
-      homeConfigurations."vscode" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home-vscode.nix ];
+        "vscode" = home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+            {
+              home.username = "vscode";
+              home.homeDirectory = "/home/vscode";
+            }
+          ];
+        };
       };
     };
 }
