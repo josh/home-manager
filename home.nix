@@ -66,6 +66,12 @@
     enable = true;
   };
 
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;
