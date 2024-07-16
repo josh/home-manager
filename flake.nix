@@ -22,35 +22,20 @@
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./home.nix
-            {
-              home.username = "codespace";
-              home.homeDirectory = "/home/codespace";
-            }
-          ];
+          extraSpecialArgs.username = "codespace";
+          modules = [ ./home.nix ];
         };
 
         "runner" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./home.nix
-            {
-              home.username = "runner";
-              home.homeDirectory = "/home/runner";
-            }
-          ];
+          extraSpecialArgs.username = "runner";
+          modules = [ ./home.nix ];
         };
 
         "vscode" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./home.nix
-            {
-              home.username = "vscode";
-              home.homeDirectory = "/home/vscode";
-            }
-          ];
+          extraSpecialArgs.username = "vscode";
+          modules = [ ./home.nix ];
         };
       };
     };
