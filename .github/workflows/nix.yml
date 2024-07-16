@@ -6,7 +6,9 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    concurrency: nix-cache
+    concurrency:
+      group: nix-cache
+      cancel-in-progress: false
 
     steps:
       - uses: actions/checkout@v4
@@ -22,7 +24,9 @@ jobs:
   switch:
     name: Switch
     runs-on: ubuntu-latest
-    concurrency: nix-cache
+    concurrency:
+      group: nix-cache
+      cancel-in-progress: false
 
     steps:
       - uses: actions/checkout@v4
@@ -41,7 +45,9 @@ jobs:
   nixfmt:
     name: nixfmt
     runs-on: ubuntu-latest
-    concurrency: nix-cache
+    concurrency:
+      group: nix-cache
+      cancel-in-progress: false
 
     steps:
       - uses: actions/checkout@v4
