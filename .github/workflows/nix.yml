@@ -52,13 +52,9 @@ jobs:
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
-      - name: Activate home configuration
-        run: |
-          nix run home-manager/master -- switch -b bak --flake .
-
       - name: Check nixfmt
         run: |
-          nixfmt --check .
+          nix run .#nixfmt -- --check .
 
   flake-checker:
     name: Nix Flake Checker

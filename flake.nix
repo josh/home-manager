@@ -16,6 +16,8 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
+      packages.x86_64-linux.nixfmt = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
       homeConfigurations."codespace" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home-codespace.nix ];
