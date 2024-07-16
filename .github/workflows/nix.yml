@@ -23,7 +23,6 @@ jobs:
     name: Switch
     runs-on: ubuntu-latest
     concurrency: nix-cache
-    needs: build
 
     steps:
       - uses: actions/checkout@v4
@@ -43,7 +42,6 @@ jobs:
     name: nixfmt
     runs-on: ubuntu-latest
     concurrency: nix-cache
-    needs: build
 
     steps:
       - uses: actions/checkout@v4
