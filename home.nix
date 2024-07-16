@@ -18,6 +18,7 @@
     git
     hello
     jq
+    neofetch
     nixfmt-rfc-style
     nodePackages.prettier
     ripgrep
