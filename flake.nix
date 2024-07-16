@@ -26,8 +26,9 @@
           modules = [ ./home.nix ];
         };
 
-        "root" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+        # Surface WSL user
+        "root@Surface" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
           extraSpecialArgs.username = "root";
           modules = [ ./home.nix ];
         };
