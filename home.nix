@@ -11,21 +11,21 @@
 
   home.stateVersion = "24.05";
 
-  home.packages = [
-    pkgs.bash
-    pkgs.direnv
-    pkgs.fzf
-    pkgs.git
-    pkgs.hello
-    pkgs.jq
-    pkgs.nixfmt-rfc-style
-    pkgs.nodePackages.prettier
-    pkgs.ripgrep
-    pkgs.shellcheck
-    pkgs.shfmt
-    pkgs.starship
-    pkgs.wget
-    pkgs.zsh
+  home.packages = with pkgs; [
+    bash
+    direnv
+    fzf
+    git
+    hello
+    jq
+    nixfmt-rfc-style
+    nodePackages.prettier
+    ripgrep
+    shellcheck
+    shfmt
+    starship
+    wget
+    zsh
   ];
 
   home.file = { };
