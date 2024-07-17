@@ -18,6 +18,7 @@ in
 
   home.packages = with pkgs; [
     bash
+    cowsay
     direnv
     fzf
     git
