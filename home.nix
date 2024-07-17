@@ -68,6 +68,12 @@ in
     enable = true;
   };
 
+  programs.eza = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+  };
+
   programs.fzf = {
     enable = true;
     enableBashIntegration = true;
