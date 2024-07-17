@@ -14,6 +14,10 @@ jobs:
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
+      - name: Build home-manager
+        run: |
+          nix run .#home-manager -- --version
+
       - name: Build home configuration
         run: |
           nix run .#home-manager -- build --flake . --no-out-link
