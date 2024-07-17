@@ -1,18 +1,18 @@
 {
+  lib,
   config,
   pkgs,
-  username,
   ...
 }:
-
 let
   shellAliases = {
     "g" = "git";
   };
 in
 {
-  home.username = "${username}";
-  home.homeDirectory = if "${username}" == "root" then "/root" else "/home/${username}";
+  home.username = lib.mkDefault "josh";
+  home.homeDirectory =
+    if "${config.home.username}" == "root" then "/root" else "/home/${config.home.username}";
 
   home.stateVersion = "24.05";
 

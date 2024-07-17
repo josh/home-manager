@@ -25,26 +25,35 @@
         "codespace" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           extraSpecialArgs.username = "codespace";
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+            { home.username = "codespace"; }
+          ];
         };
 
         # Surface WSL user
         "root@Surface" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          extraSpecialArgs.username = "root";
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+            { home.username = "root"; }
+          ];
         };
 
         "runner" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs.username = "runner";
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+            { home.username = "runner"; }
+          ];
         };
 
         "vscode" = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          extraSpecialArgs.username = "vscode";
-          modules = [ ./home.nix ];
+          modules = [
+            ./home.nix
+            { home.username = "vscode"; }
+          ];
         };
       };
     };
