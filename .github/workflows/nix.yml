@@ -17,11 +17,12 @@ jobs:
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
 
-      - name: List channels
-        run: nix-channel --list
-
-      - name: Check channels
+      - name: Update channels
         run: nix-channel --update
+
+      - name: Install Home Manager
+        run: |
+          nix-shell '<home-manager>' -A install
 
   flake:
     name: Flake
