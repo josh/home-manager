@@ -12,6 +12,8 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@main
 
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
       - name: Add channels
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
