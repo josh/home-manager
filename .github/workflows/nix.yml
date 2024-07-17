@@ -3,6 +3,21 @@ name: Nix
 on: [push]
 
 jobs:
+  channels:
+    name: Channels
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - name: List channels
+        run: nix-channel --list
+
+      - name: Check channels
+        run: nix-channel --update
+
   flake:
     name: Flake
     runs-on: ubuntu-latest
