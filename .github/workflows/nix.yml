@@ -26,7 +26,7 @@ jobs:
 
       - name: Patch home.nix username
         run: |
-          sed -i 's/josh/$(whoami)/' home.nix
+          sed -i 's/josh/runner/' home.nix
 
       - name: Build home configuration
         run: |
