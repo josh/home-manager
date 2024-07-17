@@ -24,16 +24,20 @@ jobs:
         run: |
           nix-shell '<home-manager>' -A install
 
+      - name: Patch home.nix username
+        run: |
+          sed -i 's/josh/$(whoami)/' home.nix
+
       - name: Build home configuration
         run: |
-          home-manager build
+          home-manager build -f home.nix
 
       - name: Activate home configuration
         run: |
           home-manager switch -f home.nix -b backup
 
-      # - name: Run hello
-      #   run: hello
+      - name: Run hello
+        run: hello
 
   flakes:
     name: Flakes
