@@ -57,12 +57,12 @@ in
 
   programs.bash = {
     enable = true;
-    shellAliases = shellAliases;
+    inherit shellAliases;
   };
 
   programs.zsh = {
     enable = true;
-    shellAliases = shellAliases;
+    inherit shellAliases;
   };
 
   programs.starship = {
