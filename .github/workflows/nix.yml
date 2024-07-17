@@ -20,12 +20,23 @@ jobs:
       - name: Update channels
         run: nix-channel --update
 
-      - name: Install Home Manager
+      - name: Install home-manager
         run: |
           nix-shell '<home-manager>' -A install
 
-  flake:
-    name: Flake
+      - name: Build home configuration
+        run: |
+          home-manager build
+
+      - name: Activate home configuration
+        run: |
+          home-manager switch -b backup
+
+      # - name: Run hello
+      #   run: hello
+
+  flakes:
+    name: Flakes
     runs-on: ubuntu-latest
 
     steps:
