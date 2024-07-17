@@ -30,7 +30,7 @@ jobs:
 
       - name: Activate home configuration
         run: |
-          home-manager switch -b backup
+          home-manager switch -f home.nix -b backup
 
       # - name: Run hello
       #   run: hello
