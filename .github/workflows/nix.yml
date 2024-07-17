@@ -55,6 +55,10 @@ jobs:
       - name: Check Nix flake inputs
         uses: DeterminateSystems/flake-checker-action@v4
 
+      - name: Check flake
+        run: |
+          nix flake check
+
       - name: Build home-manager
         run: |
           nix run .#home-manager -- --version
@@ -69,18 +73,3 @@ jobs:
 
       - name: Run hello
         run: hello
-
-  nixfmt:
-    name: nixfmt
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: DeterminateSystems/nix-installer-action@main
-
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Check nixfmt
-        run: |
-          nix run .#nixfmt -- --check .

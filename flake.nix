@@ -17,9 +17,23 @@
     in
     {
       packages.x86_64-linux.home-manager = home-manager.defaultPackage.x86_64-linux;
-      packages.x86_64-linux.nixfmt = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
+      checks.x86_64-linux.check-format =
+        pkgs.runCommandLocal "check-format"
+          {
+            src = ./.;
+            nativeBuildInputs = [
+              pkgs.nixfmt-rfc-style
+              pkgs.nodePackages.prettier
+            ];
+          }
+          ''
+            nixfmt --check ${./.}
+            prettier --check ${./.github}
+            touch "$out"
+          '';
 
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
