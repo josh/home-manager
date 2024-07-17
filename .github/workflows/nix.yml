@@ -3,8 +3,8 @@ name: Nix
 on: [push]
 
 jobs:
-  build:
-    name: Build
+  flake:
+    name: Flake
     runs-on: ubuntu-latest
 
     steps:
@@ -16,22 +16,11 @@ jobs:
 
       - name: Build home configuration
         run: |
-          nix run home-manager/master -- build --flake .
-
-  switch:
-    name: Switch
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: DeterminateSystems/nix-installer-action@main
-
-      - uses: DeterminateSystems/magic-nix-cache-action@main
+          nix run .#home-manager -- build --flake . --no-out-link
 
       - name: Activate home configuration
         run: |
-          nix run home-manager/master -- switch -b bak --flake .
+          nix run .#home-manager -- switch --flake . -b backup
 
       - name: Run hello
         run: hello

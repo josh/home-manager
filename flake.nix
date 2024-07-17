@@ -16,7 +16,7 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      packages.x86_64-linux.default = home-manager.defaultPackage.x86_64-linux;
+      packages.x86_64-linux.home-manager = home-manager.defaultPackage.x86_64-linux;
       packages.x86_64-linux.nixfmt = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       homeConfigurations = {
