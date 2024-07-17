@@ -12,32 +12,39 @@
   outputs =
     { nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      forAllSystems = nixpkgs.lib.genAttrs [
+        "aarch64-darwin"
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
     in
     {
-      packages.x86_64-linux.home-manager = home-manager.defaultPackage.x86_64-linux;
+      packages = forAllSystems (system: {
+        home-manager = home-manager.defaultPackage.${system};
+      });
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
 
-      checks.x86_64-linux.check-format =
-        pkgs.runCommandLocal "check-format"
-          {
-            src = ./.;
-            nativeBuildInputs = [
-              pkgs.nixfmt-rfc-style
-              pkgs.nodePackages.prettier
-            ];
-          }
-          ''
-            nixfmt --check ${./.}
-            prettier --check ${./.github}
-            touch "$out"
-          '';
+      checks = forAllSystems (system: {
+        check-format =
+          nixpkgs.legacyPackages.${system}.runCommandLocal "check-format"
+            {
+              src = ./.;
+              nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [
+                nixfmt-rfc-style
+                nodePackages.prettier
+              ];
+            }
+            ''
+              nixfmt --check ${./.}
+              prettier --check ${./.github}
+              touch "$out"
+            '';
+      });
 
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs.username = "codespace";
           modules = [
             ./home.nix
@@ -55,7 +62,7 @@
         };
 
         "runner" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             ./home.nix
             { home.username = "runner"; }
@@ -63,7 +70,7 @@
         };
 
         "vscode" = home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             ./home.nix
             { home.username = "vscode"; }
