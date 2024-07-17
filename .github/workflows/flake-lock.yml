@@ -1,4 +1,4 @@
-name: Flakes
+name: Flake Lock
 
 on:
   workflow_dispatch:
