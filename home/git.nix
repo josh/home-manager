@@ -1,4 +1,10 @@
-_: {
+{ pkgs, ... }:
+let
+  git-branch-prune = pkgs.writeShellScriptBin "git-branch-prune" ''
+    ${pkgs.git}/bin/git branch --merged | grep -v "\*" | xargs -n 1 ${pkgs.git}/bin/git branch --delete
+  '';
+in
+{
   programs = {
     git = {
       enable = true;
@@ -13,4 +19,6 @@ _: {
       enable = true;
     };
   };
+
+  home.packages = [ git-branch-prune ];
 }
