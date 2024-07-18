@@ -13,6 +13,7 @@ _: {
 
     zsh = {
       enable = true;
+      defaultKeymap = "emacs";
       history = {
         extended = true;
         ignoreSpace = true;
