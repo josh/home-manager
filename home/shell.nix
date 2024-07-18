@@ -8,10 +8,15 @@ _: {
   programs = {
     bash = {
       enable = true;
+      historyControl = [ "ignorespace" ];
     };
 
     zsh = {
       enable = true;
+      history = {
+        extended = true;
+        ignoreSpace = true;
+      };
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
     };
