@@ -5,9 +5,9 @@
     du-dust
     dua
     duf
+    fastfetch
     hello
     jq
-    neofetch
     nixfmt-rfc-style
     nodePackages.prettier
     rclone
