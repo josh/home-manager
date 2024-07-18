@@ -7,7 +7,6 @@
     duf
     fastfetch
     hello
-    jq
     nixfmt-rfc-style
     nodePackages.prettier
     rclone
@@ -21,6 +20,7 @@
 
   programs = {
     fd.enable = true;
+    jq.enabled = true;
     ripgrep.enable = true;
   };
 }
