@@ -5,4 +5,8 @@ _: {
     viAlias = true;
     vimAlias = true;
   };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
 }
