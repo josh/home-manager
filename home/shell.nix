@@ -1,19 +1,17 @@
-_:
-let
-  shellAliases = {
-    "g" = "git";
+_: {
+  home = {
+    shellAliases = {
+      "g" = "git";
+    };
   };
-in
-{
+
   programs = {
     bash = {
       enable = true;
-      inherit shellAliases;
     };
 
     zsh = {
       enable = true;
-      inherit shellAliases;
     };
 
     starship = {
