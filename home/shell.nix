@@ -12,6 +12,8 @@ _: {
 
     zsh = {
       enable = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
     };
 
     starship = {
