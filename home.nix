@@ -3,6 +3,7 @@
   imports = [
     ./home/git.nix
     ./home/neovim.nix
+    ./home/scripts.nix
     ./home/shell.nix
     ./home/utils.nix
   ];
