@@ -1,5 +1,8 @@
 { pkgs, ... }:
 let
+  deadsymlinks = pkgs.writeShellScriptBin "deadsymlinks" ''
+    find . -type l ! -exec test -r {} \; -print 2>/dev/null
+  '';
   hmUp = pkgs.writeShellScriptBin "hm-up" ''
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
         FLAKE_URI="$(pwd)"
@@ -12,5 +15,8 @@ let
   '';
 in
 {
-  home.packages = [ hmUp ];
+  home.packages = [
+    deadsymlinks
+    hmUp
+  ];
 }
