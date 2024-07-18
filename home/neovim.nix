@@ -6,6 +6,7 @@
     viAlias = true;
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
+      { plugin = copilot-vim; }
       {
         plugin = catppuccin-nvim;
         config = "colorscheme catppuccin";
