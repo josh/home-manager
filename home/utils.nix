@@ -13,9 +13,11 @@
     rclone
     restic
     rsync
+    ruff
     shellcheck
     shfmt
     unzip
+    uv
     wget
   ];
 
