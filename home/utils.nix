@@ -12,7 +12,6 @@
     nodePackages.prettier
     rclone
     restic
-    ripgrep
     rsync
     shellcheck
     shfmt
@@ -22,5 +21,6 @@
 
   programs = {
     fd.enable = true;
+    ripgrep.enable = true;
   };
 }
