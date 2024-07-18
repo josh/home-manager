@@ -15,5 +15,6 @@
     stateVersion = "24.05";
   };
 
+  news.display = "silent";
   programs.home-manager.enable = true;
 }
