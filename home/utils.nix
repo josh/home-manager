@@ -5,7 +5,6 @@
     du-dust
     dua
     duf
-    fd
     hello
     jq
     neofetch
@@ -20,4 +19,8 @@
     unzip
     wget
   ];
+
+  programs = {
+    fd.enable = true;
+  };
 }
