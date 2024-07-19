@@ -23,6 +23,6 @@ jobs:
         uses: DeterminateSystems/update-flake-lock@main
 
       - if: steps.update-flake-lock.outputs.pull-request-operation == 'created'
-        run: gh workflow run nix.yml
+        run: gh workflow run nix.yml --ref update_flake_lock_action
         env:
           GH_TOKEN: ${{ github.token }}
