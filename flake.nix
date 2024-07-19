@@ -7,10 +7,16 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      catppuccin,
+      ...
+    }:
     let
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
