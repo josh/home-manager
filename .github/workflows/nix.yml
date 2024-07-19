@@ -1,6 +1,8 @@
 name: Nix
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   channels:
