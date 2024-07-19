@@ -11,12 +11,7 @@
   };
 
   outputs =
-    {
-      nixpkgs,
-      home-manager,
-      catppuccin,
-      ...
-    }:
+    { nixpkgs, home-manager, ... }:
     let
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
