@@ -1,16 +1,11 @@
-{
-  lib,
-  config,
-  catppuccin ? (import ./catppuccin.nix) { },
-  ...
-}:
+{ lib, config, ... }:
 {
   imports = [
-    catppuccin.homeManagerModules.catppuccin
     ./home/git.nix
     ./home/neovim.nix
     ./home/scripts.nix
     ./home/shell.nix
+    ./home/theme.nix
     ./home/utils.nix
   ];
 

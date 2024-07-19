@@ -7,5 +7,5 @@ import (
     url = "https://github.com/catppuccin/nix/archive/${catppuccin.rev}.tar.gz";
     sha256 = catppuccin.narHash;
   }
-  + "/modules/nixos"
+  + "/modules/home-manager"
 )
