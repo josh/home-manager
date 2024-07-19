@@ -6,6 +6,7 @@
 }:
 {
   imports = [
+    catppuccin.homeManagerModules.catppuccin
     ./home/git.nix
     ./home/neovim.nix
     ./home/scripts.nix
