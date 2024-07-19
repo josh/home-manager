@@ -8,10 +8,6 @@
     plugins = with pkgs.vimPlugins; [
       { plugin = copilot-vim; }
       {
-        plugin = catppuccin-nvim;
-        config = "colorscheme catppuccin";
-      }
-      {
         plugin = nvim-tree-lua;
         config = ''
           let g:loaded_netrw = 1
