@@ -14,16 +14,25 @@ let
       url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
       sha256 = narHash;
     };
-  decorateInput = pkg: pkg // { path = fetchInput pkg.locked; };
-  nixpkgs = decorateInput lock.nodes.nixpkgs;
-  catppuccin = decorateInput lock.nodes.catppuccin;
+  wrap =
+    pkg: buildOutputs:
+    let
+      path = fetchInput pkg.locked;
+      outputs = buildOutputs path;
+    in
+    pkg // { inherit path outputs; };
 in
 {
-  inherit nixpkgs;
-  catppuccin = catppuccin // {
-    outputs = {
-      homeManagerModules = import (catppuccin.path + "/modules/home-manager");
-      nixosModules = import (catppuccin.path + "/modules/nixos");
-    };
-  };
+  nixpkgs = wrap lock.nodes.nixpkgs (path: {
+    default = import path;
+  });
+
+  home-manager = wrap lock.nodes.home-manager (path: {
+    default = import path;
+  });
+
+  catppuccin = wrap lock.nodes.catppuccin (path: {
+    homeManagerModules = import "${path}/modules/home-manager";
+    nixosModules = import "${path}/modules/nixos";
+  });
 }
