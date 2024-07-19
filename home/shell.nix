@@ -33,6 +33,10 @@ _: {
       enableZshIntegration = true;
     };
 
+    bat = {
+      enable = true;
+    };
+
     eza = {
       enable = true;
       enableBashIntegration = true;
