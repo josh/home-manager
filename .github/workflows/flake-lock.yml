@@ -5,6 +5,10 @@ on:
   schedule:
     - cron: "0 0 1 * *"
 
+permissions:
+  actions: write
+  contents: write
+
 jobs:
   lockfile:
     runs-on: ubuntu-latest
@@ -14,6 +18,10 @@ jobs:
 
       - uses: DeterminateSystems/nix-installer-action@main
 
-      - uses: DeterminateSystems/update-flake-lock@main
-        with:
-          pr-title: "Update flake.lock"
+      - id: update-flake-lock
+        uses: DeterminateSystems/update-flake-lock@main
+
+      - if: steps.update-flake-lock.outputs.pull-request-operation == 'created'
+        run: gh workflow run nix.yml
+        env:
+          GH_TOKEN: ${{ github.token }}
