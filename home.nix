@@ -5,6 +5,7 @@
     ./home/neovim.nix
     ./home/scripts.nix
     ./home/shell.nix
+    ./home/theme.nix
     ./home/utils.nix
   ];
 
