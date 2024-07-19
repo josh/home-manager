@@ -1,5 +1,9 @@
-_: {
-  imports = [ ../catppuccin.nix ];
+_:
+let
+  inputs = import ../inputs.nix;
+in
+{
+  imports = [ inputs.catppuccin.outputs.homeManagerModules ];
 
   catppuccin = {
     enable = true;
