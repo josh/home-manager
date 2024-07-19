@@ -24,9 +24,8 @@ in
       };
     };
 
-    gh = {
-      enable = true;
-    };
+    gitui.enable = true;
+    gh.enable = true;
   };
 
   home.packages = [
