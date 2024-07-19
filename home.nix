@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  catppuccin ? (import ./catppuccin.nix) { },
+  ...
+}:
 {
   imports = [
     ./home/git.nix
