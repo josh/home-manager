@@ -17,6 +17,7 @@ _: {
       history = {
         extended = true;
         ignoreSpace = true;
+        share = false;
       };
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
