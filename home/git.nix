@@ -20,6 +20,7 @@ in
       userEmail = "josh@users.noreply.github.com";
       userName = "Joshua Peek";
       aliases = {
+        b = "branch";
         ci = "commit";
         co = "checkout";
       };
