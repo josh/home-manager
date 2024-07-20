@@ -8,6 +8,7 @@
     fastfetch
     hello
     jq
+    nh
     nixfmt-rfc-style
     nodePackages.prettier
     rclone
