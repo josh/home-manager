@@ -21,6 +21,7 @@ in
       userName = "Joshua Peek";
       aliases = {
         ci = "commit";
+        co = "checkout";
       };
     };
 
