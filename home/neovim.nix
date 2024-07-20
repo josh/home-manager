@@ -7,6 +7,7 @@
     vimAlias = true;
     plugins = with pkgs.vimPlugins; [
       { plugin = copilot-vim; }
+      { plugin = lualine-nvim; }
       {
         plugin = nvim-tree-lua;
         config = ''
@@ -25,6 +26,7 @@
     extraConfig = '''';
     extraLuaConfig = ''
       require("nvim-tree").setup()
+      require("lualine").setup()
     '';
   };
 }
