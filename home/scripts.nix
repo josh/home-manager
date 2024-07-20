@@ -12,7 +12,7 @@ let
     export FLAKE
     echo "Using $FLAKE as home manager flake" >&2
 
-    exec ${pkgs.nh}/bin/nh home switch --backup-extension backup
+    exec ${pkgs.nh}/bin/nh home switch --backup-extension backup -- --refresh
   '';
 in
 {
