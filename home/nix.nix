@@ -15,6 +15,9 @@ let
 in
 {
   home.packages = with pkgs; [
+    # find dead nix code
+    deadnix
+
     # tool to build/switch to my home-manager config
     hm-up
 
