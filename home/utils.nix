@@ -11,6 +11,7 @@
     nh
     nixfmt-rfc-style
     nodePackages.prettier
+    nurl
     rclone
     restic
     rsync
