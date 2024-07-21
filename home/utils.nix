@@ -8,10 +8,7 @@
     fastfetch
     hello
     jq
-    nh
-    nixfmt-rfc-style
     nodePackages.prettier
-    nurl
     rclone
     restic
     rsync
