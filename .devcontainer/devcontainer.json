@@ -6,5 +6,6 @@
       "extraNixConfig": "experimental-features = nix-command flakes"
     }
   },
-  "postCreateCommand": "nix run home-manager/master -- switch -b bak --flake ."
+  "postCreateCommand": "nix run github:nix-community/home-manager -- switch -b bak --flake .",
+  "postStartCommand": "nix shell nixpkgs#acl --command setfacl -k /tmp"
 }
