@@ -26,5 +26,8 @@ in
 
     # fetch resource nar hash
     nurl
+
+    # linter
+    statix
   ];
 }
