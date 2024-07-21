@@ -3,7 +3,7 @@ let
   inputs = import ../inputs.nix;
 in
 {
-  imports = [ inputs.catppuccin.outputs.homeManagerModules ];
+  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
   catppuccin = {
     enable = true;
