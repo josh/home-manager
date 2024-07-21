@@ -78,5 +78,43 @@
           ];
         };
       };
+
+      nixosConfigurations = {
+        "Surface" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          modules = [
+            "${nixpkgs}/nixos/modules/virtualisation/build-vm.nix"
+            {
+              # boot.isContainer = true;
+              boot.loader.systemd-boot.enable = true;
+              boot.loader.efi.canTouchEfiVariables = true;
+              virtualisation.vmVariant.virtualisation.graphics = false;
+              system.stateVersion = "24.11";
+            }
+            {
+              users.users.josh = {
+                isNormalUser = true;
+                extraGroups = [ "wheel" ];
+                initialPassword = "swordfish";
+              };
+              services.getty.autologinUser = "josh";
+              security.sudo.wheelNeedsPassword = false;
+            }
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.config.allowUnfree = true;
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              #home-manager.users.josh = import ./home.nix;
+              home-manager.users.josh =
+                { ... }:
+                {
+                  home.file."foo".text = "bar";
+                  home.stateVersion = "24.11";
+                };
+            }
+          ];
+        };
+      };
     };
 }
