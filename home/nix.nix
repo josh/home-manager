@@ -1,6 +1,7 @@
 # Tools for developing and managing nix itself
 { pkgs, ... }:
 let
+  inputs = import ../inputs.nix;
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
         FLAKE="$(pwd)"
@@ -14,6 +15,16 @@ let
   '';
 in
 {
+  imports = [ inputs.nix-index-database.hmModules.nix-index ];
+
+  # Enable nix-index and prebuilt nix-index-database.
+  # $ , cowsay "hello"
+  programs.nix-index = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+  programs.nix-index-database.comma.enable = true;
+
   home.packages = with pkgs; [
     # find dead nix code
     deadnix
