@@ -59,7 +59,7 @@ jobs:
 
       - name: Check flake
         run: |
-          nix flake check
+          nix flake check --all-systems
 
       - name: Build home-manager
         run: |
