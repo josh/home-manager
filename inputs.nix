@@ -1,11 +1,13 @@
 let
-  rev = "38fd3954cf65ce6faf3d0d45cd26059e059f07ea";
-  hash = "sha256:1lgx0c0n0hw1ds1in497w3c86ki0iksi59h6daphpl7rj5w65f8n";
+  lock = builtins.fromJSON (builtins.readFile ./flake.lock);
+  node = lock.nodes.flake-compat.locked;
+  owner = node.owner;
+  repo = node.repo;
+  rev = node.rev;
   path = fetchTarball {
-    url = "https://github.com/nix-community/flake-compat/archive/${rev}.tar.gz";
-    sha256 = hash;
+    url = "https://github.com/${owner}/${repo}/archive/${rev}.tar.gz";
+    sha256 = node.narHash;
   };
-  flakeCompat = import path;
-  flake = flakeCompat { src = ./.; };
+  flake = import path { src = ./.; };
 in
 flake.defaultNix.inputs
