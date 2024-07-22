@@ -24,6 +24,11 @@ in
         ci = "commit";
         co = "checkout";
       };
+
+      diff-so-fancy.enable = true;
+      # other diff tools,
+      # delta.enable = true;
+      # difftastic.enable = true;
     };
 
     gitui.enable = true;
