@@ -1,8 +1,8 @@
 let
-  rev = "4f910c9827911b1ec2bf26b5a062cd09f8d89f85";
-  hash = "sha256:0x79lylianpvhyafv6267mhd94an0khjl8dzdmy3vl7yq3d3y100";
+  rev = "38fd3954cf65ce6faf3d0d45cd26059e059f07ea";
+  hash = "sha256:1lgx0c0n0hw1ds1in497w3c86ki0iksi59h6daphpl7rj5w65f8n";
   path = fetchTarball {
-    url = "https://github.com/edolstra/flake-compat/archive/${rev}.tar.gz";
+    url = "https://github.com/nix-community/flake-compat/archive/${rev}.tar.gz";
     sha256 = hash;
   };
   flakeCompat = import path;
