@@ -20,36 +20,44 @@
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    {
+      self,
+      nixpkgs,
+      treefmt-nix,
+      home-manager,
+      ...
+    }:
     let
       forAllSystems = nixpkgs.lib.genAttrs [
         "aarch64-darwin"
         "aarch64-linux"
         "x86_64-linux"
       ];
+      treefmt = forAllSystems (
+        system:
+        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} {
+          projectRootFile = "flake.nix";
+          programs = {
+            actionlint.enable = true;
+            deadnix.enable = true;
+            nixfmt.enable = true;
+            prettier.enable = true;
+            shellcheck.enable = true;
+            shfmt.enable = true;
+            statix.enable = true;
+          };
+        }
+      );
     in
     {
       packages = forAllSystems (system: {
         home-manager = home-manager.defaultPackage.${system};
       });
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-rfc-style);
+      formatter = forAllSystems (system: treefmt.${system}.config.build.wrapper);
 
       checks = forAllSystems (system: {
-        check-format =
-          nixpkgs.legacyPackages.${system}.runCommandLocal "check-format"
-            {
-              src = ./.;
-              nativeBuildInputs = with nixpkgs.legacyPackages.${system}; [
-                nixfmt-rfc-style
-                nodePackages.prettier
-              ];
-            }
-            ''
-              nixfmt --check ${./.}
-              prettier --check ${./.github}
-              touch "$out"
-            '';
+        treefmt = treefmt.${system}.config.build.check self;
       });
 
       homeConfigurations = {
