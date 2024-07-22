@@ -39,7 +39,7 @@ in
     nixfmt-rfc-style
 
     # build nixos based images
-    nixos-generate
+    nixos-generators
 
     # fetch resource nar hash
     nurl
