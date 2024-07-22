@@ -38,6 +38,9 @@ in
     # formatter
     nixfmt-rfc-style
 
+    # build nixos based images
+    nixos-generate
+
     # fetch resource nar hash
     nurl
 
