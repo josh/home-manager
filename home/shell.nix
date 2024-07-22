@@ -34,6 +34,8 @@ _: {
       enableZshIntegration = true;
     };
 
+    less.enable = true;
+
     bat = {
       enable = true;
     };
