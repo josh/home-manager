@@ -1,4 +1,4 @@
-_:
+{ config, ... }:
 let
   inputs = import ../inputs.nix;
 in
@@ -12,8 +12,10 @@ in
     viAlias = true;
     vimAlias = true;
 
-    # TODO: Enable if global catppuccin.enable is on
-    colorschemes.catppuccin.enable = true;
+    colorschemes.catppuccin = {
+      inherit (config.catppuccin) enable;
+      settings.flavor = config.catppuccin.flavor;
+    };
 
     plugins = {
       # Cool launch screen when neovim is opened without a file
