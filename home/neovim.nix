@@ -1,4 +1,4 @@
-{ config, ... }:
+{ lib, config, ... }:
 let
   inputs = import ../inputs.nix;
 in
@@ -12,9 +12,16 @@ in
     viAlias = true;
     vimAlias = true;
 
-    colorschemes.catppuccin = {
-      inherit (config.catppuccin) enable;
-      settings.flavor = config.catppuccin.flavor;
+    colorschemes = {
+      catppuccin = lib.mkIf (config.theme == "catppuccin") {
+        enable = true;
+        settings.flavor = config.catppuccin.flavor;
+      };
+
+      tokyonight = lib.mkIf (config.theme == "tokyonight") {
+        enable = true;
+        style = "night";
+      };
     };
 
     plugins = {

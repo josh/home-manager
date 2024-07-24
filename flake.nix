@@ -87,7 +87,10 @@
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [
             ./home.nix
-            { home.username = "root"; }
+            {
+              home.username = "root";
+              theme = "tokyonight";
+            }
           ];
         };
 
