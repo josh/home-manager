@@ -6,6 +6,6 @@
       "extraNixConfig": "experimental-features = nix-command flakes"
     }
   },
-  "postCreateCommand": "nix run github:nix-community/home-manager -- switch -b bak --flake .",
-  "postStartCommand": "nix shell nixpkgs#acl --command setfacl -k /tmp"
+  "postCreateCommand": "sudo apk --no-cache add acl ; nix run github:nix-community/home-manager -- switch -b bak --flake .",
+  "postStartCommand": "sudo setfacl -k /tmp"
 }
