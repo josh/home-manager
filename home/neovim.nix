@@ -37,7 +37,10 @@ in
       bufferline.enable = true;
 
       # Cooler looking status bar
-      lualine.enable = true;
+      lualine = {
+        enable = true;
+        iconsEnabled = config.nerd-fonts;
+      };
 
       # File browser sidebar, open with <SPACE> + t
       nvim-tree = {
