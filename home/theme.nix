@@ -16,13 +16,17 @@ in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
-  options.theme = lib.mkOption {
-    default = "";
-    type = lib.types.enum [
-      ""
-      "catppuccin"
-      "tokyonight"
-    ];
+  options = {
+    theme = lib.mkOption {
+      default = "";
+      type = lib.types.enum [
+        ""
+        "catppuccin"
+        "tokyonight"
+      ];
+    };
+
+    nerd-fonts = lib.mkEnableOption "Enable Nerd Fonts";
   };
 
   config = {
