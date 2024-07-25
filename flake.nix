@@ -90,6 +90,7 @@
             {
               home.username = "root";
               theme = "tokyonight";
+              nerd-fonts = true;
             }
           ];
         };
