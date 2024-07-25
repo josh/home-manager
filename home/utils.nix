@@ -2,6 +2,7 @@
 {
   home.packages = with pkgs; [
     cowsay
+    curl
     du-dust
     dua
     duf
