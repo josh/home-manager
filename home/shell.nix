@@ -1,4 +1,5 @@
-_: {
+{ lib, config, ... }:
+{
   home = {
     shellAliases = {
       "g" = "git";
@@ -25,6 +26,12 @@ _: {
 
     starship = {
       enable = true;
+      settings = lib.mkMerge [
+        (lib.mkIf (!config.nerd-fonts) (import ./starship/no-nerd-font.nix))
+        # (lib.mkIf config.nerd-fonts (import ./starship/nerd-font-symbols.nix))
+        (lib.mkIf (config.theme == "tokyonight") (import ./starship/tokyo-night.nix))
+        (lib.mkIf (config.theme == "catppuccin") (import ./starship/catppuccin.nix))
+      ];
     };
 
     direnv = {
