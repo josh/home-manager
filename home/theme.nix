@@ -1,6 +1,17 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   inputs = import ../inputs.nix;
+  test-nerd-fonts = pkgs.writeShellScriptBin "test-nerd-fonts" ''
+    echo -e "powerline: \ue0a0"
+    echo -e "devicons: \ue700"
+    echo -e "octicons: \uf408"
+    echo -e "emoji: \U0001F40D"
+  '';
 in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
@@ -19,5 +30,7 @@ in
       enable = true;
       flavor = "mocha";
     };
+
+    home.packages = [ test-nerd-fonts ];
   };
 }
