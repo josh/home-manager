@@ -38,7 +38,10 @@ in
     };
     background = lib.mkOption {
       description = "Is background in light or dark mode";
-      type = lib.types.enum [ "light" "dark" ];
+      type = lib.types.enum [
+        "light"
+        "dark"
+      ];
       default = theme-backgrounds.${config.theme};
       example = "dark";
     };
