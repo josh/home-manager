@@ -78,7 +78,11 @@
           extraSpecialArgs.username = "codespace";
           modules = [
             ./home.nix
-            { home.username = "codespace"; }
+            {
+              home.username = "codespace";
+              powerline-fonts = true;
+              nerd-fonts = false;
+            }
           ];
         };
 
