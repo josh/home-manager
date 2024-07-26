@@ -6,7 +6,7 @@
 }:
 let
   inputs = import ../inputs.nix;
-  test-nerd-fonts = pkgs.writeShellScriptBin "test-nerd-fonts" ''
+  test-fonts = pkgs.writeShellScriptBin "test-fonts" ''
     echo -e "powerline: \ue0a0"
     echo -e "devicons: \ue700"
     echo -e "octicons: \uf408"
@@ -46,6 +46,6 @@ in
       flavor = "mocha";
     };
 
-    home.packages = [ test-nerd-fonts ];
+    home.packages = [ test-fonts ];
   };
 }
