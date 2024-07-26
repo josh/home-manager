@@ -20,12 +20,13 @@
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs = {
-        flake-compat.follows = "flake-compat";
         devshell.follows = "";
+        flake-compat.follows = "flake-compat";
         git-hooks.follows = "";
         home-manager.follows = "home-manager";
         nix-darwin.follows = "";
         nixpkgs.follows = "nixpkgs";
+        nuschtosSearch.follows = "";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
