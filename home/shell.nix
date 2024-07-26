@@ -37,7 +37,6 @@
         enable = config.powerline-fonts;
         settings = lib.mkMerge [
           (lib.mkIf (!config.nerd-fonts) (preset "no-nerd-font"))
-          (lib.mkIf (config.theme == "tokyonight") (preset "tokyo-night"))
           (lib.mkIf (config.theme == "catppuccin") (
             # https://github.com/catppuccin/starship/blob/ca2fb06/starship.toml
             {
