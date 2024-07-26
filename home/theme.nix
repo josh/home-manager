@@ -21,7 +21,10 @@ in
       default = "";
       type = lib.types.enum [
         ""
-        "catppuccin"
+        "catppuccin-frappe"
+        "catppuccin-latte"
+        "catppuccin-macchiato"
+        "catppuccin-mocha"
         "tokyonight"
       ];
     };
@@ -41,9 +44,9 @@ in
   };
 
   config = {
-    catppuccin = lib.mkIf (config.theme == "catppuccin") {
+    catppuccin = lib.mkIf (lib.strings.hasPrefix "catppuccin-" config.theme) {
       enable = true;
-      flavor = "mocha";
+      flavor = lib.strings.removePrefix "catppuccin-" config.theme;
     };
 
     home.packages = [ test-fonts ];

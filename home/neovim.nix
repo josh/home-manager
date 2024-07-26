@@ -13,12 +13,12 @@ in
     vimAlias = true;
 
     colorschemes = {
-      catppuccin = lib.mkIf (config.theme == "catppuccin") {
+      catppuccin = lib.mkIf config.catppuccin.enable {
         enable = true;
         settings.flavor = config.catppuccin.flavor;
       };
 
-      tokyonight = lib.mkIf (config.theme == "tokyonight") {
+      tokyonight = lib.mkIf (lib.strings.hasPrefix "tokyonight" config.theme) {
         enable = true;
         style = "night";
       };

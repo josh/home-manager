@@ -93,7 +93,7 @@
             ./home.nix
             {
               home.username = "root";
-              theme = "tokyonight";
+              theme = "catppuccin-macchiato";
               nerd-fonts = true;
             }
           ];

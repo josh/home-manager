@@ -37,19 +37,10 @@
         enable = config.powerline-fonts;
         settings = lib.mkMerge [
           (lib.mkIf (!config.nerd-fonts) (preset "no-nerd-font"))
-          (lib.mkIf (config.theme == "catppuccin") (
+          (lib.mkIf config.catppuccin.enable (
             # https://github.com/catppuccin/starship/blob/ca2fb06/starship.toml
             {
-              format = "$all";
-              character = {
-                success_symbol = "[[♥](green) ❯](maroon)";
-                error_symbol = "[❯](red)";
-                vimcmd_symbol = "[❮](green)";
-              };
-              directory = {
-                truncation_length = 4;
-                style = "bold lavender";
-              };
+              directory.style = "bold lavender";
               palette = "catppuccin_${config.catppuccin.flavor}";
             }
             // (lib.importTOML "${config.catppuccin.sources.starship}/palettes/${config.catppuccin.flavor}.toml")
