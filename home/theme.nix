@@ -26,7 +26,18 @@ in
       ];
     };
 
-    nerd-fonts = lib.mkEnableOption "Enable Nerd Fonts";
+    powerline-fonts = lib.mkOption {
+      description = "Enable Powerline Fonts";
+      type = lib.types.bool;
+      default = config.nerd-fonts;
+      example = true;
+    };
+    nerd-fonts = lib.mkOption {
+      description = "Enable Nerd Fonts";
+      type = lib.types.bool;
+      default = false;
+      example = true;
+    };
   };
 
   config = {

@@ -107,7 +107,11 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             ./home.nix
-            { home.username = "vscode"; }
+            {
+              home.username = "vscode";
+              powerline-fonts = true;
+              nerd-fonts = false;
+            }
           ];
         };
       };
