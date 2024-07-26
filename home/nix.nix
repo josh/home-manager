@@ -36,7 +36,8 @@ in
     nh
 
     # formatter
-    nixfmt
+    # nixfmt
+    nixfmt-rfc-style
 
     # build nixos based images
     nixos-generators
