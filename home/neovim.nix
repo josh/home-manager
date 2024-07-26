@@ -23,6 +23,7 @@ in
         style = "night";
       };
     };
+    opts.background = config.background;
 
     plugins = {
       # Cool launch screen when neovim is opened without a file

@@ -12,6 +12,14 @@ let
     echo -e "octicons: \uf408"
     echo -e "emoji: \U0001F40D"
   '';
+  theme-backgrounds = {
+    "" = "dark";
+    "catppuccin-frappe" = "dark";
+    "catppuccin-latte" = "light";
+    "catppuccin-macchiato" = "dark";
+    "catppuccin-mocha" = "dark";
+    "tokyonight" = "dark";
+  };
 in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
@@ -27,6 +35,12 @@ in
         "catppuccin-mocha"
         "tokyonight"
       ];
+    };
+    background = lib.mkOption {
+      description = "Is background in light or dark mode";
+      type = lib.types.enum [ "light" "dark" ];
+      default = theme-backgrounds.${config.theme};
+      example = "dark";
     };
 
     powerline-fonts = lib.mkOption {
