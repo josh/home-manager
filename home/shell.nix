@@ -51,9 +51,9 @@
                 truncation_length = 4;
                 style = "bold lavender";
               };
-              palette = "catppuccin_mocha";
+              palette = "catppuccin_${config.catppuccin.flavor}";
             }
-            // (lib.importTOML "${config.catppuccin.sources.starship}/palettes/mocha.toml")
+            // (lib.importTOML "${config.catppuccin.sources.starship}/palettes/${config.catppuccin.flavor}.toml")
           ))
         ];
       };
