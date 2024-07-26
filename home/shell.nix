@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   home = {
     shellAliases = {
@@ -24,15 +29,34 @@
       syntaxHighlighting.enable = true;
     };
 
-    starship = {
-      enable = true;
-      settings = lib.mkMerge [
-        (lib.mkIf (!config.nerd-fonts) (import ./starship/no-nerd-font.nix))
-        # (lib.mkIf config.nerd-fonts (import ./starship/nerd-font-symbols.nix))
-        (lib.mkIf (config.theme == "tokyonight") (import ./starship/tokyo-night.nix))
-        (lib.mkIf (config.theme == "catppuccin") (import ./starship/catppuccin.nix))
-      ];
-    };
+    starship =
+      let
+        preset = name: (lib.importTOML "${pkgs.starship}/share/starship/presets/${name}.toml");
+      in
+      {
+        enable = true;
+        settings = lib.mkMerge [
+          # (lib.mkIf (!config.nerd-fonts) (preset "no-nerd-font"))
+          # (lib.mkIf config.nerd-fonts (preset "nerd-font-symbols"))
+          (lib.mkIf (config.theme == "tokyonight") (preset "tokyo-night"))
+          (lib.mkIf (config.theme == "catppuccin") (
+            {
+              format = "$all";
+              character = {
+                error_symbol = "[❯](red)";
+                success_symbol = "[[♥](green) ❯](maroon)";
+                vimcmd_symbol = "[❮](green)";
+              };
+              directory = {
+                style = "bold lavender";
+                truncation_length = 4;
+              };
+              palette = "catppuccin_mocha";
+            }
+            // (lib.importTOML "${config.catppuccin.sources.starship}/palettes/mocha.toml")
+          ))
+        ];
+      };
 
     direnv = {
       enable = true;
