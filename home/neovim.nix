@@ -7,6 +7,30 @@ let
   };
 in
 {
+  xdg.configFile = {
+    "nvim/lua/config/autocmds.lua" = {
+      source = ./neovim/lua/config/autocmds.lua;
+    };
+    "nvim/lua/config/keymaps.lua" = {
+      source = ./neovim/lua/config/keymaps.lua;
+    };
+    "nvim/lua/config/lazy.lua" = {
+      source = ./neovim/lua/config/lazy.lua;
+    };
+    "nvim/lua/config/options.lua" = {
+      source = ./neovim/lua/config/options.lua;
+    };
+    "nvim/lua/plugins/example.lua" = {
+      source = ./neovim/lua/plugins/example.lua;
+    };
+  };
+
+  xdg.dataFile = {
+    # "nvim/lazy/LazyVim" = {
+    #   source = lazy-vim;
+    # };
+  };
+
   programs.neovim = {
     enable = true;
 
@@ -47,24 +71,7 @@ in
 
     extraLuaConfig = ''
 
-      require("lazy").setup({
-        spec = {
-          { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-          {
-            "stevearc/conform.nvim",
-            opts = {
-              formatters_by_ft = {
-                nix = { "nixfmt" },
-              }
-            }
-          },
-          {
-             "williamboman/mason.nvim",
-             enabled = false,
-          }
-        },
-        checker = { enabled = true, notify = false },
-      })
+      require("config.lazy")
     '';
   };
 }
