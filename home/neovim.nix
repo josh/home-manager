@@ -35,6 +35,7 @@ in
       lua
       lua-language-server
       luarocks
+      nil
       nix
       nixd
       nixfmt-rfc-style
