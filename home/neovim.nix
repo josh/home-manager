@@ -1,14 +1,9 @@
 { pkgs, ... }:
 let
   inputs = import ../inputs.nix;
-  LazyVim = pkgs.vimUtils.buildVimPlugin {
+  lazy-vim = pkgs.vimUtils.buildVimPlugin {
     name = "LazyVim";
-    src = pkgs.fetchFromGitHub {
-      owner = "LazyVim";
-      repo = "LazyVim";
-      rev = "12818a6cb499456f4903c5d8e68af43753ebc869";
-      hash = "sha256-ZCMu1vwGigAxcOMWzuQMGFujSDlpUqNHvtLVsT5U7Zs=";
-    };
+    src = inputs.lazy-vim;
   };
 in
 {
@@ -20,7 +15,7 @@ in
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      LazyVim
+      lazy-vim
       lazy-nvim
       nvim-treesitter.withAllGrammars
     ];

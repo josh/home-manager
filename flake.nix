@@ -17,6 +17,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
+    lazy-vim = {
+      url = "github:LazyVim/LazyVim";
+      flake = false;
+    };
   };
 
   outputs =

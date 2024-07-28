@@ -50,6 +50,22 @@
         "type": "github"
       }
     },
+    "lazy-vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1721898420,
+        "narHash": "sha256-ZCMu1vwGigAxcOMWzuQMGFujSDlpUqNHvtLVsT5U7Zs=",
+        "owner": "LazyVim",
+        "repo": "LazyVim",
+        "rev": "12818a6cb499456f4903c5d8e68af43753ebc869",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LazyVim",
+        "repo": "LazyVim",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -91,6 +107,7 @@
         "catppuccin": "catppuccin",
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
+        "lazy-vim": "lazy-vim",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "treefmt-nix": "treefmt-nix"
