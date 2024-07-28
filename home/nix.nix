@@ -35,6 +35,9 @@ in
     # nicer nix cli wrapper
     nh
 
+    # nix language server
+    nixd
+
     # formatter
     # nixfmt
     nixfmt-rfc-style
