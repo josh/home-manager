@@ -17,19 +17,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        devshell.follows = "";
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "";
-        home-manager.follows = "home-manager";
-        nix-darwin.follows = "";
-        nixpkgs.follows = "nixpkgs";
-        nuschtosSearch.follows = "";
-        treefmt-nix.follows = "treefmt-nix";
-      };
-    };
   };
 
   outputs =

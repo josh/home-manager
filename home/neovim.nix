@@ -12,16 +12,14 @@ let
   };
 in
 {
-  imports = [ inputs.nixvim.homeManagerModules.nixvim ];
-
-  programs.nixvim = {
+  programs.neovim = {
     enable = true;
 
     defaultEditor = true;
     viAlias = true;
     vimAlias = true;
 
-    extraPlugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
       LazyVim
       lazy-nvim
       nvim-treesitter.withAllGrammars
@@ -51,7 +49,8 @@ in
       zig
     ];
 
-    extraConfigLua = ''
+    extraLuaConfig = ''
+
       require("lazy").setup({
         spec = {
           { "LazyVim/LazyVim", import = "lazyvim.plugins" },
@@ -71,11 +70,5 @@ in
         checker = { enabled = true, notify = false },
       })
     '';
-
-    plugins = {
-      lazy = {
-        enable = true;
-      };
-    };
   };
 }
