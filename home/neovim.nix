@@ -1,11 +1,4 @@
 { pkgs, ... }:
-let
-  inputs = import ../inputs.nix;
-  lazy-vim = pkgs.vimUtils.buildVimPlugin {
-    name = "LazyVim";
-    src = inputs.lazy-vim;
-  };
-in
 {
   xdg.configFile = {
     "nvim/lua/config/autocmds.lua" = {
@@ -27,7 +20,7 @@ in
 
   xdg.dataFile = {
     # "nvim/lazy/LazyVim" = {
-    #   source = lazy-vim;
+    #   source = pkgs.LazyVim;
     # };
   };
 
@@ -39,7 +32,7 @@ in
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
-      lazy-vim
+      LazyVim
       lazy-nvim
       nvim-treesitter.withAllGrammars
     ];
