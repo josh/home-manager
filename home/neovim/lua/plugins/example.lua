@@ -1,9 +1,10 @@
 return {
   -- Disable mason package manager
-  {
-    "williamboman/mason.nvim",
-    enabled = false,
-  },
+  { "williamboman/mason.nvim", enabled = false },
+  { "williamboman/mason-lspconfig.nvim", enabled = false },
+
+  -- Don't install any treesitter plugins
+  { "nvim-treesitter/nvim-treesitter", opts = { ensure_installed = {} } },
 
   -- Set up formatters
   {

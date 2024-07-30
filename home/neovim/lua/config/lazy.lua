@@ -1,6 +1,3 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-vim.opt.rtp:prepend(lazypath)
-
 require("lazy").setup({
   -- https://lazy.folke.io/configuration
   spec = {
@@ -11,10 +8,9 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  -- TODO: Point to nix store
   -- dev = {
-  --   path = "...",
-  --   patterns = { "LazyVim" },
+  --   path = "~/.local/share/nvim/lazy-dev",
+  --   patterns = { "." },
   --   fallback = true,
   -- },
   install = {
