@@ -45,6 +45,8 @@
             shellcheck.enable = true;
             shfmt.enable = true;
             statix.enable = true;
+            stylua.enable = true;
+            taplo.enable = true;
           };
         }
       );
