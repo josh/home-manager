@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
 let
+  lazyvim-pkgs = (import ./neovim/lazyvim-packages.nix).discoverLazyVimPackages { inherit pkgs; };
+
   # TODO: Upstream luvit-meta to nixpkgs
   luvit-meta = pkgs.vimUtils.buildVimPlugin {
     name = "luvit-meta";
@@ -11,54 +13,40 @@ let
     };
   };
 
-  # TODO: Upstream mini.* to nixpkgs
-
-  lazyPlugins = with pkgs.vimPlugins; {
-    "bufferline.nvim" = bufferline-nvim;
-    "catppuccin" = catppuccin-nvim;
-    "cmp-buffer" = cmp-buffer;
-    "cmp-nvim-lsp" = cmp-nvim-lsp;
-    "cmp-path" = cmp-path;
-    "conform.nvim" = conform-nvim;
-    "copilot-cmp" = copilot-cmp;
-    "copilot.lua" = copilot-lua;
-    "dashboard-nvim" = dashboard-nvim;
-    "dressing.nvim" = dressing-nvim;
-    "flash.nvim" = flash-nvim;
-    "friendly-snippets" = friendly-snippets;
-    "gitsigns.nvim" = gitsigns-nvim;
-    "grug-far.nvim" = grug-far-nvim;
-    "indent-blankline.nvim" = indent-blankline-nvim;
-    "lazydev.nvim" = lazydev-nvim;
-    "lualine.nvim" = lualine-nvim;
-    "luvit-meta" = luvit-meta;
-    "mason-lspconfig.nvim" = mason-lspconfig-nvim;
-    "mason.nvim" = mason-nvim;
-    "mini.ai" = mini-nvim;
-    "mini.icons" = mini-nvim;
-    "mini.pairs" = mini-nvim;
-    "neo-tree.nvim" = neo-tree-nvim;
-    "noice.nvim" = noice-nvim;
-    "nui.nvim" = nui-nvim;
-    "nvim-cmp" = nvim-cmp;
-    "nvim-lint" = nvim-lint;
-    "nvim-lspconfig" = nvim-lspconfig;
-    "nvim-notify" = nvim-notify;
-    "nvim-snippets" = nvim-snippets;
-    "nvim-spectre" = nvim-spectre;
-    "nvim-treesitter" = nvim-treesitter;
-    "nvim-treesitter-textobjects" = nvim-treesitter-textobjects;
-    "nvim-ts-autotag" = nvim-ts-autotag;
-    "persistence.nvim" = persistence-nvim;
-    "plenary.nvim" = plenary-nvim;
-    "telescope-fzf-native.nvim" = telescope-fzf-native-nvim;
-    "telescope.nvim" = telescope-nvim;
-    "todo-comments.nvim" = todo-comments-nvim;
-    "tokyonight.nvim" = tokyonight-nvim;
-    "trouble.nvim" = trouble-nvim;
-    "ts-comments.nvim" = ts-comments-nvim;
-    "which-key.nvim" = which-key-nvim;
-  };
+  lazyPlugins =
+    lazyvim-pkgs."lazyvim.plugins.coding"
+    // lazyvim-pkgs."lazyvim.plugins.colorscheme"
+    // lazyvim-pkgs."lazyvim.plugins.editor"
+    // lazyvim-pkgs."lazyvim.plugins.extras.editor.fzf"
+    // lazyvim-pkgs."lazyvim.plugins.extras.editor.telescope"
+    // lazyvim-pkgs."lazyvim.plugins.linting"
+    // lazyvim-pkgs."lazyvim.plugins.ui"
+    // (with pkgs.vimPlugins; {
+      "catppuccin" = catppuccin-nvim;
+      "cmp-buffer" = cmp-buffer;
+      "cmp-nvim-lsp" = cmp-nvim-lsp;
+      "cmp-path" = cmp-path;
+      "conform.nvim" = conform-nvim;
+      "copilot-cmp" = copilot-cmp;
+      "copilot.lua" = copilot-lua;
+      "dressing.nvim" = dressing-nvim;
+      "flash.nvim" = flash-nvim;
+      "friendly-snippets" = friendly-snippets;
+      "luvit-meta" = luvit-meta;
+      "mason-lspconfig.nvim" = mason-lspconfig-nvim;
+      "mason.nvim" = mason-nvim;
+      "mini.ai" = mini-nvim;
+      "mini.icons" = mini-nvim;
+      "mini.pairs" = mini-nvim;
+      "nvim-snippets" = nvim-snippets;
+      "nvim-spectre" = nvim-spectre;
+      "nvim-treesitter" = nvim-treesitter;
+      "nvim-treesitter-textobjects" = nvim-treesitter-textobjects;
+      "nvim-ts-autotag" = nvim-ts-autotag;
+      "persistence.nvim" = persistence-nvim;
+      "plenary.nvim" = plenary-nvim;
+      "telescope-fzf-native.nvim" = telescope-fzf-native-nvim;
+    });
   lazyDevPath = pkgs.linkFarm "lazy-dev" lazyPlugins;
 in
 {
