@@ -12,33 +12,6 @@ let
   };
 
   # TODO: Upstream mini.* to nixpkgs
-  mini-ai = pkgs.vimUtils.buildVimPlugin {
-    name = "mini.ai";
-    src = pkgs.fetchFromGitHub {
-      owner = "echasnovski";
-      repo = "mini.ai";
-      rev = "45587078f323eaf41b9f701bbc04f8d1ab008979";
-      hash = "sha256-+jiFgzQOmW/zgS/mZXhKIwnoxGVV/ANccMIisVWmg3g=";
-    };
-  };
-  mini-icons = pkgs.vimUtils.buildVimPlugin {
-    name = "mini.icons";
-    src = pkgs.fetchFromGitHub {
-      owner = "echasnovski";
-      repo = "mini.icons";
-      rev = "660f3987ebcb13e573b654362854206c72d6c024";
-      hash = "sha256-Ia8rIoDXPO9MfVx1CQceqI2T1YnNqusK5trNJJKakKU=";
-    };
-  };
-  mini-pairs = pkgs.vimUtils.buildVimPlugin {
-    name = "mini.pairs";
-    src = pkgs.fetchFromGitHub {
-      owner = "echasnovski";
-      repo = "mini.pairs";
-      rev = "927d19cbdd0e752ab1c7eed87072e71d2cd6ff51";
-      hash = "sha256-2NAcULuudbY9NOqvjwuzITk4NTcckNhVW/XXZlPAJoA=";
-    };
-  };
 
   lazyPlugins = with pkgs.vimPlugins; {
     "bufferline.nvim" = bufferline-nvim;
@@ -61,9 +34,9 @@ let
     "luvit-meta" = luvit-meta;
     "mason-lspconfig.nvim" = mason-lspconfig-nvim;
     "mason.nvim" = mason-nvim;
-    "mini.ai" = mini-ai;
-    "mini.icons" = mini-icons;
-    "mini.pairs" = mini-pairs;
+    "mini.ai" = mini-nvim;
+    "mini.icons" = mini-nvim;
+    "mini.pairs" = mini-nvim;
     "neo-tree.nvim" = neo-tree-nvim;
     "noice.nvim" = noice-nvim;
     "nui.nvim" = nui-nvim;
