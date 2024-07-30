@@ -16,4 +16,12 @@ return {
 			},
 		},
 	},
+
+	-- Enable Copilot for all filetypes
+	{
+		"zbirenbaum/copilot.lua",
+		opts = {
+			filetypes = { ["*"] = true },
+		},
+	},
 }

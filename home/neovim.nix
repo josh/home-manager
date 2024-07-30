@@ -47,6 +47,8 @@ let
     "cmp-nvim-lsp" = cmp-nvim-lsp;
     "cmp-path" = cmp-path;
     "conform.nvim" = conform-nvim;
+    "copilot-cmp" = copilot-cmp;
+    "copilot.lua" = copilot-lua;
     "dashboard-nvim" = dashboard-nvim;
     "dressing.nvim" = dressing-nvim;
     "flash.nvim" = flash-nvim;
@@ -113,6 +115,7 @@ in
         ''
           return {
             { name = "LazyVim", dir = "${pkgs.vimPlugins.LazyVim}", import = "lazyvim.plugins" },
+            { import = "lazyvim.plugins.extras.coding.copilot" },
             ${pluginSpecs}
           }
         '';
