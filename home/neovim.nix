@@ -27,6 +27,8 @@ let
     "lazydev.nvim" = lazydev-nvim;
     "lualine.nvim" = lualine-nvim;
     "luvit-meta" = luvit-meta;
+    "mason-lspconfig.nvim" = mason-lspconfig-nvim;
+    "mason.nvim" = mason-nvim;
     "neo-tree.nvim" = neo-tree-nvim;
     "noice.nvim" = noice-nvim;
     "nui.nvim" = nui-nvim;
@@ -40,11 +42,11 @@ let
     "nvim-ts-autotag" = nvim-ts-autotag;
     "persistence.nvim" = persistence-nvim;
     "plenary.nvim" = plenary-nvim;
+    "telescope-fzf-native.nvim" = telescope-fzf-native-nvim;
     "telescope.nvim" = telescope-nvim;
     "todo-comments.nvim" = todo-comments-nvim;
     "tokyonight.nvim" = tokyonight-nvim;
-    # FIXME: Something is busted with its interaction with lualine 
-    # "trouble.nvim" = trouble-nvim;
+    "trouble.nvim" = trouble-nvim;
     "ts-comments.nvim" = ts-comments-nvim;
     "which-key.nvim" = which-key-nvim;
 
@@ -72,7 +74,7 @@ in
     "nvim/lua/plugins/example.lua" = {
       source = ./neovim/lua/plugins/example.lua;
     };
-    "nvim/lua/plugins/nix-store.lua" = {
+    "nvim/lua/plugins/001-nix-store.lua" = {
       text =
         let
           formatPluginSpec = name: dir: "{ name = \"${name}\", dir = \"${dir}\" }";
