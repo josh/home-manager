@@ -1,5 +1,7 @@
 { lib, pkgs, ... }:
 let
+  inputs = import ../inputs.nix;
+  inherit (inputs.lazy-nvim-nix.lib) toLua;
   lazyvim-pkgs = (import ./neovim/lazyvim-packages.nix).discoverLazyVimPackages { inherit pkgs; };
 
   # TODO: Upstream luvit-meta to nixpkgs
@@ -69,17 +71,17 @@ in
     "nvim/lua/plugins/001-nix-store.lua" = {
       text =
         let
-          formatPluginSpec = name: dir: "{ name = \"${name}\", dir = \"${dir}\" }";
-          pluginSpecList = lib.attrsets.mapAttrsToList formatPluginSpec lazyPlugins;
-          pluginSpecs = lib.strings.concatStringsSep ",\n  " pluginSpecList;
+          pluginsSpec = lib.attrsets.mapAttrsToList (name: dir: { inherit name dir; }) lazyPlugins;
+          spec = [
+            {
+              name = "LazyVim";
+              dir = pkgs.vimPlugins.LazyVim;
+              "import" = "lazyvim.plugins";
+            }
+            { import = "lazyvim.plugins.extras.coding.copilot"; }
+          ] ++ pluginsSpec;
         in
-        ''
-          return {
-            { name = "LazyVim", dir = "${pkgs.vimPlugins.LazyVim}", import = "lazyvim.plugins" },
-            { import = "lazyvim.plugins.extras.coding.copilot" },
-            ${pluginSpecs}
-          }
-        '';
+        ''return ${toLua lib spec}'';
     };
   };
 
