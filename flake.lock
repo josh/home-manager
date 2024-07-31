@@ -50,6 +50,29 @@
         "type": "github"
       }
     },
+    "lazy-nvim-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1722467048,
+        "narHash": "sha256-p79ft2PhM/a7DrzhKb/ycAC3ETlradRsw1n/caCNKVo=",
+        "owner": "josh",
+        "repo": "lazy-nvim-nix",
+        "rev": "6723702db1d001ca89e064b565d52c2ce5460c03",
+        "type": "github"
+      },
+      "original": {
+        "owner": "josh",
+        "repo": "lazy-nvim-nix",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -91,6 +114,7 @@
         "catppuccin": "catppuccin",
         "flake-compat": "flake-compat",
         "home-manager": "home-manager",
+        "lazy-nvim-nix": "lazy-nvim-nix",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
         "treefmt-nix": "treefmt-nix"
