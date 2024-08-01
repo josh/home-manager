@@ -1,8 +1,9 @@
 { lib, pkgs, ... }:
 let
   inputs = import ../inputs.nix;
-  inherit (inputs.lazy-nvim-nix.lib) toLua;
-  lazyvim-pkgs = (import ./neovim/lazyvim-packages.nix).discoverLazyVimPackages { inherit pkgs; };
+  lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
+  lazyvim-pkgs = lazy-nvim-nix-lib.extractLazyVimPackages { inherit pkgs; };
+  toLua = lazy-nvim-nix-lib.toLua lib;
 
   # TODO: Upstream luvit-meta to nixpkgs
   luvit-meta = pkgs.vimUtils.buildVimPlugin {
@@ -81,7 +82,7 @@ in
             { import = "lazyvim.plugins.extras.coding.copilot"; }
           ] ++ pluginsSpec;
         in
-        ''return ${toLua lib spec}'';
+        ''return ${toLua spec}'';
     };
   };
 
