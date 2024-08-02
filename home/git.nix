@@ -43,6 +43,10 @@ in
     };
   };
 
+  home.shellAliases = {
+    "g" = "git";
+  };
+
   home.packages = [
     git-branch-prune
     git-track
