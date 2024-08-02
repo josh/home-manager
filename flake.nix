@@ -38,22 +38,8 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      treefmt = forAllSystems (
-        system:
-        treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} {
-          projectRootFile = "flake.nix";
-          programs = {
-            actionlint.enable = true;
-            deadnix.enable = true;
-            nixfmt.enable = true;
-            prettier.enable = true;
-            shellcheck.enable = true;
-            shfmt.enable = true;
-            statix.enable = true;
-            stylua.enable = true;
-            taplo.enable = true;
-          };
-        }
+      treefmtEval = forAllSystems (
+        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
       );
     in
     {
@@ -61,10 +47,10 @@
         home-manager = home-manager.defaultPackage.${system};
       });
 
-      formatter = forAllSystems (system: treefmt.${system}.config.build.wrapper);
+      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
 
       checks = forAllSystems (system: {
-        treefmt = treefmt.${system}.config.build.check self;
+        treefmt = treefmtEval.${system}.config.build.check self;
       });
 
       homeConfigurations = {
