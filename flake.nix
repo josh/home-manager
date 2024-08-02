@@ -16,20 +16,12 @@
       url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    catppuccin.url = "github:catppuccin/nix";
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs = {
-        devshell.follows = "";
-        flake-compat.follows = "flake-compat";
-        git-hooks.follows = "";
-        home-manager.follows = "home-manager";
-        nix-darwin.follows = "";
-        nixpkgs.follows = "nixpkgs";
-        nuschtosSearch.follows = "";
-        treefmt-nix.follows = "treefmt-nix";
-      };
+    lazy-nvim-nix = {
+      url = "github:josh/lazy-nvim-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
@@ -58,6 +50,8 @@
             shellcheck.enable = true;
             shfmt.enable = true;
             statix.enable = true;
+            stylua.enable = true;
+            taplo.enable = true;
           };
         }
       );
