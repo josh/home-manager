@@ -24,4 +24,6 @@ return {
 			filetypes = { ["*"] = true },
 		},
 	},
+
+	{ "folke/trouble.nvim", enabled = false },
 }

@@ -128,11 +128,6 @@ in
 
     extraLuaConfig = ''
 
-      -- Something about trouble/lualine is busted
-      -- https://github.com/LazyVim/LazyVim/commit/f9fdb35
-      vim.g.trouble_lualine = false
-      vim.g.trouble_luline_enabed = false
-      vim.g.trouble_lualine_enabled = false
 
       require("config.lazy")
     '';
