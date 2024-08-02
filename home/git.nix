@@ -23,6 +23,7 @@ in
         b = "branch";
         ci = "commit";
         co = "checkout";
+        st = "status";
       };
 
       diff-so-fancy.enable = true;
