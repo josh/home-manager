@@ -8,7 +8,7 @@ require("lazy").setup({
 		version = false,
 	},
 	install = {
-		missing = false,
+		missing = true,
 		colorscheme = { "tokyonight", "habamax" },
 	},
 	checker = {
