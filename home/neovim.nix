@@ -5,8 +5,6 @@ let
   lazyvim-pkgs = lazy-nvim-nix-lib.extractLazyVimPackages { inherit pkgs; };
   toLua = lazy-nvim-nix-lib.toLua lib;
 
-  # TODO: Upstream luvit-meta to nixpkgs
-
   lazyPlugins =
     builtins.removeAttrs
       (lazyvim-pkgs."lazyvim.plugins" // lazyvim-pkgs."lazyvim.plugins.extras.coding.copilot")
