@@ -23,6 +23,7 @@
 
   programs = {
     bottom.enable = true;
+    btop.enable = true;
     fd.enable = true;
     ripgrep.enable = true;
   };
