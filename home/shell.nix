@@ -23,6 +23,26 @@
       syntaxHighlighting.enable = true;
     };
 
+    tmux = {
+      enable = true;
+      baseIndex = 1;
+      mouse = true;
+      secureSocket = false;
+
+      plugins = with pkgs.tmuxPlugins; [
+        { plugin = yank; }
+        { plugin = vim-tmux-navigator; }
+      ];
+
+      extraConfig = ''
+        set-option -sa terminal-overrides ',xterm-256color:RGB'
+
+        bind | split-window -h -c "#{pane_current_path}"
+        bind c new-window -c "#{pane_current_path}"
+        bind - split-window -v -c "#{pane_current_path}"
+      '';
+    };
+
     starship =
       let
         preset = name: (lib.importTOML "${pkgs.starship}/share/starship/presets/${name}.toml");
