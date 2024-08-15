@@ -1,7 +1,7 @@
 { lib, pkgs, ... }:
 let
   inputs = import ../inputs.nix;
-  nixpkgs = inputs.nixpkgs;
+  inherit (inputs) nixpkgs;
   lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
 in
 {
