@@ -23,8 +23,10 @@ in
       source = ./neovim/lua/plugins/example.lua;
     };
     "nvim/lua/plugins/001-nix-store.lua" = {
-      # TODO: Add copilot extra
-      source = lazy-nvim-nix-lib.mkLazyVimSpecFile { inherit nixpkgs pkgs; };
+      source = lazy-nvim-nix-lib.mkLazyVimSpecFile {
+        inherit nixpkgs pkgs;
+        extras = [ "lazyvim.plugins.extras.coding.copilot" ];
+      };
     };
   };
 
