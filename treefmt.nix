@@ -10,6 +10,5 @@
     statix.enable = true;
     stylua.enable = true;
     taplo.enable = true;
-
   };
 }
