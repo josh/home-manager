@@ -2,7 +2,7 @@
 let
   inputs = import ../inputs.nix;
   inherit (inputs) nixpkgs;
-  dotfiles = inputs.dotfiles;
+  inherit (inputs) dotfiles;
   lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
 in
 {
