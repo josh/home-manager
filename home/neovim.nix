@@ -1,18 +1,8 @@
 { lib, pkgs, ... }:
 let
   inputs = import ../inputs.nix;
+  nixpkgs = inputs.nixpkgs;
   lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
-  lazyvim-pkgs = lazy-nvim-nix-lib.extractLazyVimPackages { inherit pkgs; };
-  toLua = lazy-nvim-nix-lib.toLua lib;
-
-  lazyPlugins =
-    builtins.removeAttrs
-      (lazyvim-pkgs."lazyvim.plugins" // lazyvim-pkgs."lazyvim.plugins.extras.coding.copilot")
-      [
-        "nvim-treesitter"
-        "nvim-treesitter-textobjects"
-      ];
-  lazyDevPath = pkgs.linkFarm "lazy-dev" lazyPlugins;
 in
 {
   xdg.configFile = {
@@ -32,25 +22,8 @@ in
       source = ./neovim/lua/plugins/example.lua;
     };
     "nvim/lua/plugins/001-nix-store.lua" = {
-      text =
-        let
-          nixStoreSpec = lib.attrsets.mapAttrsToList (name: dir: { inherit name dir; }) lazyPlugins;
-          spec = nixStoreSpec ++ [
-            {
-              name = "LazyVim";
-              dir = pkgs.vimPlugins.LazyVim;
-              import = "lazyvim.plugins";
-            }
-            { import = "lazyvim.plugins.extras.coding.copilot"; }
-          ];
-        in
-        ''return ${toLua spec}'';
-    };
-  };
-
-  xdg.dataFile = {
-    "nvim/lazy-dev" = {
-      source = lazyDevPath;
+      # TODO: Add copilot extra
+      source = lazy-nvim-nix-lib.mkLazyVimSpecFile { inherit nixpkgs pkgs; };
     };
   };
 
