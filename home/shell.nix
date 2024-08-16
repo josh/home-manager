@@ -27,6 +27,7 @@
       enable = true;
       baseIndex = 1;
       mouse = true;
+      escapeTime = 0;
       secureSocket = false;
 
       plugins = with pkgs.tmuxPlugins; [
