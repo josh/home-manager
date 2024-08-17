@@ -71,26 +71,13 @@
           ];
         };
 
-        # Surface Alpine + Nix WSL
-        "root@Surface" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          modules = [
-            ./home.nix
-            {
-              home.username = "root";
-              theme = "catppuccin-macchiato";
-              nerd-fonts = true;
-            }
-          ];
-        };
-
         # Surface NixOS WSL
-        "nixos@Surface" = home-manager.lib.homeManagerConfiguration {
+        "josh@Surface" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [
             ./home.nix
             {
-              home.username = "nixos";
+              home.username = "josh";
               theme = "catppuccin-macchiato";
               nerd-fonts = true;
             }
