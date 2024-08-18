@@ -108,7 +108,7 @@
 
       nixosModules.test = {
         boot.isContainer = true;
-        system.stateVersion = "24.11";
+        system.stateVersion = pkgs.lib.trivial.release;
         imports = [ home-manager.nixosModules.home-manager ];
         home-manager.users.root = self.homeModules.default;
       };
