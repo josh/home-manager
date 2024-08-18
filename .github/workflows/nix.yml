@@ -33,7 +33,7 @@ jobs:
 
       - name: Check flake
         run: |
-          nix flake check
+          nix flake check --system ${{ matrix.system }}
 
       - name: Build home-manager
         run: |
