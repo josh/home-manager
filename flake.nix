@@ -23,7 +23,6 @@
     lazy-nvim-nix = {
       url = "github:josh/lazy-nvim-nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     catppuccin.url = "github:catppuccin/nix";
   };
