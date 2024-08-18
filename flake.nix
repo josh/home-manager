@@ -36,11 +36,17 @@
       ...
     }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs [
+      systems = [
         "aarch64-darwin"
         "aarch64-linux"
         "x86_64-linux"
       ];
+      linuxSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
       treefmtEval = forAllSystems (
         system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
       );
@@ -58,50 +64,59 @@
 
       homeModules.default = args: import ./home ({ inherit inputs; } // args);
 
-      homeConfigurations = {
-        "codespace" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "codespace";
-              powerline-fonts = true;
-              nerd-fonts = false;
-            }
-          ];
-        };
+      homeConfigurations =
+        {
+          "codespace" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "codespace";
+                powerline-fonts = true;
+                nerd-fonts = false;
+              }
+            ];
+          };
 
-        "runner" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            { home.username = "runner"; }
-          ];
-        };
-
-        "vscode" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "vscode";
-              powerline-fonts = true;
-              nerd-fonts = false;
-            }
-          ];
-        };
-      };
+          "vscode" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "vscode";
+                powerline-fonts = true;
+                nerd-fonts = false;
+              }
+            ];
+          };
+        }
+        // mapMergeList (system: {
+          # For GitHub Actions CI
+          "runner@${system}" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "runner";
+                systemd.user.enable = false;
+              }
+            ];
+          };
+        }) systems;
 
       nixosModules.test = {
         boot.isContainer = true;
-        system.stateVersion = "24.11";
+        system.stateVersion = nixpkgs.lib.trivial.release;
         imports = [ home-manager.nixosModules.home-manager ];
         home-manager.users.root = self.homeModules.default;
       };
 
-      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ self.nixosModules.test ];
-      };
+      nixosConfigurations = mapMergeList (system: {
+        # For GitHub Actions CI
+        "test-${system}" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ self.nixosModules.test ];
+        };
+      }) linuxSystems;
     };
 }
