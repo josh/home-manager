@@ -1,1 +1,1 @@
-_: { imports = [ ./home ]; }
+{ imports = [ ./home ]; }

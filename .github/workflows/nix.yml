@@ -69,7 +69,7 @@ jobs:
 
       - name: Patch home.username
         run: |
-          echo '_: { imports = [ ./home ]; home.username = "runner"; }' >home.nix
+          echo '{ imports = [ ./home ]; home.username = "runner"; }' >home.nix
 
       - name: Build home configuration
         run: |
