@@ -9,10 +9,22 @@ jobs:
     name: Flakes
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        system: ["x86_64-linux", "aarch64-linux"]
+
     steps:
       - uses: actions/checkout@v4
 
+      - if: matrix.system == 'aarch64-linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
       - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            system = ${{ matrix.system }}
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
@@ -29,14 +41,11 @@ jobs:
 
       - name: Build home configuration
         run: |
-          nix run .#home-manager -- build --flake . --no-out-link
+          nix run .#home-manager -- build --flake ".#runner@${{ matrix.system }}" --no-out-link
 
       - name: Activate home configuration
         run: |
-          nix run .#home-manager -- switch --flake . -b backup
-
-      - name: Print architecture
-        run: uname -m
+          nix run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
 
       - name: Fastfetch
         run: fastfetch
@@ -44,6 +53,10 @@ jobs:
   nixos:
     name: NixOS
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        system: ["x86_64-linux"]
 
     steps:
       - uses: actions/checkout@v4
@@ -54,11 +67,15 @@ jobs:
 
       - name: Build NixOS
         run: |
-          nix build .#nixosConfigurations.test.config.system.build.toplevel
+          nix build .#nixosConfigurations.test-${{ matrix.system }}.config.system.build.toplevel
 
   channels:
     name: Channels
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        system: ["x86_64-linux"]
 
     steps:
       - uses: actions/checkout@v4
