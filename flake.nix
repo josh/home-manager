@@ -56,7 +56,9 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeModules.default = import ./home.nix;
+      homeModules.default = {
+        imports = [ ./home ];
+      };
 
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
