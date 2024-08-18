@@ -57,6 +57,10 @@ jobs:
     name: NixOS
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        system: ["x86_64-linux"]
+
     steps:
       - uses: actions/checkout@v4
 
@@ -71,6 +75,10 @@ jobs:
   channels:
     name: Channels
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        system: ["x86_64-linux"]
 
     steps:
       - uses: actions/checkout@v4
