@@ -58,7 +58,9 @@ jobs:
       - name: Add channels
         run: |
           nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
-          nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+
+          rev="$(jq --raw-output '.nodes."home-manager".locked.rev' <flake.lock)"
+          nix-channel --add "https://github.com/nix-community/home-manager/archive/$rev.tar.gz" home-manager
 
       - name: Update channels
         run: nix-channel --update
