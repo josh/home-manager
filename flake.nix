@@ -41,8 +41,12 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
+      linuxSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
-      mergeAttrsWithSystem = fn: nixpkgs.lib.mergeAttrsList (builtins.map fn systems);
+      mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
       treefmtEval = forAllSystems (
         system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
       );
@@ -88,7 +92,7 @@
             ];
           };
         }
-        // mergeAttrsWithSystem (system: {
+        // mapMergeList (system: {
           # For GitHub Actions CI
           "runner@${system}" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
@@ -100,7 +104,7 @@
               }
             ];
           };
-        });
+        }) systems;
 
       nixosModules.test = {
         boot.isContainer = true;
@@ -109,12 +113,12 @@
         home-manager.users.root = self.homeModules.default;
       };
 
-      nixosConfigurations = mergeAttrsWithSystem (system: {
+      nixosConfigurations = mapMergeList (system: {
         # For GitHub Actions CI
         "test-${system}" = nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [ self.nixosModules.test ];
         };
-      });
+      }) linuxSystems;
     };
 }
