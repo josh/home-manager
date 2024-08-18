@@ -1,7 +1,6 @@
 { lib, pkgs, ... }:
 let
   inputs = import ../inputs.nix;
-  inherit (inputs) nixpkgs;
   inherit (inputs) dotfiles;
   lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
 in
@@ -13,20 +12,11 @@ in
     "nvim/lua/config/keymaps.lua" = {
       source = "${dotfiles}/config/nvim/lua/config/keymaps.lua";
     };
-    "nvim/lua/config/lazy.lua" = {
-      source = ./neovim/lua/config/lazy.lua;
-    };
     "nvim/lua/config/options.lua" = {
       source = "${dotfiles}/config/nvim/lua/config/options.lua";
     };
     "nvim/lua/plugins/example.lua" = {
       source = ./neovim/lua/plugins/example.lua;
-    };
-    "nvim/lua/plugins/001-nix-store.lua" = {
-      source = lazy-nvim-nix-lib.mkLazyVimSpecFile {
-        inherit nixpkgs pkgs;
-        extras = [ "lazyvim.plugins.extras.coding.copilot" ];
-      };
     };
   };
 
@@ -64,10 +54,18 @@ in
       zig
     ];
 
-    extraLuaConfig = ''
-
-
-      require("config.lazy")
-    '';
+    extraLuaConfig = lazy-nvim-nix-lib.setupLazyLua {
+      inherit (pkgs) lib;
+      spec = [
+        {
+          name = "LazyVim";
+          dir = pkgs.vimPlugins.LazyVim;
+          "import" = "lazyvim.plugins";
+        }
+        { "import" = "lazyvim.plugins.extras.coding.copilot"; }
+        { "import" = "plugins"; }
+      ];
+      opts = lazy-nvim-nix-lib.defaultLazyOpts;
+    };
   };
 }
