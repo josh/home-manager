@@ -39,8 +39,8 @@ jobs:
         run: |
           nix run .#home-manager -- switch --flake . -b backup
 
-      - name: Run hello
-        run: hello
+      - name: Fastfetch
+        run: fastfetch
 
   channels:
     name: Channels
@@ -73,5 +73,5 @@ jobs:
         run: |
           home-manager switch -f home.nix -b backup
 
-      - name: Run hello
-        run: hello
+      - name: Fastfetch
+        run: fastfetch
