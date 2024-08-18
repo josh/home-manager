@@ -73,19 +73,6 @@
           ];
         };
 
-        # Surface NixOS WSL
-        "josh@Surface" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "josh";
-              theme = "catppuccin-macchiato";
-              nerd-fonts = true;
-            }
-          ];
-        };
-
         "runner" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
