@@ -5,6 +5,42 @@ on:
   workflow_dispatch:
 
 jobs:
+  flakes:
+    name: Flakes
+    runs-on: ubuntu-latest
+    concurrency:
+      group: nix-cache
+      cancel-in-progress: false
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Check Nix flake inputs
+        uses: DeterminateSystems/flake-checker-action@v8
+
+      - name: Check flake
+        run: |
+          nix flake check
+
+      - name: Build home-manager
+        run: |
+          nix run .#home-manager -- --version
+
+      - name: Build home configuration
+        run: |
+          nix run .#home-manager -- build --flake . --no-out-link
+
+      - name: Activate home configuration
+        run: |
+          nix run .#home-manager -- switch --flake . -b backup
+
+      - name: Run hello
+        run: hello
+
   channels:
     name: Channels
     runs-on: ubuntu-latest
@@ -42,42 +78,6 @@ jobs:
       - name: Activate home configuration
         run: |
           home-manager switch -f home.nix -b backup
-
-      - name: Run hello
-        run: hello
-
-  flakes:
-    name: Flakes
-    runs-on: ubuntu-latest
-    concurrency:
-      group: nix-cache
-      cancel-in-progress: false
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: DeterminateSystems/nix-installer-action@main
-
-      - uses: DeterminateSystems/magic-nix-cache-action@main
-
-      - name: Check Nix flake inputs
-        uses: DeterminateSystems/flake-checker-action@v8
-
-      - name: Check flake
-        run: |
-          nix flake check
-
-      - name: Build home-manager
-        run: |
-          nix run .#home-manager -- --version
-
-      - name: Build home configuration
-        run: |
-          nix run .#home-manager -- build --flake . --no-out-link
-
-      - name: Activate home configuration
-        run: |
-          nix run .#home-manager -- switch --flake . -b backup
 
       - name: Run hello
         run: hello
