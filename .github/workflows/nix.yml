@@ -16,14 +16,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: docker/setup-qemu-action@v3
+      - if: matrix.system == 'aarch64-linux'
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: arm64
 
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            extra-platforms = aarch64-linux
+            system = ${{ matrix.system }};
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
@@ -32,19 +33,19 @@ jobs:
 
       - name: Check flake
         run: |
-          nix --system ${{ matrix.system }} flake check
+          nix flake check
 
       - name: Build home-manager
         run: |
-          nix --system ${{ matrix.system }} run .#home-manager -- --version
+          nix run .#home-manager -- --version
 
       - name: Build home configuration
         run: |
-          nix --system ${{ matrix.system }} run .#home-manager -- build --flake ".#runner@${{ matrix.system }}" --no-out-link
+          nix run .#home-manager -- build --flake ".#runner@${{ matrix.system }}" --no-out-link
 
       - name: Activate home configuration
         run: |
-          nix --system ${{ matrix.system }} run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
+          nix run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
 
       - name: Print architecture
         run: uname -m
