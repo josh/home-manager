@@ -24,7 +24,7 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            system = ${{ matrix.system }};
+            system = ${{ matrix.system }}
 
       - uses: DeterminateSystems/magic-nix-cache-action@main
 
