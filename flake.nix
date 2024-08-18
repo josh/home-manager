@@ -94,5 +94,17 @@
           ];
         };
       };
+
+      nixosModules.test = {
+        boot.isContainer = true;
+        system.stateVersion = "24.11";
+        imports = [ home-manager.nixosModules.home-manager ];
+        home-manager.users.root = self.homeModules.default;
+      };
+
+      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [ self.nixosModules.test ];
+      };
     };
 }
