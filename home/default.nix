@@ -1,13 +1,17 @@
-_: {
+{ inputs, ... }:
+let
+  bindInputs = path: (args@{ pkgs, ... }: import path ({ inherit inputs pkgs; } // args));
+in
+{
   imports = [
     ./git.nix
     ./home.nix
     ./manager.nix
-    ./neovim.nix
-    ./nix.nix
+    (bindInputs ./neovim.nix)
+    (bindInputs ./nix.nix)
     ./scripts.nix
     ./shell.nix
-    ./theme.nix
+    (bindInputs ./theme.nix)
     ./utils.nix
   ];
 }

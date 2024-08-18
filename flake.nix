@@ -28,7 +28,7 @@
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       treefmt-nix,
@@ -56,14 +56,11 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeModules.default = {
-        imports = [ ./home ];
-      };
+      homeModules.default = args: import ./home ({ inherit inputs; } // args);
 
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          extraSpecialArgs.username = "codespace";
           modules = [
             self.homeModules.default
             {
