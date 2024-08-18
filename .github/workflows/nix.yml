@@ -41,6 +41,21 @@ jobs:
       - name: Fastfetch
         run: fastfetch
 
+  nixos:
+    name: NixOS
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: DeterminateSystems/nix-installer-action@main
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build NixOS
+        run: |
+          nix build .#nixosConfigurations.test.config.system.build.toplevel
+
   channels:
     name: Channels
     runs-on: ubuntu-latest
