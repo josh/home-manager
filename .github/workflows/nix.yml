@@ -40,11 +40,11 @@ jobs:
 
       - name: Build home configuration
         run: |
-          nix --system ${{ matrix.system }} run .#home-manager -- build --flake . --no-out-link
+          nix --system ${{ matrix.system }} run .#home-manager -- build --flake ".#runner@${{ matrix.system }}" --no-out-link
 
       - name: Activate home configuration
         run: |
-          nix --system ${{ matrix.system }} run .#home-manager -- switch --flake . -b backup
+          nix --system ${{ matrix.system }} run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
 
       - name: Print architecture
         run: uname -m

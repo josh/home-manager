@@ -74,14 +74,6 @@
           ];
         };
 
-        "runner" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            { home.username = "runner"; }
-          ];
-        };
-
         "vscode" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
@@ -91,6 +83,24 @@
               powerline-fonts = true;
               nerd-fonts = false;
             }
+          ];
+        };
+
+        # For GitHub Actions CI
+
+        "runner@aarch64-linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.aarch64-linux;
+          modules = [
+            self.homeModules.default
+            { home.username = "runner"; }
+          ];
+        };
+
+        "runner@x86_64-linux" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          modules = [
+            self.homeModules.default
+            { home.username = "runner"; }
           ];
         };
       };
