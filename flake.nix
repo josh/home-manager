@@ -91,7 +91,10 @@
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [
             self.homeModules.default
-            { home.username = "runner"; }
+            {
+              home.username = "runner";
+              systemd.user.enable = false;
+            }
           ];
         };
 
@@ -99,7 +102,10 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
             self.homeModules.default
-            { home.username = "runner"; }
+            {
+              home.username = "runner";
+              systemd.user.enable = false;
+            }
           ];
         };
       };
