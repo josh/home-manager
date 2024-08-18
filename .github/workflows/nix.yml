@@ -57,9 +57,6 @@ jobs:
 
       - name: Add channels
         run: |
-          rev="$(jq --raw-output '.nodes."nixpkgs".locked.rev' <flake.lock)"
-          nix-channel --add "https://github.com/NixOS/nixpkgs/archive/$rev.tar.gz" nixpkgs
-
           rev="$(jq --raw-output '.nodes."home-manager".locked.rev' <flake.lock)"
           nix-channel --add "https://github.com/nix-community/home-manager/archive/$rev.tar.gz" home-manager
 
