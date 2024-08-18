@@ -57,14 +57,14 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeManagerModules.default = import ./home.nix;
+      homeModules.default = import ./home.nix;
 
       homeConfigurations = {
         "codespace" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           extraSpecialArgs.username = "codespace";
           modules = [
-            self.homeManagerModules.default
+            self.homeModules.default
             {
               home.username = "codespace";
               powerline-fonts = true;
@@ -77,7 +77,7 @@
         "josh@Surface" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.aarch64-linux;
           modules = [
-            self.homeManagerModules.default
+            self.homeModules.default
             {
               home.username = "josh";
               theme = "catppuccin-macchiato";
@@ -89,7 +89,7 @@
         "runner" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            self.homeManagerModules.default
+            self.homeModules.default
             { home.username = "runner"; }
           ];
         };
@@ -97,7 +97,7 @@
         "vscode" = home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.x86_64-linux;
           modules = [
-            self.homeManagerModules.default
+            self.homeModules.default
             {
               home.username = "vscode";
               powerline-fonts = true;
