@@ -36,11 +36,13 @@
       ...
     }:
     let
-      forAllSystems = nixpkgs.lib.genAttrs [
+      systems = [
         "aarch64-darwin"
         "aarch64-linux"
         "x86_64-linux"
       ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
+      mergeAttrsWithSystem = fn: nixpkgs.lib.mergeAttrsList (builtins.map fn systems);
       treefmtEval = forAllSystems (
         system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
       );
@@ -60,55 +62,45 @@
         imports = [ ./home ];
       };
 
-      homeConfigurations = {
-        "codespace" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "codespace";
-              powerline-fonts = true;
-              nerd-fonts = false;
-            }
-          ];
-        };
+      homeConfigurations =
+        {
+          "codespace" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "codespace";
+                powerline-fonts = true;
+                nerd-fonts = false;
+              }
+            ];
+          };
 
-        "vscode" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "vscode";
-              powerline-fonts = true;
-              nerd-fonts = false;
-            }
-          ];
-        };
-
-        # For GitHub Actions CI
-
-        "runner@aarch64-linux" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.aarch64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "runner";
-              systemd.user.enable = false;
-            }
-          ];
-        };
-
-        "runner@x86_64-linux" = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;
-          modules = [
-            self.homeModules.default
-            {
-              home.username = "runner";
-              systemd.user.enable = false;
-            }
-          ];
-        };
-      };
+          "vscode" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.x86_64-linux;
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "vscode";
+                powerline-fonts = true;
+                nerd-fonts = false;
+              }
+            ];
+          };
+        }
+        // mergeAttrsWithSystem (system: {
+          # For GitHub Actions CI
+          "runner@${system}" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              self.homeModules.default
+              {
+                home.username = "runner";
+                systemd.user.enable = false;
+              }
+            ];
+          };
+        });
 
       nixosModules.test = {
         boot.isContainer = true;
