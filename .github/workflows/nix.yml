@@ -4,13 +4,14 @@ on:
   push:
   workflow_dispatch:
 
+concurrency:
+  group: nix-cache
+  cancel-in-progress: false
+
 jobs:
   flakes:
     name: Flakes
     runs-on: ubuntu-latest
-    concurrency:
-      group: nix-cache
-      cancel-in-progress: false
 
     steps:
       - uses: actions/checkout@v4
@@ -44,9 +45,6 @@ jobs:
   channels:
     name: Channels
     runs-on: ubuntu-latest
-    concurrency:
-      group: nix-cache
-      cancel-in-progress: false
 
     steps:
       - uses: actions/checkout@v4
