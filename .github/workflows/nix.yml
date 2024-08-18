@@ -35,6 +35,9 @@ jobs:
         run: |
           nix run .#home-manager -- switch --flake . -b backup
 
+      - name: Print architecture
+        run: uname -m
+
       - name: Fastfetch
         run: fastfetch
 
