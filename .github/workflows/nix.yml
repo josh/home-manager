@@ -47,9 +47,6 @@ jobs:
         run: |
           nix run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
 
-      - name: Print architecture
-        run: uname -m
-
       - name: Fastfetch
         run: fastfetch
 
