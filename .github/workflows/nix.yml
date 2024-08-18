@@ -67,7 +67,7 @@ jobs:
 
       - name: Build NixOS
         run: |
-          nix build .#nixosConfigurations.test.config.system.build.toplevel
+          nix build .#nixosConfigurations.test-${{ matrix.system }}.config.system.build.toplevel
 
   channels:
     name: Channels

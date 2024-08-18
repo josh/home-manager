@@ -109,9 +109,12 @@
         home-manager.users.root = self.homeModules.default;
       };
 
-      nixosConfigurations.test = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [ self.nixosModules.test ];
-      };
+      nixosConfigurations = mergeAttrsWithSystem (system: {
+        # For GitHub Actions CI
+        "test-${system}" = nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [ self.nixosModules.test ];
+        };
+      });
     };
 }
