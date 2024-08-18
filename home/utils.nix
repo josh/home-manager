@@ -16,6 +16,7 @@
     ruff
     shellcheck
     shfmt
+    tree
     unzip
     uv
     wget
