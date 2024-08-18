@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   home.packages = with pkgs; [
+    coreutils
     cowsay
     curl
     du-dust
