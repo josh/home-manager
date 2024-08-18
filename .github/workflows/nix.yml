@@ -4,10 +4,6 @@ on:
   push:
   workflow_dispatch:
 
-concurrency:
-  group: nix-cache
-  cancel-in-progress: false
-
 jobs:
   flakes:
     name: Flakes
