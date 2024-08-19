@@ -18,7 +18,26 @@ let
       let
         mod = import path;
         isFunction = builtins.isFunction mod;
-        wrappedMod = args@{ pkgs, ... }: mod ({ inherit inputs pkgs; } // args);
+        wrappedMod =
+          args@{
+            pkgs,
+            lib,
+            config,
+            options,
+            ...
+          }:
+          mod (
+            {
+              inherit
+                pkgs
+                lib
+                config
+                options
+                inputs
+                ;
+            }
+            // args
+          );
       in
       if isFunction then wrappedMod else mod
     );
