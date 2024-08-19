@@ -1,6 +1,10 @@
-{ lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 let
-  inputs = import ../inputs.nix;
   inherit (inputs) dotfiles;
   lazy-nvim-nix-lib = inputs.lazy-nvim-nix.lib;
 in

@@ -1,5 +1,9 @@
-_: {
-  imports = [
+{ inputs, ... }:
+let
+  lib = import ./lib.nix;
+in
+{
+  imports = lib.wrapImportsInputs inputs [
     ./git.nix
     ./home.nix
     ./manager.nix

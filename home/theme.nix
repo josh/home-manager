@@ -2,10 +2,10 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 let
-  inputs = import ../inputs.nix;
   test-fonts = pkgs.writeShellScriptBin "test-fonts" ''
     echo -e "powerline: \ue0a0"
     echo -e "devicons: \ue700"

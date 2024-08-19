@@ -28,7 +28,7 @@
   };
 
   outputs =
-    {
+    inputs@{
       self,
       nixpkgs,
       treefmt-nix,
@@ -36,6 +36,7 @@
       ...
     }:
     let
+      lib = import ./home/lib.nix;
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -62,9 +63,7 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeModules.default = {
-        imports = [ ./home ];
-      };
+      homeModules.default = lib.wrapImportInputs inputs ./home;
 
       homeConfigurations =
         {

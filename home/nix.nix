@@ -1,7 +1,6 @@
 # Tools for developing and managing nix itself
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let
-  inputs = import ../inputs.nix;
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
         FLAKE="$(pwd)"
