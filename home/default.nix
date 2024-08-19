@@ -1,17 +1,17 @@
 { inputs, ... }:
 let
-  bindInputs = path: (args@{ pkgs, ... }: import path ({ inherit inputs pkgs; } // args));
+  lib = import ./lib.nix;
 in
 {
-  imports = [
+  imports = lib.wrapImportsInputs inputs [
     ./git.nix
     ./home.nix
     ./manager.nix
-    (bindInputs ./neovim.nix)
-    (bindInputs ./nix.nix)
+    ./neovim.nix
+    ./nix.nix
     ./scripts.nix
     ./shell.nix
-    (bindInputs ./theme.nix)
+    ./theme.nix
     ./utils.nix
   ];
 }
