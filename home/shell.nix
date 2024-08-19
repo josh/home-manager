@@ -58,7 +58,7 @@
               directory.style = "bold lavender";
               palette = "catppuccin_${config.catppuccin.flavor}";
             }
-            // (lib.importTOML "${config.catppuccin.sources.starship}/palettes/${config.catppuccin.flavor}.toml")
+            // (lib.importTOML "${config.catppuccin.sources.starship}/themes/${config.catppuccin.flavor}.toml")
           ))
         ];
       };
