@@ -36,6 +36,7 @@
       ...
     }:
     let
+      lib = import ./home/lib.nix;
       systems = [
         "aarch64-darwin"
         "aarch64-linux"
@@ -62,7 +63,7 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeModules.default = args: import ./home ({ inherit inputs; } // args);
+      homeModules.default = lib.wrapImportInputs inputs ./home;
 
       homeConfigurations =
         {
