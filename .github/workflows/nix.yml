@@ -50,6 +50,13 @@ jobs:
       - name: Fastfetch
         run: fastfetch
 
+      - name: Print top closure sizes
+        run: |
+          nix build '.#homeConfigurations."runner@${{ matrix.system }}".activationPackage'
+          nix path-info --recursive --closure-size 'result/home-path' --json | \
+            jq --raw-output 'sort_by(.closureSize) | reverse | map("\(.closureSize / 1024 / 1024 | floor) MB\t\(.path)") | .[:25] | .[]' | \
+            tee "$GITHUB_STEP_SUMMARY"
+
   nixos:
     name: NixOS
     runs-on: ubuntu-latest
