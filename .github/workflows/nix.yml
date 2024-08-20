@@ -53,7 +53,7 @@ jobs:
       - name: Print top closure sizes
         run: |
           set -o pipefail
-          result="$(nix build --print-out-paths '.#homeConfigurations."runner@aarch64-linux".activationPackage')"
+          result="$(nix build --print-out-paths '.#homeConfigurations."runner@${{ matrix.system }}".activationPackage')"
           nix path-info --recursive --closure-size "$result/home-path" --json | \
             jq --raw-output 'sort_by(.closureSize) | reverse | map("\(.closureSize / 1024 / 1024 | floor) MB\t\(.path)") | .[:25] | .[]' | \
             tee "$GITHUB_STEP_SUMMARY"
