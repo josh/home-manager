@@ -47,6 +47,8 @@ in
     # nicer nix cli wrapper
     nh
 
+    nix-tree
+
     # nix language server
     nixd
 
