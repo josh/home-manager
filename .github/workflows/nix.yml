@@ -50,13 +50,41 @@ jobs:
       - name: Fastfetch
         run: fastfetch
 
+  size:
+    name: Size
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        system: ["x86_64-linux", "aarch64-linux"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - if: matrix.system == 'aarch64-linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: arm64
+
+      - uses: DeterminateSystems/nix-installer-action@main
+        with:
+          extra-conf: |
+            system = ${{ matrix.system }}
+
+      - uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Build activation package
+        run: |
+          nix build '.#homeConfigurations."runner@${{ matrix.system }}".activationPackage'
+
       - name: Print top closure sizes
         run: |
           set -o pipefail
-          result="$(nix build --print-out-paths '.#homeConfigurations."runner@${{ matrix.system }}".activationPackage')"
-          nix path-info --recursive --closure-size "$result/home-path" --json | \
-            jq --raw-output 'to_entries | sort_by(.value.closureSize) | reverse | map("\(.value.closureSize / 1024 / 1024 | floor) MB\t\(.key)") | .[:25] | .[]' | \
-            tee "$GITHUB_STEP_SUMMARY"
+          echo "## home-path size" >>"$GITHUB_STEP_SUMMARY"
+          echo "| size | derivation |" >>"$GITHUB_STEP_SUMMARY"
+          nix path-info --recursive --closure-size "result/home-path" --json | \
+            jq --raw-output 'to_entries | sort_by(.value.closureSize) | reverse | map("| \(.value.closureSize / 1024 / 1024 | floor) MB | \(.key) |") | .[:25] | .[]' | \
+            tee -a "$GITHUB_STEP_SUMMARY"
 
   nixos:
     name: NixOS
