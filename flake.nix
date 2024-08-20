@@ -108,10 +108,19 @@
       nixosModules = {
         inherit (home-manager.nixosModules) home-manager;
 
+        default = {
+          imports = [ home-manager.nixosModules.home-manager ];
+
+          nix.settings.experimental-features = [
+            "nix-command"
+            "flakes"
+          ];
+        };
+
         test = {
+          imports = [ self.nixosModules.default ];
           boot.isContainer = true;
           system.stateVersion = nixpkgs.lib.trivial.release;
-          imports = [ self.nixosModules.home-manager ];
           home-manager.users.root = self.homeModules.default;
         };
       };
