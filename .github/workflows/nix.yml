@@ -82,6 +82,7 @@ jobs:
           set -o pipefail
           echo "## home-path size" >>"$GITHUB_STEP_SUMMARY"
           echo "| size | derivation |" >>"$GITHUB_STEP_SUMMARY"
+          echo "| --- | --- |" >>"$GITHUB_STEP_SUMMARY"
           nix path-info --recursive --closure-size "result/home-path" --json | \
             jq --raw-output 'to_entries | sort_by(.value.closureSize) | reverse | map("| \(.value.closureSize / 1024 / 1024 | floor) MB | \(.key) |") | .[:25] | .[]' | \
             tee -a "$GITHUB_STEP_SUMMARY"
