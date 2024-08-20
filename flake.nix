@@ -105,11 +105,15 @@
           };
         }) systems;
 
-      nixosModules.test = {
-        boot.isContainer = true;
-        system.stateVersion = nixpkgs.lib.trivial.release;
-        imports = [ home-manager.nixosModules.home-manager ];
-        home-manager.users.root = self.homeModules.default;
+      nixosModules = {
+        inherit (home-manager.nixosModules) home-manager;
+
+        test = {
+          boot.isContainer = true;
+          system.stateVersion = nixpkgs.lib.trivial.release;
+          imports = [ self.nixosModules.home-manager ];
+          home-manager.users.root = self.homeModules.default;
+        };
       };
 
       nixosConfigurations = mapMergeList (system: {
