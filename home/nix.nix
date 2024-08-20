@@ -1,5 +1,10 @@
 # Tools for developing and managing nix itself
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 let
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
@@ -15,6 +20,14 @@ let
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
+
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+  };
 
   # Enable nix-index and prebuilt nix-index-database.
   # $ , cowsay "hello"
