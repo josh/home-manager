@@ -137,6 +137,14 @@
           ];
         };
 
+        tui = {
+          imports = [ self.nixosModules.default ];
+        };
+
+        gui = {
+          imports = [ self.nixosModules.default ];
+        };
+
         test = {
           imports = [ self.nixosModules.default ];
           boot.isContainer = true;
