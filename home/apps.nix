@@ -10,6 +10,11 @@
   };
 
   config = lib.mkIf config.graphical-desktop {
+    # Terminals, I can't decide
+    programs.alacritty.enable = true;
+    programs.kitty.enable = true;
+    programs.wezterm.enable = true;
+
     programs.firefox = {
       enable = true;
       policies = {
