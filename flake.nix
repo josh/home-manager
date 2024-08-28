@@ -73,14 +73,24 @@
         treefmt = treefmtEval.${system}.config.build.check self;
       });
 
-      homeModules.default = lib.wrapImportInputs inputs ./home;
+      homeModules = {
+        default = lib.wrapImportInputs inputs ./home;
+        tui = {
+          imports = [ self.homeModules.default ];
+          graphical-desktop = false;
+        };
+        gui = {
+          imports = [ self.homeModules.default ];
+          graphical-desktop = true;
+        };
+      };
 
       homeConfigurations =
         {
           "codespace" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
-              self.homeModules.default
+              self.homeModules.tui
               {
                 home.username = "codespace";
                 powerline-fonts = true;
@@ -92,7 +102,7 @@
           "vscode" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
-              self.homeModules.default
+              self.homeModules.tui
               {
                 home.username = "vscode";
                 powerline-fonts = true;
@@ -106,7 +116,7 @@
           "runner@${system}" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
-              self.homeModules.default
+              self.homeModules.tui
               {
                 home.username = "runner";
                 systemd.user.enable = false;
