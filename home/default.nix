@@ -4,6 +4,7 @@ let
 in
 {
   imports = lib.wrapImportsInputs inputs [
+    ./apps.nix
     ./git.nix
     ./home.nix
     ./manager.nix
