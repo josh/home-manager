@@ -34,7 +34,6 @@ in
     plugins = with pkgs.vimPlugins; [ lazy-nvim ];
 
     extraPackages = with pkgs; [
-      clang
       fd
       fish
       gcc
