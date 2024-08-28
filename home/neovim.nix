@@ -54,7 +54,6 @@ in
       shfmt
       stylua
       tree-sitter
-      zig
     ];
 
     extraLuaConfig = lazy-nvim-nix-lib.setupLazyLua {
