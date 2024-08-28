@@ -4,20 +4,27 @@
     acl
     coreutils
     cowsay
+    cpufetch
     curl
     du-dust
     dua
     duf
     fastfetch
     hello
+    htop
+    ipfetch
     jq
+    neofetch
     nodePackages.prettier
+    onefetch
+    ramfetch
     rclone
     restic
     rsync
     ruff
     shellcheck
     shfmt
+    speedtest-rs
     tree
     unzip
     uv
