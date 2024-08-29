@@ -19,10 +19,16 @@ let
   deadsymlinks = pkgs.writeShellScriptBin "deadsymlinks" ''
     find . -type l ! -exec test -r {} \; -print 2>/dev/null
   '';
+
+  # http://www.brynosaurus.com/cachedir/
+  touch-cachedir-tag = pkgs.writeShellScriptBin "touch-cachedir-tag" ''
+    echo "Signature: 8a477f597d28d172789f06886806bc55" >CACHEDIR.TAG
+  '';
 in
 {
   home.packages = [
     codespace-fix-tmp-permissions
     deadsymlinks
+    touch-cachedir-tag
   ];
 }
