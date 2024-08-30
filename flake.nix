@@ -56,6 +56,16 @@
     {
       packages = forAllSystems (system: {
         home-manager = home-manager.defaultPackage.${system};
+        dotfiles = derivation {
+          inherit system;
+          name = "dotfiles";
+          builder = "${nixpkgs.legacyPackages.${system}.coreutils}/bin/ln";
+          args = [
+            "-s"
+            dotfiles
+            (builtins.placeholder "out")
+          ];
+        };
         sshAuthorizedKeyFile = derivation {
           inherit system;
           name = "authorized_keys";
