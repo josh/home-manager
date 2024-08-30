@@ -46,8 +46,9 @@ $ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/ho
 ### Channels
 
 ```sh
-$ nix-channel --add https://github.com/josh/home-manager/archive/main.tar.gz josh-home-manager
-$ nix-channel --update
+$ sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
+$ sudo nix-channel --add https://github.com/josh/home-manager/archive/main.tar.gz josh-home-manager
+$ sudo nix-channel --update
 ```
 
 #### NixOS module

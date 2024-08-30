@@ -130,11 +130,9 @@
         inherit (home-manager.nixosModules) home-manager;
 
         default = {
-          imports = [ home-manager.nixosModules.home-manager ];
-
-          nix.settings.experimental-features = [
-            "nix-command"
-            "flakes"
+          imports = [
+            home-manager.nixosModules.home-manager
+            ./nixos
           ];
         };
 
