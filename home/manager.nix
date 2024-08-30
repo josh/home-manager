@@ -1,5 +1,6 @@
 # Configure home-manager meta options
-_: {
+{ lib, config, ... }:
+{
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
@@ -12,4 +13,12 @@ _: {
 
   # Disable home-manager news message.
   news.display = "silent";
+
+  assertions = [
+    # Turn home.enableNixpkgsReleaseCheck warning into hard assertion
+    {
+      assertion = config.home.version.release == lib.trivial.release;
+      message = ''Home Manager version ${config.home.version.release}, Nixpkgs version ${lib.trivial.release}'';
+    }
+  ];
 }
