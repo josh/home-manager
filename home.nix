@@ -4,5 +4,5 @@ let
 in
 {
   imports = lib.wrapImportsInputs lib.flakeInputs [ ./home ];
-  home.username = builtins.getEnv "USER";
+  home.username = lib.mkDefault 500 (builtins.getEnv "USER");
 }
