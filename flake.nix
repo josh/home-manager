@@ -66,15 +66,6 @@
             (builtins.placeholder "out")
           ];
         };
-        sshAuthorizedKeyFile = derivation {
-          inherit system;
-          name = "authorized_keys";
-          builder = "${nixpkgs.legacyPackages.${system}.coreutils}/bin/cp";
-          args = [
-            "${dotfiles}/ssh/authorized_keys"
-            (builtins.placeholder "out")
-          ];
-        };
       });
 
       formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
