@@ -99,7 +99,6 @@ jobs:
         env:
           NIX_STORE_URI: ${{ secrets.NIX_STORE_URI }}
 
-
   channels:
     name: Channels
     runs-on: ubuntu-latest
