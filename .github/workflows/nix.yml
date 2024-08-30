@@ -61,6 +61,12 @@ jobs:
       - name: Fastfetch
         run: fastfetch
 
+      - name: Push to Nix Binary Cache
+        run: |
+          nix copy --to "$NIX_STORE_URI" ".#homeConfigurations.runner@${{ matrix.system }}.activationPackage"
+        env:
+          NIX_STORE_URI: ${{ secrets.NIX_STORE_URI }}
+
   nixos:
     name: NixOS
     runs-on: ubuntu-latest
