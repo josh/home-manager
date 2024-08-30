@@ -1,5 +1,5 @@
 let
-  flakeInputs =
+  flake =
     let
       lock = builtins.fromJSON (builtins.readFile ../flake.lock);
       node = lock.nodes.flake-compat.locked;
@@ -10,7 +10,9 @@ let
       };
       flake = import path { src = ../.; };
     in
-    flake.defaultNix.inputs;
+    flake.defaultNix;
+
+  flakeInputs = flake.inputs;
 
   wrapImportInputs =
     inputs: path:
@@ -45,5 +47,10 @@ let
   wrapImportsInputs = inputs: imports: builtins.map (wrapImportInputs inputs) imports;
 in
 {
-  inherit flakeInputs wrapImportInputs wrapImportsInputs;
+  inherit
+    flake
+    flakeInputs
+    wrapImportInputs
+    wrapImportsInputs
+    ;
 }
