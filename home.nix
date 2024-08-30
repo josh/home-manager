@@ -1,8 +1,9 @@
 # Legacy home.nix stub
+{ lib, ... }:
 let
-  lib = import ./home/lib.nix;
+  internalLib = import ./home/lib.nix;
 in
 {
-  imports = lib.wrapImportsInputs lib.flakeInputs [ ./home ];
+  imports = internalLib.wrapImportsInputs lib.flakeInputs [ ./home ];
   home.username = lib.mkDefault 500 (builtins.getEnv "USER");
 }
