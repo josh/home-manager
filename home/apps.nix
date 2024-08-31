@@ -15,6 +15,16 @@
   };
 
   config = lib.mkIf config.graphical-desktop {
+    fonts.fontconfig.enable = true;
+
+    home.packages = with pkgs; [
+      # Fonts
+      cascadia-code
+      fira-code
+      jetbrains-mono
+      meslo-lg
+    ];
+
     # Terminals, I can't decide
     programs.kitty.enable = true;
     programs.wezterm.enable = true;
@@ -25,6 +35,11 @@
         shell = {
           program = "${pkgs.zsh}/bin/zsh";
           args = [ "--login" ];
+        };
+
+        font.normal = {
+          family = "JetBrains Mono";
+          style = "Regular";
         };
       };
     };
