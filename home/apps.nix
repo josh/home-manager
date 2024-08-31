@@ -4,6 +4,16 @@
   config,
   ...
 }:
+let
+  tmux-attach = pkgs.writeShellScriptBin "tmux-attach" ''
+    session=$(${pkgs.tmux}/bin/tmux list-sessions -F "#{session_name}" -f "#{?session_attached,0,1}" 2>/dev/null | ${pkgs.coreutils}/bin/head -n 1)
+    if [ -n "$session" ]; then
+      ${pkgs.tmux}/bin/tmux attach-session -t "$session"
+    else
+      ${pkgs.tmux}/bin/tmux new-session
+    fi
+  '';
+in
 {
   options = {
     graphical-desktop = lib.mkOption {
@@ -32,10 +42,7 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        shell = {
-          program = "${pkgs.zsh}/bin/zsh";
-          args = [ "--login" ];
-        };
+        shell.program = tmux-attach;
 
         font.normal = {
           family = "JetBrains Mono";
