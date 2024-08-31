@@ -42,6 +42,10 @@ in
     programs.alacritty = {
       enable = true;
       settings = {
+        import = [
+          "${inputs.dotfiles}/config/alacritty/themes/tokyonight_moon.toml"
+        ];
+
         shell.program = tmux-attach;
 
         font.normal = {
