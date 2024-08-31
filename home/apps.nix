@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 {
   options = {
     graphical-desktop = lib.mkOption {
@@ -11,9 +16,18 @@
 
   config = lib.mkIf config.graphical-desktop {
     # Terminals, I can't decide
-    programs.alacritty.enable = true;
     programs.kitty.enable = true;
     programs.wezterm.enable = true;
+
+    programs.alacritty = {
+      enable = true;
+      settings = {
+        shell = {
+          program = "${pkgs.zsh}/bin/zsh";
+          args = [ "--login" ];
+        };
+      };
+    };
 
     programs.firefox = {
       enable = true;
