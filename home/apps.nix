@@ -47,7 +47,7 @@ in
           "${inputs.dotfiles}/config/alacritty/themes/tokyonight_moon.toml"
         ];
 
-        shell.program = tmux-attach;
+        shell.program = "${tmux-attach}/bin/tmux-attach";
 
         font.normal = {
           family = "JetBrains Mono";
