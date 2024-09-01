@@ -3,6 +3,7 @@
   pkgs,
   inputs,
   lib,
+  config,
   ...
 }:
 let
@@ -21,50 +22,60 @@ in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
-  nix = {
-    package = lib.mkDefault pkgs.nix;
-    settings.experimental-features = [
-      "nix-command"
-      "flakes"
-    ];
+  options = {
+    cachix.enable = lib.mkEnableOption "cachix";
   };
 
-  # Enable nix-index and prebuilt nix-index-database.
-  # $ , cowsay "hello"
-  programs.nix-index = {
-    enable = true;
-    enableZshIntegration = true;
+  config = {
+    nix = {
+      package = lib.mkDefault pkgs.nix;
+      settings.experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+
+    # Enable nix-index and prebuilt nix-index-database.
+    # $ , cowsay "hello"
+    programs.nix-index = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+    programs.nix-index-database.comma.enable = true;
+
+    home.packages =
+      with pkgs;
+      [
+        # find dead nix code
+        deadnix
+
+        # tool to build/switch to my home-manager config
+        hm-up
+
+        # nicer nix cli wrapper
+        nh
+
+        nix-tree
+
+        # nix language server
+        nixd
+
+        # formatter
+        # nixfmt
+        nixfmt-rfc-style
+
+        # build nixos based images
+        nixos-generators
+
+        # fetch resource nar hash
+        nurl
+
+        # linter
+        statix
+      ]
+      ++
+        # Allow cachix to be disabled in CI where it might be already installed
+        (lib.lists.optional config.cachix.enable pkgs.cachix);
   };
-  programs.nix-index-database.comma.enable = true;
 
-  home.packages = with pkgs; [
-    cachix
-
-    # find dead nix code
-    deadnix
-
-    # tool to build/switch to my home-manager config
-    hm-up
-
-    # nicer nix cli wrapper
-    nh
-
-    nix-tree
-
-    # nix language server
-    nixd
-
-    # formatter
-    # nixfmt
-    nixfmt-rfc-style
-
-    # build nixos based images
-    nixos-generators
-
-    # fetch resource nar hash
-    nurl
-
-    # linter
-    statix
-  ];
 }

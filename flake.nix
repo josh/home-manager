@@ -121,6 +121,7 @@
               {
                 home.username = "runner";
                 systemd.user.enable = false;
+                cachix.enable = false;
               }
             ];
           };
