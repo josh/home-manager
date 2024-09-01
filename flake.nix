@@ -2,7 +2,7 @@
   description = "Home Manager configuration of josh";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-compat.url = "github:nix-community/flake-compat";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
