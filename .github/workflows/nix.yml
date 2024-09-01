@@ -136,6 +136,10 @@ jobs:
         run: |
           home-manager build -f home.nix
 
+      - name: Remove cachix
+        run: |
+          nix-env --uninstall cachix
+
       - name: Activate home configuration
         run: |
           home-manager switch -f home.nix -b backup
