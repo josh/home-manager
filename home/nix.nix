@@ -38,6 +38,8 @@ in
   programs.nix-index-database.comma.enable = true;
 
   home.packages = with pkgs; [
+    cachix
+
     # find dead nix code
     deadnix
 
