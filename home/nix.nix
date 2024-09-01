@@ -23,7 +23,12 @@ in
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
   options = {
-    cachix.enable = lib.mkEnableOption "cachix";
+    cachix.enable = lib.mkOption {
+      default = true;
+      example = false;
+      description = "Whether to enable cachix.";
+      type = lib.types.bool;
+    };
   };
 
   config = {
