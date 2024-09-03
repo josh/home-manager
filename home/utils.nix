@@ -17,6 +17,7 @@
     neofetch
     nodePackages.prettier
     onefetch
+    python3
     ramfetch
     rclone
     restic
