@@ -8,6 +8,9 @@ permissions:
   id-token: "write"
   contents: "read"
 
+env:
+  NIX_ABORT_ON_WARN: "1"
+
 jobs:
   flakes:
     name: Flakes
