@@ -35,12 +35,35 @@
         { plugin = vim-tmux-navigator; }
       ];
 
+      catppuccin.extraConfig = ''
+        set-option -g @catppuccin_window_left_separator ""
+        set-option -g @catppuccin_window_right_separator " "
+        set-option -g @catppuccin_window_middle_separator " █"
+        set-option -g @catppuccin_window_number_position "right"
+
+        set-option -g @catppuccin_window_default_fill "number"
+        set-option -g @catppuccin_window_default_text "#W"
+
+        set-option -g @catppuccin_window_current_fill "number"
+        set-option -g @catppuccin_window_current_text "#W"
+
+        set-option -g @catppuccin_status_modules_right "directory user host session"
+        set-option -g @catppuccin_status_left_separator  " "
+        set-option -g @catppuccin_status_right_separator ""
+        set-option -g @catppuccin_status_fill "icon"
+        set-option -g @catppuccin_status_connect_separator "no"
+
+        set-option -g @catppuccin_directory_text "#{pane_current_path}"
+      '';
+
       extraConfig = ''
         set-option -sa terminal-overrides ',xterm-256color:RGB'
 
-        bind | split-window -h -c "#{pane_current_path}"
-        bind c new-window -c "#{pane_current_path}"
-        bind - split-window -v -c "#{pane_current_path}"
+        set-option -g status-position top
+
+        bind-key c new-window -c "#{pane_current_path}"
+        bind-key | split-window -h -c "#{pane_current_path}"
+        bind-key - split-window -v -c "#{pane_current_path}"
       '';
     };
 
