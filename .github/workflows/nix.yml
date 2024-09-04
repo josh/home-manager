@@ -21,13 +21,6 @@ jobs:
         system: ["x86_64-linux", "aarch64-linux"]
 
     steps:
-      - name: Connect to Tailnet
-        uses: tailscale/github-action@v2
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:github-actions
-
       - uses: actions/checkout@v4
 
       - if: matrix.system == 'aarch64-linux'
@@ -67,12 +60,6 @@ jobs:
       - name: Fastfetch
         run: fastfetch
 
-      - name: Push to Nix Binary Cache
-        run: |
-          nix copy --to "$NIX_STORE_URI" ".#homeConfigurations.runner@${{ matrix.system }}.activationPackage"
-        env:
-          NIX_STORE_URI: ${{ secrets.NIX_STORE_URI }}
-
   nixos:
     name: NixOS
     runs-on: ubuntu-latest
@@ -82,13 +69,6 @@ jobs:
         system: ["x86_64-linux"]
 
     steps:
-      - name: Connect to Tailnet
-        uses: tailscale/github-action@v2
-        with:
-          oauth-client-id: ${{ secrets.TS_OAUTH_ID }}
-          oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
-          tags: tag:github-actions
-
       - uses: actions/checkout@v4
 
       - uses: DeterminateSystems/nix-installer-action@main
@@ -101,12 +81,6 @@ jobs:
       - name: Build NixOS
         run: |
           nix build ".#nixosConfigurations.test-${{ matrix.system }}.config.system.build.toplevel"
-
-      - name: Push to Nix Binary Cache
-        run: |
-          nix copy --to "$NIX_STORE_URI" ".#nixosConfigurations.test-${{ matrix.system }}.config.system.build.toplevel"
-        env:
-          NIX_STORE_URI: ${{ secrets.NIX_STORE_URI }}
 
   channels:
     name: Channels
