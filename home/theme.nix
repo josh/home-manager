@@ -14,11 +14,17 @@ let
   '';
   theme-backgrounds = {
     "" = "dark";
-    "catppuccin-frappe" = "dark";
-    "catppuccin-latte" = "light";
-    "catppuccin-macchiato" = "dark";
-    "catppuccin-mocha" = "dark";
-    "tokyonight" = "dark";
+    "Catppuccin Frappé" = "dark";
+    "Catppuccin Latte" = "light";
+    "Catppuccin Macchiato" = "dark";
+    "Catppuccin Mocha" = "dark";
+    "Rosé Pine Dawn" = "light";
+    "Rosé Pine Moon" = "dark";
+    "Rosé Pine" = "dark";
+    "Tokyo Night Day" = "light";
+    "Tokyo Night Moon" = "dark";
+    "Tokyo Night Storm" = "dark";
+    "Tokyo Night" = "dark";
   };
 in
 {
@@ -29,13 +35,20 @@ in
       default = "";
       type = lib.types.enum [
         ""
-        "catppuccin-frappe"
-        "catppuccin-latte"
-        "catppuccin-macchiato"
-        "catppuccin-mocha"
-        "tokyonight"
+        "Catppuccin Frappé"
+        "Catppuccin Latte"
+        "Catppuccin Macchiato"
+        "Catppuccin Mocha"
+        "Rosé Pine Dawn"
+        "Rosé Pine Moon"
+        "Rosé Pine"
+        "Tokyo Night Day"
+        "Tokyo Night Moon"
+        "Tokyo Night Storm"
+        "Tokyo Night"
       ];
     };
+
     background = lib.mkOption {
       description = "Is background in light or dark mode";
       type = lib.types.enum [
@@ -52,6 +65,7 @@ in
       default = config.nerd-fonts;
       example = true;
     };
+
     nerd-fonts = lib.mkOption {
       description = "Enable Nerd Fonts";
       type = lib.types.bool;
@@ -61,9 +75,17 @@ in
   };
 
   config = {
-    catppuccin = lib.mkIf (lib.strings.hasPrefix "catppuccin-" config.theme) {
+    catppuccin = lib.mkIf (lib.strings.hasPrefix "Catppuccin" config.theme) {
       enable = true;
-      flavor = lib.strings.removePrefix "catppuccin-" config.theme;
+      flavor =
+        if config.theme == "Catppuccin Frappé" then
+          "frappe"
+        else if config.theme == "Catppuccin Latte" then
+          "latte"
+        else if config.theme == "Catppuccin Macchiato" then
+          "macchiato"
+        else
+          "mocha";
     };
 
     home.packages = [ test-fonts ];
