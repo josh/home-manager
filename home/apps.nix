@@ -26,15 +26,17 @@ in
   };
 
   config = lib.mkIf config.graphical-desktop {
-    fonts.fontconfig.enable = true;
-
     home.packages = with pkgs; [
+      obsidian
+
       # Fonts
       cascadia-code
       fira-code
       jetbrains-mono
       meslo-lg
     ];
+
+    fonts.fontconfig.enable = true;
 
     # Terminals, I can't decide
     programs.kitty.enable = true;
