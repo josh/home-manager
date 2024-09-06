@@ -27,6 +27,7 @@ in
 
   config = lib.mkIf config.graphical-desktop {
     home.packages = with pkgs; [
+      neovide
       obsidian
 
       # Fonts
