@@ -53,6 +53,7 @@ in
           "nix-command"
           "flakes"
         ];
+        accept-flake-config = true;
         substituters = [
           "https://cache.nixos.org"
           "https://josh.cachix.org"
