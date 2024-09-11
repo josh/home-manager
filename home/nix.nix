@@ -19,7 +19,7 @@ let
   os-up = pkgs.writeShellScriptBin "os-up" ''
     set -euo pipefail
 
-    ${pkgs.nh}/bin/nh os switch --out-link /tmp/os-up-result
+    ${pkgs.nh}/bin/nh os switch --out-link /tmp/os-up-result /etc/nixos/
     ${cachix-push}/bin/cachix-push /tmp/hm-up-result
   '';
 
