@@ -1,31 +1,43 @@
+{ lib, ... }:
 {
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      accept-flake-config = true;
-      substituters = [
-        "https://cache.nixos.org"
-        "https://josh.cachix.org"
-      ];
-      trusted-public-keys = [
-        "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-        "josh.cachix.org-1:qc8IeYlP361V9CSsSVugxn3o3ZQ6w/9dqoORjm0cbXk="
-      ];
+  options.my = {
+    username = lib.mkOption {
+      description = "Primary user name";
+      type = lib.types.str;
+      default = "josh";
+      example = "josh";
     };
   };
 
-  home-manager = {
-    backupFileExtension = "backup";
+  config = {
+    nix = {
+      settings = {
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
+        accept-flake-config = true;
+        substituters = [
+          "https://cache.nixos.org"
+          "https://josh.cachix.org"
+        ];
+        trusted-public-keys = [
+          "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+          "josh.cachix.org-1:qc8IeYlP361V9CSsSVugxn3o3ZQ6w/9dqoORjm0cbXk="
+        ];
+      };
+    };
 
-    # List of imports
-    # sharedModules = [];
+    home-manager = {
+      backupFileExtension = "backup";
 
-    # TODO: Somehow allow default user to be set
-    # users.josh = {
-    #   imports = [ ];
-    # };
+      # List of imports
+      # sharedModules = [];
+
+      # TODO: Somehow allow default user to be set
+      # users.josh = {
+      #   imports = [ ];
+      # };
+    };
   };
 }

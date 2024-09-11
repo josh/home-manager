@@ -156,19 +156,30 @@
           imports = [ self.nixosModules.default ];
         };
 
-        test = {
-          imports = [ self.nixosModules.default ];
-          boot.isContainer = true;
-          system.stateVersion = nixpkgs.lib.trivial.release;
-          home-manager.users.root = self.homeModules.default;
-        };
+        test =
+          { config, ... }:
+          let
+            inherit (config.my) username;
+          in
+          {
+            imports = [ self.nixosModules.default ];
+            boot.isContainer = true;
+            system.stateVersion = nixpkgs.lib.trivial.release;
+            users.users.${username} = {
+              isNormalUser = true;
+            };
+            home-manager.users.${username} = self.homeModules.default;
+          };
       };
 
       nixosConfigurations = mapMergeList (system: {
         # For GitHub Actions CI
         "test-${system}" = nixpkgs.lib.nixosSystem {
           inherit system;
-          modules = [ self.nixosModules.test ];
+          modules = [
+            self.nixosModules.test
+            { my.username = "runner"; }
+          ];
         };
       }) linuxSystems;
     };
