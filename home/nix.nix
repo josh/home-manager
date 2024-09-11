@@ -41,7 +41,7 @@ in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
-  options = {
+  options.my = {
     cachix.enable = lib.mkEnableOption "cachix";
   };
 
@@ -108,6 +108,6 @@ in
       ]
       ++
         # Allow cachix to be disabled in CI where it might be already installed
-        (lib.lists.optional config.cachix.enable pkgs.cachix);
+        (lib.lists.optional config.my.cachix.enable pkgs.cachix);
   };
 }

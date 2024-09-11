@@ -30,7 +30,7 @@ in
 {
   imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
 
-  options = {
+  options.my = {
     theme = lib.mkOption {
       default = "";
       type = lib.types.enum [
@@ -55,14 +55,14 @@ in
         "light"
         "dark"
       ];
-      default = theme-backgrounds.${config.theme};
+      default = theme-backgrounds.${config.my.theme};
       example = "dark";
     };
 
     powerline-fonts = lib.mkOption {
       description = "Enable Powerline Fonts";
       type = lib.types.bool;
-      default = config.nerd-fonts;
+      default = config.my.nerd-fonts;
       example = true;
     };
 
@@ -75,14 +75,14 @@ in
   };
 
   config = {
-    catppuccin = lib.mkIf (lib.strings.hasPrefix "Catppuccin" config.theme) {
+    catppuccin = lib.mkIf (lib.strings.hasPrefix "Catppuccin" config.my.theme) {
       enable = true;
       flavor =
-        if config.theme == "Catppuccin Frappé" then
+        if config.my.theme == "Catppuccin Frappé" then
           "frappe"
-        else if config.theme == "Catppuccin Latte" then
+        else if config.my.theme == "Catppuccin Latte" then
           "latte"
-        else if config.theme == "Catppuccin Macchiato" then
+        else if config.my.theme == "Catppuccin Macchiato" then
           "macchiato"
         else
           "mocha";

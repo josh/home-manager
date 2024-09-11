@@ -89,11 +89,11 @@
         default = lib.wrapImportInputs inputs ./home;
         tui = {
           imports = [ self.homeModules.default ];
-          graphical-desktop = false;
+          my.graphical-desktop = false;
         };
         gui = {
           imports = [ self.homeModules.default ];
-          graphical-desktop = true;
+          my.graphical-desktop = true;
         };
       };
 
@@ -105,8 +105,8 @@
               self.homeModules.tui
               {
                 home.username = "codespace";
-                powerline-fonts = true;
-                nerd-fonts = false;
+                my.powerline-fonts = true;
+                my.nerd-fonts = false;
               }
             ];
           };
@@ -117,8 +117,8 @@
               self.homeModules.tui
               {
                 home.username = "vscode";
-                powerline-fonts = true;
-                nerd-fonts = false;
+                my.powerline-fonts = true;
+                my.nerd-fonts = false;
               }
             ];
           };
@@ -132,7 +132,7 @@
               {
                 home.username = "runner";
                 systemd.user.enable = false;
-                cachix.enable = false;
+                my.cachix.enable = false;
               }
             ];
           };

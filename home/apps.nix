@@ -16,7 +16,7 @@ let
   '';
 in
 {
-  options = {
+  options.my = {
     graphical-desktop = lib.mkOption {
       description = "Enable Graphical Desktop features";
       type = lib.types.bool;
@@ -25,7 +25,7 @@ in
     };
   };
 
-  config = lib.mkIf config.graphical-desktop {
+  config = lib.mkIf config.my.graphical-desktop {
     home.packages = with pkgs; [
       neovide
       obsidian
