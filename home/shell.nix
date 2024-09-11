@@ -67,6 +67,10 @@
       '';
     };
 
+    zellij = {
+      enable = true;
+    };
+
     starship =
       let
         preset = name: (lib.importTOML "${pkgs.starship}/share/starship/presets/${name}.toml");
