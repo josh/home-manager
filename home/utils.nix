@@ -10,6 +10,7 @@
     dua
     duf
     fastfetch
+    file
     hello
     htop
     ipfetch
