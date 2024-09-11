@@ -20,7 +20,7 @@ let
     set -euo pipefail
 
     ${pkgs.nh}/bin/nh os switch --out-link /tmp/os-up-result
-    ${cachix-push} /tmp/hm-up-result
+    ${cachix-push}/bin/cachix-push /tmp/hm-up-result
   '';
 
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
@@ -35,7 +35,7 @@ let
     echo "Using $FLAKE as home manager flake" >&2
 
     ${pkgs.nh}/bin/nh home switch --backup-extension backup --out-link /tmp/hm-up-result -- --refresh
-    ${cachix-push} /tmp/hm-up-result
+    ${cachix-push}/bin/cachix-push /tmp/hm-up-result
   '';
 in
 {
