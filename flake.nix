@@ -165,9 +165,6 @@
             imports = [ self.nixosModules.default ];
             boot.isContainer = true;
             system.stateVersion = nixpkgs.lib.trivial.release;
-            users.users.${username} = {
-              isNormalUser = true;
-            };
             home-manager.users.${username} = self.homeModules.default;
           };
       };

@@ -1,4 +1,9 @@
-{ lib, config, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 {
   options.my = {
     username = lib.mkOption {
@@ -28,6 +33,13 @@
         extra-trusted-users = [ config.my.username ];
       };
     };
+
+    users.users.${config.my.username} = {
+      isNormalUser = true;
+      shell = pkgs.zsh;
+    };
+
+    programs.zsh.enable = true;
 
     home-manager = {
       backupFileExtension = "backup";
