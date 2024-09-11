@@ -14,7 +14,6 @@
     hello
     htop
     ipfetch
-    jq
     neofetch
     nodePackages.prettier
     onefetch
@@ -37,6 +36,7 @@
     bottom.enable = true;
     btop.enable = true;
     fd.enable = true;
+    jq.enable = true;
     ripgrep.enable = true;
   };
 }
