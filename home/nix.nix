@@ -7,8 +7,24 @@
   ...
 }:
 let
+  cachix-push = pkgs.writeShellScriptBin "cachix-push" ''
+    if [ -n "$CACHIX_AUTH_TOKEN" ] || [ -f "$HOME/.config/cachix/cachix.dhall" ]; then
+      exec ${pkgs.cachix}/bin/cachix push josh "$1"
+    else
+      echo "cachix not configured, run cachix authtoken <TOKEN>" >&2
+      exit 0
+    fi
+  '';
+
+  os-up = pkgs.writeShellScriptBin "os-up" ''
+    set -euo pipefail
+
+    ${pkgs.nh}/bin/nh os switch --out-link /tmp/os-up-result --update
+    ${cachix-push} /tmp/hm-up-result
+  '';
+
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
-    set -e
+    set -euo pipefail
 
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
         FLAKE="$(pwd)"
@@ -19,12 +35,7 @@ let
     echo "Using $FLAKE as home manager flake" >&2
 
     ${pkgs.nh}/bin/nh home switch --backup-extension backup --out-link /tmp/hm-up-result -- --refresh
-
-    if [ -n "$CACHIX_AUTH_TOKEN" ] || [ -f "$HOME/.config/cachix/cachix.dhall" ]; then
-      ${pkgs.cachix}/bin/cachix push josh /tmp/hm-up-result
-    else
-      echo "cachix not configured, run cachix authtoken <TOKEN>" >&2
-    fi
+    ${cachix-push} /tmp/hm-up-result
   '';
 in
 {
@@ -77,6 +88,9 @@ in
 
         # fetch resource nar hash
         nurl
+
+        # tool to build/switch to my NixOS config
+        os-up
 
         # linter
         statix
