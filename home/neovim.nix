@@ -70,4 +70,8 @@ in
       opts = lazy-nvim-nix-lib.defaultLazyOpts;
     };
   };
+
+  programs.helix = {
+    enable = true;
+  };
 }
