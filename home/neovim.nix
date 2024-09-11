@@ -73,5 +73,8 @@ in
 
   programs.helix = {
     enable = true;
+    settings = {
+      editor.true-color = true;
+    };
   };
 }
