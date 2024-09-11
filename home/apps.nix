@@ -56,6 +56,10 @@ in
       };
     };
 
+    programs.vscode = {
+      enable = true;
+    };
+
     programs.firefox = {
       enable = true;
       policies = {
