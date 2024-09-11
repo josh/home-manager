@@ -8,6 +8,8 @@
 }:
 let
   hm-up = pkgs.writeShellScriptBin "hm-up" ''
+    set -e
+
     if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
         FLAKE="$(pwd)"
     else
@@ -16,7 +18,13 @@ let
     export FLAKE
     echo "Using $FLAKE as home manager flake" >&2
 
-    exec ${pkgs.nh}/bin/nh home switch --backup-extension backup -- --refresh
+    ${pkgs.nh}/bin/nh home switch --backup-extension backup --out-link /tmp/hm-up-result -- --refresh
+
+    if [ -n "$CACHIX_AUTH_TOKEN" ] || [ -f "$HOME/.config/cachix/cachix.dhall" ]; then
+      ${pkgs.cachix}/bin/cachix push josh /tmp/hm-up-result
+    else
+      echo "cachix not configured, run cachix authtoken <TOKEN>" >&2
+    fi
   '';
 in
 {
