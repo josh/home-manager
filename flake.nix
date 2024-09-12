@@ -94,7 +94,7 @@
             ${system}.helloNixOS = pkgs.testers.runNixOSTest {
               name = "hello";
               nodes.machine = {
-                environment.systemPackages = [ pkgs.hello ];
+                environment.systemPackages = [ pkgs.cowsay ];
               };
               testScript = ''
                 machine.succeed("hello");
