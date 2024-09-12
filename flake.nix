@@ -96,7 +96,7 @@
               nodes.machine = self.nixosModules.tui;
               testScript = ''
                 machine.wait_for_unit("default.target")
-                machine.succeed("hello");
+                machine.succeed("su -- josh -c 'which hello'")
               '';
             };
           }
