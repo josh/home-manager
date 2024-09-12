@@ -54,10 +54,6 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      linuxSystems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
       mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
       treefmtEval = forAllSystems (
@@ -81,20 +77,29 @@
 
       formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
 
-      checks = forAllSystems (system: {
-        treefmt = treefmtEval.${system}.config.build.check self;
-      });
+      checks =
+        forAllSystems (system: {
+          treefmt = treefmtEval.${system}.config.build.check self;
+        })
+        // (
+          let
+            system = "x86_64-linux";
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
+          {
+            ${system}.nixos = pkgs.testers.runNixOSTest {
+              name = "nixos";
+              nodes.machine = self.nixosModules.default;
+              testScript = ''
+                machine.wait_for_unit("home-manager-josh.service")
+                machine.succeed("su -- josh -c 'which hello'")
+              '';
+            };
+          }
+        );
 
       homeModules = {
         default = lib.wrapImportInputs inputs ./home;
-        tui = {
-          imports = [ self.homeModules.default ];
-          my.graphical-desktop = false;
-        };
-        gui = {
-          imports = [ self.homeModules.default ];
-          my.graphical-desktop = true;
-        };
       };
 
       homeConfigurations =
@@ -102,9 +107,10 @@
           "codespace" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
-              self.homeModules.tui
+              self.homeModules.default
               {
                 home.username = "codespace";
+                my.graphical-desktop = false;
                 my.powerline-fonts = true;
                 my.nerd-fonts = false;
               }
@@ -114,9 +120,10 @@
           "vscode" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
-              self.homeModules.tui
+              self.homeModules.default
               {
                 home.username = "vscode";
+                my.graphical-desktop = false;
                 my.powerline-fonts = true;
                 my.nerd-fonts = false;
               }
@@ -128,56 +135,35 @@
           "runner@${system}" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
-              self.homeModules.tui
+              self.homeModules.default
               {
                 home.username = "runner";
                 systemd.user.enable = false;
+                my.graphical-desktop = false;
                 my.cachix.enable = false;
               }
             ];
           };
         }) systems;
 
-      nixosModules = {
-        inherit (home-manager.nixosModules) home-manager;
+      nixosModules =
+        let
+          homeModule =
+            { config, ... }:
+            {
+              home-manager.users.${config.my.username} = self.homeModules.default;
+            };
+        in
+        {
+          inherit (home-manager.nixosModules) home-manager;
 
-        default = {
-          imports = [
-            home-manager.nixosModules.home-manager
-            ./nixos
-          ];
-        };
-
-        tui = {
-          imports = [ self.nixosModules.default ];
-        };
-
-        gui = {
-          imports = [ self.nixosModules.default ];
-        };
-
-        test =
-          { config, ... }:
-          let
-            inherit (config.my) username;
-          in
-          {
-            imports = [ self.nixosModules.default ];
-            boot.isContainer = true;
-            system.stateVersion = nixpkgs.lib.trivial.release;
-            home-manager.users.${username} = self.homeModules.default;
+          default = {
+            imports = [
+              home-manager.nixosModules.home-manager
+              homeModule
+              ./nixos
+            ];
           };
-      };
-
-      nixosConfigurations = mapMergeList (system: {
-        # For GitHub Actions CI
-        "test-${system}" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            self.nixosModules.test
-            { my.username = "runner"; }
-          ];
         };
-      }) linuxSystems;
     };
 }
