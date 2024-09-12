@@ -63,6 +63,8 @@
     {
       packages = forAllSystems (system: {
         home-manager = home-manager.defaultPackage.${system};
+
+        # TODO: Get rid of this output
         dotfiles = derivation {
           inherit system;
           name = "dotfiles";
