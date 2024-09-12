@@ -81,9 +81,27 @@
 
       formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
 
-      checks = forAllSystems (system: {
-        treefmt = treefmtEval.${system}.config.build.check self;
-      });
+      checks =
+        forAllSystems (system: {
+          treefmt = treefmtEval.${system}.config.build.check self;
+        })
+        // (
+          let
+            system = "x86_64-linux";
+            pkgs = nixpkgs.legacyPackages.${system};
+          in
+          {
+            ${system}.helloNixOS = pkgs.testers.runNixOSTest {
+              name = "hello";
+              nodes.machine = {
+                environment.systemPackages = [ pkgs.hello ];
+              };
+              testScript = ''
+                machine.succeed("hello");
+              '';
+            };
+          }
+        );
 
       homeModules = {
         default = lib.wrapImportInputs inputs ./home;
