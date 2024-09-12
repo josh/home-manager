@@ -102,14 +102,6 @@
 
       homeModules = {
         default = lib.wrapImportInputs inputs ./home;
-        tui = {
-          imports = [ self.homeModules.default ];
-          my.graphical-desktop = false;
-        };
-        gui = {
-          imports = [ self.homeModules.default ];
-          my.graphical-desktop = true;
-        };
       };
 
       homeConfigurations =
@@ -141,6 +133,30 @@
           };
         }
         // mapMergeList (system: {
+          "josh@${system}-tui" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              self.homeModules.default
+              {
+                my.graphical-desktop = false;
+                my.powerline-fonts = false;
+                my.nerd-fonts = false;
+              }
+            ];
+          };
+
+          "josh@${system}-gui" = home-manager.lib.homeManagerConfiguration {
+            pkgs = nixpkgs.legacyPackages.${system};
+            modules = [
+              self.homeModules.default
+              {
+                my.graphical-desktop = true;
+                my.powerline-fonts = false;
+                my.nerd-fonts = false;
+              }
+            ];
+          };
+
           # For GitHub Actions CI
           "runner@${system}" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
