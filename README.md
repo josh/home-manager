@@ -9,7 +9,7 @@ My Nix Home Manager.
 #### Standalone
 
 ```sh
-$ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/home-manager
+$ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/home-manager#josh@x86_64-linux-tui
 ```
 
 #### NixOS module
