@@ -93,9 +93,13 @@
           {
             ${system}.nixos-tui = pkgs.testers.runNixOSTest {
               name = "nixos-tui";
-              nodes.machine = self.nixosModules.tui;
+              nodes.machine = {
+                imports = [ self.nixosModules.tui ];
+                # TODO: This should be automatic
+                home-manager.users.josh = self.homeModules.tui;
+              };
               testScript = ''
-                machine.wait_for_unit("default.target")
+                machine.wait_for_unit("home-manager-josh.service")
                 machine.succeed("su -- josh -c 'which hello'")
               '';
             };
