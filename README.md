@@ -57,10 +57,5 @@ $ sudo nix-channel --update
 { config, pkgs, ... }:
 {
   imports = [ <josh-home-manager/nixos.nix> ];
-
-  # TODO: Automatically include this
-  home-manager.users.josh = {
-    imports = [ <josh-home-manager/home.nix> ];
-  };
 }
 ```
