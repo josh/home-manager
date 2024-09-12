@@ -2,6 +2,7 @@
   lib,
   config,
   pkgs,
+  inputs,
   ...
 }:
 {
@@ -37,6 +38,9 @@
     users.users.${config.my.username} = {
       isNormalUser = true;
       shell = pkgs.zsh;
+      openssh.authorizedKeys.keyFiles = [
+        "${inputs.dotfiles}/ssh/authorized_keys"
+      ];
     };
 
     programs.zsh.enable = true;

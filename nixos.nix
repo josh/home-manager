@@ -15,11 +15,7 @@ in
 {
   imports = [
     homeManager
-    ./nixos
+    (lib.wrapImportInputs lib.flakeInputs ./nixos)
   ];
-
   home-manager.users.${config.my.username} = homeModule;
-  users.users.${config.my.username}.openssh.authorizedKeys.keyFiles = [
-    "${lib.flakeInputs.dotfiles}/ssh/authorized_keys"
-  ];
 }

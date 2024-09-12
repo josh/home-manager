@@ -44,7 +44,6 @@
       nixpkgs,
       treefmt-nix,
       home-manager,
-      dotfiles,
       ...
     }:
     let
@@ -168,12 +167,9 @@
           {
             imports = [
               home-manager.nixosModules.home-manager
-              ./nixos
+              (lib.wrapImportInputs inputs ./nixos)
             ];
             home-manager.users.${config.my.username} = self.homeModules.default;
-            users.users.${config.my.username}.openssh.authorizedKeys.keyFiles = [
-              "${inputs.dotfiles}/ssh/authorized_keys"
-            ];
           };
       };
     };
