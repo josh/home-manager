@@ -164,12 +164,6 @@
               ./nixos
             ];
           };
-
-          test = {
-            imports = [ self.nixosModules.default ];
-            boot.isContainer = true;
-            system.stateVersion = nixpkgs.lib.trivial.release;
-          };
         };
     };
 }
