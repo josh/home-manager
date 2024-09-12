@@ -29,15 +29,7 @@ $ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/ho
     {
       nixosConfigurations.foo = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          josh-home-manager.nixosModules.default
-          {
-            # TODO: Automatically include this
-            home-manager.users.josh = {
-              imports = [ josh-home-manager.homeModules.default ];
-            };
-          }
-        ];
+        modules = [ josh-home-manager.nixosModules.default ];
       };
     };
 }
