@@ -91,11 +91,9 @@
             pkgs = nixpkgs.legacyPackages.${system};
           in
           {
-            ${system}.helloNixOS = pkgs.testers.runNixOSTest {
-              name = "hello";
-              nodes.machine = {
-                environment.systemPackages = [ pkgs.cowsay ];
-              };
+            ${system}.nixos-tui = pkgs.testers.runNixOSTest {
+              name = "nixos-tui";
+              nodes.machine = self.nixosModules.tui;
               testScript = ''
                 machine.succeed("hello");
               '';
