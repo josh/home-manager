@@ -111,6 +111,7 @@
           "codespace" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
+              self.homeModules.default
               {
                 home.username = "codespace";
                 my.graphical-desktop = false;
@@ -123,6 +124,7 @@
           "vscode" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.x86_64-linux;
             modules = [
+              self.homeModules.default
               {
                 home.username = "vscode";
                 my.graphical-desktop = false;
@@ -137,6 +139,7 @@
           "runner@${system}" = home-manager.lib.homeManagerConfiguration {
             pkgs = nixpkgs.legacyPackages.${system};
             modules = [
+              self.homeModules.default
               {
                 home.username = "runner";
                 systemd.user.enable = false;
