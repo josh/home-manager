@@ -82,7 +82,7 @@
               testScript = ''
                 machine.wait_for_unit("home-manager-josh.service")
                 machine.succeed("su -- josh -c 'which hello'")
-                machine.succeed("su -- josh -c 'test -f ~/.ssh/authorized_keys'")
+                machine.succeed("test -f /etc/ssh/authorized_keys.d/josh")
               '';
             };
           }
