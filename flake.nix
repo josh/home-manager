@@ -54,21 +54,20 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      forAllSystems = nixpkgs.lib.genAttrs systems;
+      eachSystem = nixpkgs.lib.genAttrs systems;
+      eachPkgs = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
       mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
-      treefmtEval = forAllSystems (
-        system: treefmt-nix.lib.evalModule nixpkgs.legacyPackages.${system} ./treefmt.nix
-      );
+      treefmtEval = eachPkgs (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      packages = forAllSystems (system: {
-        home-manager = home-manager.defaultPackage.${system};
+      packages = eachPkgs (pkgs: {
+        home-manager = home-manager.defaultPackage.${pkgs.system};
 
         # TODO: Get rid of this output
         dotfiles = derivation {
-          inherit system;
+          inherit (pkgs) system;
           name = "dotfiles";
-          builder = "${nixpkgs.legacyPackages.${system}.coreutils}/bin/ln";
+          builder = "${pkgs.coreutils}/bin/ln";
           args = [
             "-s"
             dotfiles
@@ -77,10 +76,10 @@
         };
       });
 
-      formatter = forAllSystems (system: treefmtEval.${system}.config.build.wrapper);
+      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
       checks =
-        forAllSystems (system: {
+        eachSystem (system: {
           treefmt = treefmtEval.${system}.config.build.check self;
         })
         // (
