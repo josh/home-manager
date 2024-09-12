@@ -62,18 +62,6 @@
     {
       packages = eachPkgs (pkgs: {
         home-manager = home-manager.defaultPackage.${pkgs.system};
-
-        # TODO: Get rid of this output
-        dotfiles = derivation {
-          inherit (pkgs) system;
-          name = "dotfiles";
-          builder = "${pkgs.coreutils}/bin/ln";
-          args = [
-            "-s"
-            dotfiles
-            (builtins.placeholder "out")
-          ];
-        };
       });
 
       formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
