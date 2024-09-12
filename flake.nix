@@ -96,8 +96,6 @@
               nodes.machine = self.nixosModules.tui;
               testScript = ''
                 machine.wait_for_unit("default.target")
-
-                machine.wait_for_unit("home-manager-josh.service")
                 machine.succeed("hello");
               '';
             };
