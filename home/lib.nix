@@ -54,8 +54,6 @@ let
     derivation {
       inherit (pkgs) system;
       inherit name;
-      allowSubstitutes = true;
-      preferLocalBuild = false;
       PATH = pkgs.lib.makeBinPath [ pkgs.coreutils ];
       builder = ./bin/build-shell-script.sh;
       RUNTIME_SHELL = "${pkgs.bash}/bin/bash";
