@@ -102,6 +102,14 @@
 
       homeModules = {
         default = lib.wrapImportInputs inputs ./home;
+        tui = {
+          imports = [ self.homeModules.default ];
+          my.graphical-desktop = false;
+        };
+        gui = {
+          imports = [ self.homeModules.default ];
+          my.graphical-desktop = true;
+        };
       };
 
       homeConfigurations =
