@@ -1,5 +1,7 @@
 { pkgs, ... }:
 let
+  patchShellScript = (import ./lib.nix).patchShellScript pkgs;
+
   # https://github.com/NixOS/nix/issues/6680
   codespace-fix-tmp-permissions = pkgs.writeShellScriptBin "codespace-fix-tmp-permissions" ''
     OLD_ACL=$(${pkgs.acl}/bin/getfacl /tmp)
@@ -16,9 +18,7 @@ let
     fi
   '';
 
-  deadsymlinks = pkgs.writeShellScriptBin "deadsymlinks" ''
-    find . -type l ! -exec test -r {} \; -print 2>/dev/null
-  '';
+  deadsymlinks = patchShellScript ./bin/deadsymlinks.sh [ pkgs.findutils ];
 
   # http://www.brynosaurus.com/cachedir/
   touch-cachedir-tag = pkgs.writeShellScriptBin "touch-cachedir-tag" ''
