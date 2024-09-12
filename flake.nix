@@ -94,6 +94,7 @@
               testScript = ''
                 machine.wait_for_unit("home-manager-josh.service")
                 machine.succeed("su -- josh -c 'which hello'")
+                machine.succeed("su -- josh -c 'test -f ~/.ssh/authorized_keys'")
               '';
             };
           }
@@ -182,6 +183,9 @@
               ./nixos
             ];
             home-manager.users.${config.my.username} = self.homeModules.default;
+            users.users.${config.my.username}.openssh.authorizedKeys.keyFiles = [
+              "${inputs.dotfiles}/ssh/authorized_keys"
+            ];
           };
       };
     };
