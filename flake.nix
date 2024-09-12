@@ -54,10 +54,6 @@
         "aarch64-linux"
         "x86_64-linux"
       ];
-      linuxSystems = [
-        "aarch64-linux"
-        "x86_64-linux"
-      ];
       forAllSystems = nixpkgs.lib.genAttrs systems;
       mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
       treefmtEval = forAllSystems (
@@ -175,16 +171,5 @@
             system.stateVersion = nixpkgs.lib.trivial.release;
           };
         };
-
-      nixosConfigurations = mapMergeList (system: {
-        # For GitHub Actions CI
-        "test-${system}" = nixpkgs.lib.nixosSystem {
-          inherit system;
-          modules = [
-            self.nixosModules.test
-            { my.username = "runner"; }
-          ];
-        };
-      }) linuxSystems;
     };
 }
