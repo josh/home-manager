@@ -171,24 +171,18 @@
           };
         }) systems;
 
-      nixosModules =
-        let
-          homeModule =
-            { config, ... }:
-            {
-              home-manager.users.${config.my.username} = self.homeModules.default;
-            };
-        in
-        {
-          inherit (home-manager.nixosModules) home-manager;
+      nixosModules = {
+        inherit (home-manager.nixosModules) home-manager;
 
-          default = {
+        default =
+          { config, ... }:
+          {
             imports = [
               home-manager.nixosModules.home-manager
-              homeModule
               ./nixos
             ];
+            home-manager.users.${config.my.username} = self.homeModules.default;
           };
-        };
+      };
     };
 }
