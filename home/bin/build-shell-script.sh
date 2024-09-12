@@ -1,14 +1,11 @@
-#!/bin/bash
+#!/bin/sh
 
-set -euo pipefail
-set -x
+set -eux
 
 [ -n "${out:-}" ]
 [ -n "${name:-}" ]
 
-TEXT="$(cat "$SCRIPT_PATH")"
-[[ $TEXT == "#!/bin/bash"* ]]
-TEXT="${TEXT#*#!/bin/bash$'\n'}"
+TEXT="$(tail +2 "$SCRIPT_PATH")"
 
 mkdir -p "$out/bin"
 
