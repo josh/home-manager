@@ -77,11 +77,14 @@
           {
             ${system}.nixos = pkgs.testers.runNixOSTest {
               name = "nixos";
-              nodes.machine = self.nixosModules.default;
+              nodes.machine = {
+                imports = [ self.nixosModules.default ];
+                services.openssh.enable = true;
+              };
               testScript = ''
                 machine.wait_for_unit("home-manager-josh.service")
                 machine.succeed("su -- josh -c 'which hello'")
-                # machine.succeed("su -- josh -c 'test -f /etc/ssh/authorized_keys.d/josh'")
+                machine.succeed("su -- josh -c 'test -f /etc/ssh/authorized_keys.d/josh'")
               '';
             };
           }
