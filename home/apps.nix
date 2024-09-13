@@ -28,6 +28,7 @@ in
     home.packages = with pkgs; [
       neovide
       obsidian
+      zed-editor
 
       # Fonts
       cascadia-code
