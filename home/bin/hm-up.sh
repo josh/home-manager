@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+if [ -f /etc/nixos ]; then
+  echo "NixOS not supported, use 'os-up' instead" >&2
+  exit 1
+fi
+
 if [ -d .git ] && [ "$(git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
   FLAKE="$(pwd)"
 else
