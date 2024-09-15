@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [ -f /etc/nixos ]; then
+if [ -d /etc/nixos ]; then
   echo "NixOS not supported, use 'os-up' instead" >&2
   exit 1
 fi

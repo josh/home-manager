@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-if [ ! -f /etc/nixos ]; then
+if [ ! -d /etc/nixos ]; then
   echo "Not a NixOS system" >&2
   exit 1
 fi
