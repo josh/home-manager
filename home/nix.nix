@@ -7,36 +7,20 @@
   ...
 }:
 let
-  cachix-push = pkgs.writeShellScriptBin "cachix-push" ''
-    if [ -n "$CACHIX_AUTH_TOKEN" ] || [ -f "$HOME/.config/cachix/cachix.dhall" ]; then
-      exec ${pkgs.cachix}/bin/cachix push josh "$1"
-    else
-      echo "cachix not configured, run cachix authtoken <TOKEN>" >&2
-      exit 0
-    fi
-  '';
+  patchShellScript = (import ./lib.nix).patchShellScript pkgs;
 
-  os-up = pkgs.writeShellScriptBin "os-up" ''
-    set -euo pipefail
-
-    ${pkgs.nh}/bin/nh os switch --out-link /tmp/os-up-result /etc/nixos/
-    ${cachix-push}/bin/cachix-push /tmp/os-up-result
-  '';
-
-  hm-up = pkgs.writeShellScriptBin "hm-up" ''
-    set -euo pipefail
-
-    if [ -d .git ] && [ "$(${pkgs.git}/bin/git remote get-url origin)" = "https://github.com/josh/home-manager" ]; then
-        FLAKE="$(pwd)"
-    else
-        FLAKE="github:josh/home-manager"
-    fi
-    export FLAKE
-    echo "Using $FLAKE as home manager flake" >&2
-
-    ${pkgs.nh}/bin/nh home switch --backup-extension backup --out-link /tmp/hm-up-result -- --refresh
-    ${cachix-push}/bin/cachix-push /tmp/hm-up-result
-  '';
+  cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
+  os-up = patchShellScript ./bin/os-up.sh [
+    cachix-push
+    pkgs.nh
+    pkgs.nix
+  ];
+  hm-up = patchShellScript ./bin/hm-up.sh [
+    cachix-push
+    pkgs.git
+    pkgs.nh
+    pkgs.nix
+  ];
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
