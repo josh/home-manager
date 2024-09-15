@@ -14,11 +14,13 @@ let
   cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
   os-up = patchShellScript ./bin/os-up.sh [
     cachix-push
+    pkgs.coreutils
     pkgs.nh
     pkgs.nix
   ];
   hm-up = patchShellScript ./bin/hm-up.sh [
     cachix-push
+    pkgs.coreutils
     pkgs.git
     pkgs.nh
     pkgs.nix
