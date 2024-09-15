@@ -2,22 +2,9 @@
 let
   patchShellScript = (import ./lib.nix).patchShellScript pkgs;
 
-  # https://github.com/NixOS/nix/issues/6680
-  codespace-fix-tmp-permissions = pkgs.writeShellScriptBin "codespace-fix-tmp-permissions" ''
-    OLD_ACL=$(${pkgs.acl}/bin/getfacl /tmp)
-    sudo ${pkgs.acl}/bin/setfacl -k /tmp
-    NEW_ACL=$(${pkgs.acl}/bin/getfacl /tmp)
-
-    if [ "$OLD_ACL" != "$NEW_ACL" ]; then
-      echo "ACLs changed:"
-      echo "$OLD_ACL"
-      echo "---"
-      echo "$NEW_ACL"
-    else
-        echo "ACLs are the same"
-    fi
-  '';
-
+  codespace-fix-tmp-permissions = patchShellScript ./bin/codespace-fix-tmp-permissions.sh [
+    pkgs.acl
+  ];
   deadsymlinks = patchShellScript ./bin/deadsymlinks.sh [ pkgs.findutils ];
   touch-cachedir-tag = patchShellScript ./bin/touch-cachedir-tag.sh [ ];
 in
