@@ -9,16 +9,6 @@ args@{
 let
   isNixOS = builtins.hasAttr "nixosConfig" args;
 
-  nixos-detect =
-    if isNixOS then
-      (pkgs.writeShellScriptBin "nixos-detect" ''
-        echo "You're running NixOS"
-      '')
-    else
-      (pkgs.writeShellScriptBin "nixos-detect" ''
-        echo "You're running Home Manager standalone"
-      '');
-
   patchShellScript = (import ./lib.nix).patchShellScript pkgs;
 
   cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
@@ -75,9 +65,6 @@ in
         # find dead nix code
         deadnix
 
-        # tool to build/switch to my home-manager config
-        hm-up
-
         # nicer nix cli wrapper
         nh
 
@@ -96,14 +83,11 @@ in
         # fetch resource nar hash
         nurl
 
-        # tool to build/switch to my NixOS config
-        os-up
-
         # linter
         statix
 
-        # Test program
-        nixos-detect
+        # tools to build/switch to my NixOS and home-manager config
+        (if isNixOS then os-up else hm-up)
       ]
       ++
         # Allow cachix to be disabled in CI where it might be already installed
