@@ -1,5 +1,5 @@
 # Tools for developing and managing nix itself
-{
+args@{
   pkgs,
   inputs,
   lib,
@@ -7,6 +7,18 @@
   ...
 }:
 let
+  isNixOS = builtins.hasAttr "nixosConfig" args;
+
+  nixos-detect =
+    if isNixOS then
+      (pkgs.writeShellScriptBin "nixos-detect" ''
+        echo "You're running NixOS"
+      '')
+    else
+      (pkgs.writeShellScriptBin "nixos-detect" ''
+        echo "You're running Home Manager standalone"
+      '');
+
   patchShellScript = (import ./lib.nix).patchShellScript pkgs;
 
   cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
@@ -89,6 +101,9 @@ in
 
         # linter
         statix
+
+        # Test program
+        nixos-detect
       ]
       ++
         # Allow cachix to be disabled in CI where it might be already installed
