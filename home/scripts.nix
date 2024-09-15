@@ -19,11 +19,7 @@ let
   '';
 
   deadsymlinks = patchShellScript ./bin/deadsymlinks.sh [ pkgs.findutils ];
-
-  # http://www.brynosaurus.com/cachedir/
-  touch-cachedir-tag = pkgs.writeShellScriptBin "touch-cachedir-tag" ''
-    echo "Signature: 8a477f597d28d172789f06886806bc55" >CACHEDIR.TAG
-  '';
+  touch-cachedir-tag = patchShellScript ./bin/touch-cachedir-tag.sh [ ];
 in
 {
   home.packages = [
