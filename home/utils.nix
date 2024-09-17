@@ -14,7 +14,6 @@
     hello
     htop
     ipfetch
-    neofetch
     nodePackages.prettier
     onefetch
     python3
