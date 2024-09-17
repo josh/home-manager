@@ -23,6 +23,10 @@
       syntaxHighlighting.enable = true;
     };
 
+    fish = {
+      enable = true;
+    };
+
     tmux = {
       enable = true;
       baseIndex = 1;
@@ -94,6 +98,7 @@
       enable = true;
       nix-direnv.enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
     };
 
@@ -106,12 +111,14 @@
     eza = {
       enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
     };
 
     fzf = {
       enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
       tmux.enableShellIntegration = true;
     };
@@ -119,12 +126,14 @@
     yazi = {
       enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
     };
 
     zoxide = {
       enable = true;
       enableBashIntegration = true;
+      enableFishIntegration = true;
       enableZshIntegration = true;
     };
   };
