@@ -58,7 +58,6 @@ in
 
     extraLuaConfig = lazy-nvim-nix-lib.setupLazyLua {
       inherit pkgs;
-      inherit (pkgs) lib;
       spec = [
         {
           name = "LazyVim";
