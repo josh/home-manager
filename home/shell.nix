@@ -29,6 +29,7 @@
 
     tmux = {
       enable = true;
+      terminal = "tmux-256color";
       baseIndex = 1;
       mouse = true;
       escapeTime = 0;
@@ -61,7 +62,7 @@
       '';
 
       extraConfig = ''
-        set-option -sa terminal-overrides ',xterm-256color:RGB'
+        set-option -sa terminal-features "$TERM:RGB"
 
         set-option -g status-position top
 
