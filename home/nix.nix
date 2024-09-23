@@ -70,6 +70,8 @@ in
         # find dead nix code
         deadnix
 
+        devenv
+
         # nicer nix cli wrapper
         nh
 
