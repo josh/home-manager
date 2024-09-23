@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 let
   git-branch-prune = pkgs.writeShellScriptBin "git-branch-prune" ''
     ${pkgs.git}/bin/git branch --merged | grep -v "\*" | xargs -n 1 ${pkgs.git}/bin/git branch --delete
@@ -43,7 +43,14 @@ in
       };
     };
 
-    lazygit.enable = true;
+    lazygit = {
+      enable = true;
+      settings = {
+        gui = {
+          nerdFontsVersion = if config.my.nerd-fonts then "3" else "";
+        };
+      };
+    };
   };
 
   home.shellAliases = {
