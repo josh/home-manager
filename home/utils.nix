@@ -2,6 +2,9 @@
 {
   home.packages = with pkgs; [
     acl
+    age
+    age-plugin-tpm
+    age-plugin-yubikey
     coreutils
     cowsay
     cpufetch
