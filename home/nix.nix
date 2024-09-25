@@ -15,6 +15,7 @@ let
   os-up = patchShellScript ./bin/os-up.sh [
     cachix-push
     pkgs.coreutils
+    pkgs.gh
     pkgs.git
     pkgs.nh
     pkgs.nix
