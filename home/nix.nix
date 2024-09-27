@@ -8,25 +8,7 @@ args@{
 }:
 let
   isNixOS = builtins.hasAttr "nixosConfig" args;
-
-  patchShellScript = (import ./lib.nix).patchShellScript pkgs;
-
-  cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
-  os-up = patchShellScript ./bin/os-up.sh [
-    cachix-push
-    pkgs.coreutils
-    pkgs.gh
-    pkgs.git
-    pkgs.nh
-    pkgs.nix
-  ];
-  hm-up = patchShellScript ./bin/hm-up.sh [
-    cachix-push
-    pkgs.coreutils
-    pkgs.git
-    pkgs.nh
-    pkgs.nix
-  ];
+  mypkgs = import ../pkgs pkgs;
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
@@ -95,7 +77,7 @@ in
         statix
 
         # tools to build/switch to my NixOS and home-manager config
-        (if isNixOS then os-up else hm-up)
+        (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
       ]
       ++
         # Allow cachix to be disabled in CI where it might be already installed

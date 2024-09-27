@@ -45,32 +45,11 @@ let
     );
 
   wrapImportsInputs = inputs: imports: builtins.map (wrapImportInputs inputs) imports;
-
-  patchShellScript =
-    pkgs: scriptPath: runtimeInputs:
-    let
-      name = pkgs.lib.strings.removeSuffix ".sh" (builtins.baseNameOf scriptPath);
-    in
-    derivation {
-      inherit (pkgs) system;
-      inherit name;
-      PATH = pkgs.lib.makeBinPath [ pkgs.coreutils ];
-      builder = ./bin/build-shell-script.sh;
-      RUNTIME_SHELL = "${pkgs.bash}/bin/bash";
-      RUNTIME_PATH = pkgs.lib.makeBinPath runtimeInputs;
-      SCRIPT_PATH = scriptPath;
-    }
-    // {
-      meta = {
-        mainProgram = name;
-      };
-    };
 in
 {
   inherit
     flake
     flakeInputs
-    patchShellScript
     wrapImportInputs
     wrapImportsInputs
     ;
