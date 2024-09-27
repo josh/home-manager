@@ -10,7 +10,6 @@ in
     ./manager.nix
     ./neovim.nix
     ./nix.nix
-    ./scripts.nix
     ./shell.nix
     ./theme.nix
     ./utils.nix

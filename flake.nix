@@ -59,9 +59,13 @@
       treefmtEval = eachPkgs (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
-      packages = eachPkgs (pkgs: {
-        home-manager = home-manager.defaultPackage.${pkgs.system};
-      });
+      packages = eachPkgs (
+        pkgs:
+        {
+          home-manager = home-manager.defaultPackage.${pkgs.system};
+        }
+        // (import ./pkgs pkgs)
+      );
 
       formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
