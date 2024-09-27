@@ -10,7 +10,7 @@ let
     let
       name = lib.strings.removeSuffix ".sh" (builtins.baseNameOf scriptPath);
       runtimePath = lib.makeBinPath runtimeInputs;
-      runtimePathSuffix = if runtimePath == "" then "" else ":$PATH";
+      runtimePathSuffix = if preservePATH then ":$PATH" else "";
     in
     derivation {
       inherit (pkgs) system;
