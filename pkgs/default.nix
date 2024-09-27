@@ -50,4 +50,7 @@ rec {
       nix
     ]
   );
+
+  git-branch-prune = patchShellScript ./bin/git-branch-prune.sh [ pkgs.git ];
+  git-track = patchShellScript ./bin/git-track.sh [ pkgs.git ];
 }
