@@ -2,9 +2,15 @@ pkgs:
 let
   inherit (pkgs) lib;
   patchShellScript =
-    scriptPath: runtimeInputs:
+    {
+      scriptPath,
+      runtimeInputs ? [ ],
+      preservePATH ? false,
+    }:
     let
       name = lib.strings.removeSuffix ".sh" (builtins.baseNameOf scriptPath);
+      runtimePath = lib.makeBinPath runtimeInputs;
+      runtimePathSuffix = if runtimePath == "" then "" else ":$PATH";
     in
     derivation {
       inherit (pkgs) system;
@@ -12,7 +18,7 @@ let
       PATH = lib.makeBinPath [ pkgs.coreutils ];
       builder = ./bin/build-shell-script.sh;
       RUNTIME_SHELL = "${pkgs.bash}/bin/bash";
-      RUNTIME_PATH = lib.makeBinPath runtimeInputs;
+      RUNTIME_PATH = "${runtimePath}${runtimePathSuffix}";
       SCRIPT_PATH = scriptPath;
     }
     // {
@@ -22,35 +28,63 @@ let
     };
 in
 rec {
-  codespace-fix-tmp-permissions = patchShellScript ./bin/codespace-fix-tmp-permissions.sh [
-    pkgs.acl
-  ];
-  deadsymlinks = patchShellScript ./bin/deadsymlinks.sh [ pkgs.findutils ];
-  touch-cachedir-tag = patchShellScript ./bin/touch-cachedir-tag.sh [ ];
+  codespace-fix-tmp-permissions = patchShellScript {
+    scriptPath = ./bin/codespace-fix-tmp-permissions.sh;
+    runtimeInputs = with pkgs; [ acl ];
+  };
+  deadsymlinks = patchShellScript {
+    scriptPath = ./bin/deadsymlinks.sh;
+    runtimeInputs = with pkgs; [ findutils ];
+  };
+  touch-cachedir-tag = patchShellScript {
+    scriptPath = ./bin/touch-cachedir-tag.sh;
+  };
 
-  cachix-push = patchShellScript ./bin/cachix-push.sh [ pkgs.cachix ];
-  os-up = patchShellScript ./bin/os-up.sh (
-    with pkgs;
-    [
+  cachix-push = patchShellScript {
+    scriptPath = ./bin/cachix-push.sh;
+    runtimeInputs = with pkgs; [ cachix ];
+  };
+  os-up = patchShellScript {
+    scriptPath = ./bin/os-up.sh;
+    runtimeInputs = with pkgs; [
       cachix-push
       coreutils
       gh
       git
       nh
       nix
-    ]
-  );
-  hm-up = patchShellScript ./bin/hm-up.sh (
-    with pkgs;
-    [
+    ];
+  };
+  hm-up = patchShellScript {
+    scriptPath = ./bin/hm-up.sh;
+    runtimeInputs = with pkgs; [
       cachix-push
       coreutils
       git
       nh
       nix
-    ]
-  );
+    ];
+  };
 
-  git-branch-prune = patchShellScript ./bin/git-branch-prune.sh [ pkgs.git ];
-  git-track = patchShellScript ./bin/git-track.sh [ pkgs.git ];
+  git-branch-prune = patchShellScript {
+    scriptPath = ./bin/git-branch-prune.sh;
+    runtimeInputs = with pkgs; [ git ];
+  };
+  git-track = patchShellScript {
+    scriptPath = ./bin/git-track.sh;
+    runtimeInputs = with pkgs; [ git ];
+  };
+
+  tmux-attach = patchShellScript {
+    scriptPath = ./bin/tmux-attach.sh;
+    runtimeInputs = with pkgs; [
+      coreutils
+      tmux
+    ];
+    preservePATH = true;
+  };
+
+  test-fonts = patchShellScript {
+    scriptPath = ./bin/test-fonts.sh;
+  };
 }

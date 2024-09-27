@@ -6,12 +6,8 @@
   ...
 }:
 let
-  test-fonts = pkgs.writeShellScriptBin "test-fonts" ''
-    echo -e "powerline: \ue0a0"
-    echo -e "devicons: \ue700"
-    echo -e "octicons: \uf408"
-    echo -e "emoji: \U0001F40D"
-  '';
+  mypkgs = import ../pkgs pkgs;
+
   theme-backgrounds = {
     "" = "dark";
     "Catppuccin Frappé" = "dark";
@@ -88,6 +84,6 @@ in
           "mocha";
     };
 
-    home.packages = [ test-fonts ];
+    home.packages = [ mypkgs.test-fonts ];
   };
 }

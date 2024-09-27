@@ -5,14 +5,7 @@
   ...
 }:
 let
-  tmux-attach = pkgs.writeShellScriptBin "tmux-attach" ''
-    session=$(${pkgs.tmux}/bin/tmux list-sessions -F "#{session_name}" -f "#{?session_attached,0,1}" 2>/dev/null | ${pkgs.coreutils}/bin/head -n 1)
-    if [ -n "$session" ]; then
-      ${pkgs.tmux}/bin/tmux attach-session -t "$session"
-    else
-      ${pkgs.tmux}/bin/tmux new-session
-    fi
-  '';
+  mypkgs = import ../pkgs pkgs;
 in
 {
   options.my = {
@@ -48,7 +41,7 @@ in
       settings = {
         # import = [ ];
 
-        shell.program = "${tmux-attach}/bin/tmux-attach";
+        shell.program = lib.getExec mypkgs.tmux-attach;
 
         font.normal = {
           family = "JetBrains Mono";
