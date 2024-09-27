@@ -35,7 +35,6 @@
   ];
 
   programs = {
-    bottom.enable = true;
     btop.enable = true;
     fd.enable = true;
     jq.enable = true;
