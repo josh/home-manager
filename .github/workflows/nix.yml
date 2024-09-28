@@ -55,6 +55,10 @@ jobs:
         run: |
           nix run .#home-manager -- build --flake ".#runner@${{ matrix.system }}" --no-out-link
 
+      - name: Set cachix priority
+        run: |
+          nix-env --set-flag priority 0 cachix
+
       - name: Activate home configuration
         run: |
           nix run .#home-manager -- switch --flake ".#runner@${{ matrix.system }}" -b backup
@@ -96,6 +100,10 @@ jobs:
       - name: Build home configuration
         run: |
           home-manager build -f home.nix
+
+      - name: Set cachix priority
+        run: |
+          nix-env --set-flag priority 0 cachix
 
       - name: Activate home configuration
         run: |

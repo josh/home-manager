@@ -13,10 +13,6 @@ in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
-  options.my = {
-    cachix.enable = lib.mkEnableOption "cachix";
-  };
-
   config = {
     nix = {
       package = lib.mkDefault pkgs.nix;
@@ -47,40 +43,37 @@ in
     };
     programs.nix-index-database.comma.enable = true;
 
-    home.packages =
-      with pkgs;
-      [
-        # find dead nix code
-        deadnix
+    home.packages = with pkgs; [
+      cachix
 
-        devenv
+      # find dead nix code
+      deadnix
 
-        # nicer nix cli wrapper
-        nh
+      devenv
 
-        nix-tree
+      # nicer nix cli wrapper
+      nh
 
-        # nix language server
-        nixd
+      nix-tree
 
-        # formatter
-        # nixfmt
-        nixfmt-rfc-style
+      # nix language server
+      nixd
 
-        # build nixos based images
-        nixos-generators
+      # formatter
+      # nixfmt
+      nixfmt-rfc-style
 
-        # fetch resource nar hash
-        nurl
+      # build nixos based images
+      nixos-generators
 
-        # linter
-        statix
+      # fetch resource nar hash
+      nurl
 
-        # tools to build/switch to my NixOS and home-manager config
-        (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
-      ]
-      ++
-        # Allow cachix to be disabled in CI where it might be already installed
-        (lib.lists.optional config.my.cachix.enable pkgs.cachix);
+      # linter
+      statix
+
+      # tools to build/switch to my NixOS and home-manager config
+      (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
+    ];
   };
 }
