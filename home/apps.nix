@@ -41,7 +41,7 @@ in
       settings = {
         # import = [ ];
 
-        shell.program = lib.getExec mypkgs.tmux-attach;
+        shell.program = lib.getExe mypkgs.tmux-attach;
 
         font.normal = {
           family = "JetBrains Mono";
