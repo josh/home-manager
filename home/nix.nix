@@ -43,39 +43,37 @@ in
     };
     programs.nix-index-database.comma.enable = true;
 
-    home.packages =
-      with pkgs;
-      [
-        cachix
+    home.packages = with pkgs; [
+      cachix
 
-        # find dead nix code
-        deadnix
+      # find dead nix code
+      deadnix
 
-        devenv
+      devenv
 
-        # nicer nix cli wrapper
-        nh
+      # nicer nix cli wrapper
+      nh
 
-        nix-tree
+      nix-tree
 
-        # nix language server
-        nixd
+      # nix language server
+      nixd
 
-        # formatter
-        # nixfmt
-        nixfmt-rfc-style
+      # formatter
+      # nixfmt
+      nixfmt-rfc-style
 
-        # build nixos based images
-        nixos-generators
+      # build nixos based images
+      nixos-generators
 
-        # fetch resource nar hash
-        nurl
+      # fetch resource nar hash
+      nurl
 
-        # linter
-        statix
+      # linter
+      statix
 
-        # tools to build/switch to my NixOS and home-manager config
-        (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
-      ]
+      # tools to build/switch to my NixOS and home-manager config
+      (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
+    ];
   };
 }
