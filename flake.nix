@@ -72,6 +72,15 @@
       checks =
         eachSystem (system: {
           treefmt = treefmtEval.${system}.config.build.check self;
+
+          mypkgs =
+            nixpkgs.legacyPackages.${system}.runCommandLocal "mypkgs"
+              {
+                buildInputs = builtins.attrValues self.packages.${system};
+              }
+              ''
+                echo "ok" >$out
+              '';
         })
         // (
           let
