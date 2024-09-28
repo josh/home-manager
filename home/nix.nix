@@ -13,15 +13,6 @@ in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
-  options.my = {
-    cachix.enable = lib.mkOption {
-      default = true;
-      example = true;
-      description = "Whether to enable cachix.";
-      type = lib.types.bool;
-    };
-  };
-
   config = {
     nix = {
       package = lib.mkDefault pkgs.nix;
@@ -55,6 +46,8 @@ in
     home.packages =
       with pkgs;
       [
+        cachix
+
         # find dead nix code
         deadnix
 
@@ -84,8 +77,5 @@ in
         # tools to build/switch to my NixOS and home-manager config
         (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
       ]
-      ++
-        # Allow cachix to be disabled in CI where it might be already installed
-        (lib.lists.optional config.my.cachix.enable pkgs.cachix);
   };
 }

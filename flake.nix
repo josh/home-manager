@@ -169,7 +169,6 @@
                 home.username = "runner";
                 systemd.user.enable = false;
                 my.graphical-desktop = false;
-                my.cachix.enable = false;
               }
             ];
           };
