@@ -69,10 +69,12 @@ rec {
   git-branch-prune = patchShellScript {
     scriptPath = ./bin/git-branch-prune.sh;
     runtimeInputs = with pkgs; [ git ];
+    preservePATH = true;
   };
   git-track = patchShellScript {
     scriptPath = ./bin/git-track.sh;
     runtimeInputs = with pkgs; [ git ];
+    preservePATH = true;
   };
 
   tmux-attach = patchShellScript {
