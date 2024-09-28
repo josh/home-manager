@@ -23,10 +23,15 @@ else
   echo "No GitHub access token" >&2
 fi
 
+nixos_flake="/etc/nixos"
+if [ -L "$nixos_flake" ]; then
+  nixos_flake="$(readlink -f "$nixos_flake")"
+fi
+
 if [ -d .git ] && [[ "$(git remote get-url origin)" == "https://github.com/josh/home-manager"* ]]; then
-  x nh os switch /etc/nixos --out-link /tmp/os-up-result -- --override-input josh-home-manager "$PWD"
+  x nh os switch "$nixos_flake" --out-link /tmp/os-up-result -- --override-input josh-home-manager "$PWD"
 else
-  x nh os switch /etc/nixos --update --out-link /tmp/os-up-result
+  x nh os switch "$nixos_flake" --update --out-link /tmp/os-up-result
 fi
 
 x cachix-push /tmp/os-up-result
