@@ -15,7 +15,7 @@ in
 
   options.my = {
     cachix.enable = lib.mkOption {
-      default = false;
+      default = true;
       example = true;
       description = "Whether to enable cachix.";
       type = lib.types.bool;
