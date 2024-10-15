@@ -21,6 +21,7 @@ in
           "nix-command"
           "flakes"
         ];
+        use-xdg-base-directories = true;
         accept-flake-config = true;
         substituters = [
           "https://cache.nixos.org"
