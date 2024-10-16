@@ -18,5 +18,5 @@ if [ -d .git ] && [[ "$(git remote get-url origin)" == "https://github.com/josh/
 fi
 
 x nh home switch "$FLAKE" --backup-extension backup --out-link /tmp/hm-up-result -- --refresh
-x cachix-push /tmp/hm-up-result
+# x cachix-push /tmp/hm-up-result
 rm /tmp/hm-up-result
