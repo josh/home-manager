@@ -23,6 +23,11 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nurpkgs = {
+      url = "github:josh/nurpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
+    };
     dotfiles = {
       url = "github:josh/dotfiles";
       flake = false;

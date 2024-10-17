@@ -123,6 +123,29 @@
         "type": "github"
       }
     },
+    "nurpkgs": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "treefmt-nix": [
+          "treefmt-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1729129857,
+        "narHash": "sha256-R4e4TCOZuwVh3FtZFQ8v2/a2QegEthLcbn2AmUHvI1s=",
+        "owner": "josh",
+        "repo": "nurpkgs",
+        "rev": "4de13f7baa55546b518883d078f202a4b8e5c9f2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "josh",
+        "repo": "nurpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "catppuccin": "catppuccin",
@@ -132,6 +155,7 @@
         "lazy-nvim-nix": "lazy-nvim-nix",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
+        "nurpkgs": "nurpkgs",
         "treefmt-nix": "treefmt-nix_2"
       }
     },
