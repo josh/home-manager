@@ -3,25 +3,19 @@
 {
   lib,
   buildEnv,
+  josh,
   cachix,
   deadnix,
-  deadsymlinks,
   devenv,
-  git-branch-prune,
-  git-track,
   git,
   hello,
-  hm-up,
   nh,
   nix-tree,
   nixd,
   nixfmt-rfc-style,
   nixos-generators,
   nurl,
-  os-up,
   statix,
-  test-fonts,
-  touch-cachedir-tag,
   installationEnv ? null,
 }:
 assert lib.asserts.assertOneOf "installationEnv" installationEnv [
@@ -33,15 +27,15 @@ buildEnv {
   name = "home-path";
   paths =
     [
-      deadsymlinks
       hello
-      test-fonts
-      touch-cachedir-tag
+      josh.deadsymlinks
+      josh.test-fonts
+      josh.touch-cachedir-tag
 
       # git
       git
-      git-branch-prune
-      git-track
+      josh.git-branch-prune
+      josh.git-track
 
       # nix tools
       cachix
@@ -56,8 +50,8 @@ buildEnv {
       nurl
       statix
     ]
-    ++ (lib.lists.optional (installationEnv == "nixos") os-up)
-    ++ (lib.lists.optional (installationEnv == "home-manager") hm-up);
+    ++ (lib.lists.optional (installationEnv == "nixos") josh.os-up)
+    ++ (lib.lists.optional (installationEnv == "home-manager") josh.hm-up);
 
   pathsToLink = [
     "/bin"

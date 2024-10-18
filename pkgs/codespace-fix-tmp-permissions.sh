@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # https://github.com/NixOS/nix/issues/6680
 
 set -euo pipefail

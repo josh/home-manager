@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "$CACHIX_AUTH_TOKEN" ] || [ -f "$HOME/.config/cachix/cachix.dhall" ]; then
   exec cachix push josh "$1"
