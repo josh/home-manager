@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   home.packages = with pkgs; [
     acl
@@ -33,7 +33,13 @@
     uv
     wget
 
-    josh.codespace-fix-tmp-permissions
+    (
+      if config.home.username == "codespace" || config.home.username == "vscode" then
+        josh.codespace-fix-tmp-permissions
+      else
+        # TODO: Find better way to no-op pkg
+        hello
+    )
     josh.deadsymlinks
     josh.touch-cachedir-tag
   ];

@@ -1,11 +1,17 @@
 pkgs:
 let
   inherit (pkgs) lib;
+  systems = [
+    "aarch64-darwin"
+    "aarch64-linux"
+    "x86_64-linux"
+  ];
   patchShellScript =
     {
       scriptPath,
       runtimeInputs ? [ ],
       preservePATH ? false,
+      platforms ? systems,
     }:
     let
       name = lib.strings.removeSuffix ".sh" (builtins.baseNameOf scriptPath);
@@ -24,6 +30,7 @@ let
     // {
       meta = {
         mainProgram = name;
+        inherit platforms;
       };
     };
 in
@@ -31,6 +38,7 @@ rec {
   codespace-fix-tmp-permissions = patchShellScript {
     scriptPath = ./bin/codespace-fix-tmp-permissions.sh;
     runtimeInputs = with pkgs; [ acl ];
+    platforms = [ "x86_64-linux" ];
   };
   deadsymlinks = patchShellScript {
     scriptPath = ./bin/deadsymlinks.sh;
