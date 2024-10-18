@@ -1,3 +1,5 @@
+# See Nixpkgs: Build an environment section
+# https://nixos.org/manual/nixpkgs/unstable/#sec-building-environment
 {
   lib,
   buildEnv,
