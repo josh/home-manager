@@ -56,4 +56,9 @@ buildEnv {
     ]
     ++ (lib.lists.optional (installationEnv == "nixos") os-up)
     ++ (lib.lists.optional (installationEnv == "home-manager") hm-up);
+
+  postBuild = ''
+    # Remove wrapped binaries, they shouldn't be accessible via PATH.
+    find $out/bin -maxdepth 1 -name ".*-wrapped" -type l -delete
+  '';
 }
