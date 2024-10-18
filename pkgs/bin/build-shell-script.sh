@@ -5,7 +5,7 @@ set -eux
 [ -n "${out:-}" ]
 [ -n "${name:-}" ]
 
-TEXT="$(tail +2 "$SCRIPT_PATH")"
+TEXT="$(sed '1d' "$SCRIPT_PATH")"
 
 mkdir -p "$out/bin"
 

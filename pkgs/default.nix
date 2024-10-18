@@ -21,7 +21,7 @@ let
     derivation {
       inherit (pkgs) system;
       inherit name;
-      PATH = lib.makeBinPath [ pkgs.coreutils ];
+      PATH = lib.makeBinPath [ pkgs.coreutils pkgs.gnused ];
       builder = ./bin/build-shell-script.sh;
       RUNTIME_SHELL = "${pkgs.bash}/bin/bash";
       RUNTIME_PATH = "${runtimePath}${runtimePathSuffix}";
