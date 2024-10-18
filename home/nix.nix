@@ -44,34 +44,6 @@ in
     programs.nix-index-database.comma.enable = true;
 
     home.packages = with pkgs; [
-      cachix
-
-      # find dead nix code
-      deadnix
-
-      devenv
-
-      # nicer nix cli wrapper
-      nh
-
-      nix-tree
-
-      # nix language server
-      nixd
-
-      # formatter
-      # nixfmt
-      nixfmt-rfc-style
-
-      # build nixos based images
-      nixos-generators
-
-      # fetch resource nar hash
-      nurl
-
-      # linter
-      statix
-
       # tools to build/switch to my NixOS and home-manager config
       (if isNixOS then josh.os-up else josh.hm-up)
     ];
