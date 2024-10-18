@@ -1,5 +1,5 @@
 # Tools for developing and managing nix itself
-args@{
+{
   pkgs,
   inputs,
   lib,
