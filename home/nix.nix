@@ -6,9 +6,6 @@ args@{
   config,
   ...
 }:
-let
-  isNixOS = builtins.hasAttr "nixosConfig" args;
-in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
 
@@ -42,10 +39,5 @@ in
       enableZshIntegration = true;
     };
     programs.nix-index-database.comma.enable = true;
-
-    home.packages = with pkgs; [
-      # tools to build/switch to my NixOS and home-manager config
-      (if isNixOS then josh.os-up else josh.hm-up)
-    ];
   };
 }
