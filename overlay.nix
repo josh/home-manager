@@ -2,7 +2,8 @@ final: prev:
 let
   inherit (final) lib;
   prev' = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair "${name}'") prev;
-  callPackage = lib.callPackageWith (final // prev');
+  legacyPkgs = import ./pkgs/default.nix final;
+  callPackage = lib.callPackageWith (final // prev' // legacyPkgs);
 in
 {
   josh =
@@ -11,5 +12,5 @@ in
       directory = ./pkgs;
     }
     # TODO: Remove this workaround for scripts
-    // (import ./pkgs/default.nix final);
+    // legacyPkgs;
 }
