@@ -18,23 +18,25 @@ let
       runtimePath = lib.makeBinPath runtimeInputs;
       runtimePathSuffix = if preservePATH then ":$PATH" else "";
     in
-    derivation {
-      inherit (pkgs) system;
+    pkgs.stdenvNoCC.mkDerivation {
       inherit name;
-      PATH = lib.makeBinPath [
-        pkgs.coreutils
-        pkgs.gnused
-      ];
-      builder = ./bin/build-shell-script.sh;
-      RUNTIME_SHELL = "${pkgs.bash}/bin/bash";
-      RUNTIME_PATH = "${runtimePath}${runtimePathSuffix}";
-      SCRIPT_PATH = scriptPath;
-    }
-    // {
-      meta = {
-        mainProgram = name;
-        inherit platforms;
-      };
+
+      src = scriptPath;
+      dontUnpack = true;
+
+      installPhase = ''
+        mkdir -p "$out/bin"
+
+        cat <<EOF >"$out/bin/$name"
+        #!${pkgs.bash}/bin/bash
+        export PATH="${runtimePath}${runtimePathSuffix}"
+        $(sed '1d' "''${src}")
+        EOF
+        chmod +x "$out/bin/$name"    
+      '';
+
+      meta.mainProgram = name;
+      meta.platforms = platforms;
     };
 in
 rec {
@@ -43,6 +45,7 @@ rec {
     runtimeInputs = with pkgs; [ acl ];
     platforms = [ "x86_64-linux" ];
   };
+
   deadsymlinks = patchShellScript {
     scriptPath = ./bin/deadsymlinks.sh;
     runtimeInputs = with pkgs; [ findutils ];
