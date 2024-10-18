@@ -1,9 +1,8 @@
 # Configure user and home directory itself.
-{
+args@{
   pkgs,
   lib,
   config,
-  nixosConfig ? null,
   ...
 }:
 {
@@ -14,7 +13,7 @@
   };
   home.packages = [
     (pkgs.josh.home-path.override {
-      installationEnv = if nixosConfig != null then "nixos" else "home-manager";
+      installationEnv = if (builtins.hasAttr "nixosConfig" args) then "nixos" else "home-manager";
     })
   ];
 }
