@@ -1,7 +1,4 @@
 { pkgs, ... }:
-let
-  mypkgs = import ../pkgs pkgs;
-in
 {
   home.packages = with pkgs; [
     acl
@@ -36,9 +33,9 @@ in
     uv
     wget
 
-    mypkgs.codespace-fix-tmp-permissions
-    mypkgs.deadsymlinks
-    mypkgs.touch-cachedir-tag
+    josh.codespace-fix-tmp-permissions
+    josh.deadsymlinks
+    josh.touch-cachedir-tag
   ];
 
   programs = {

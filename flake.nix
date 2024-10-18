@@ -62,12 +62,21 @@
       treefmtEval = eachPkgs (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
     {
+      overlays.default = import ./overlay.nix;
+
       packages = eachPkgs (
         pkgs:
-        {
+        let
+          inherit (pkgs) lib;
+          isAvailable =
+            _: pkg: (lib.attrsets.isDerivation pkg) && (lib.meta.availableOn { inherit (pkgs) system; } pkg);
+          pkgs' = pkgs.extend self.overlays.default;
+          availablePkgs = lib.attrsets.filterAttrs isAvailable pkgs'.josh;
+        in
+        availablePkgs
+        // {
           home-manager = home-manager.defaultPackage.${pkgs.system};
         }
-        // (import ./pkgs pkgs)
       );
 
       formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
@@ -76,8 +85,8 @@
         eachSystem (system: {
           treefmt = treefmtEval.${system}.config.build.check self;
 
-          mypkgs =
-            nixpkgs.legacyPackages.${system}.runCommandLocal "mypkgs"
+          pkgs =
+            nixpkgs.legacyPackages.${system}.runCommandLocal "pkgs"
               {
                 buildInputs = builtins.attrValues self.packages.${system};
               }

@@ -4,9 +4,6 @@
   config,
   ...
 }:
-let
-  mypkgs = import ../pkgs pkgs;
-in
 {
   options.my = {
     graphical-desktop = lib.mkOption {
@@ -41,7 +38,7 @@ in
       settings = {
         # import = [ ];
 
-        shell.program = lib.getExe mypkgs.tmux-attach;
+        shell.program = lib.getExe pkgs.josh.tmux-attach;
 
         font.normal = {
           family = "JetBrains Mono";

@@ -8,7 +8,6 @@ args@{
 }:
 let
   isNixOS = builtins.hasAttr "nixosConfig" args;
-  mypkgs = import ../pkgs pkgs;
 in
 {
   imports = [ inputs.nix-index-database.hmModules.nix-index ];
@@ -74,7 +73,7 @@ in
       statix
 
       # tools to build/switch to my NixOS and home-manager config
-      (if isNixOS then mypkgs.os-up else mypkgs.hm-up)
+      (if isNixOS then josh.os-up else josh.hm-up)
     ];
   };
 }

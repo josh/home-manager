@@ -6,7 +6,6 @@
   ...
 }:
 let
-  mypkgs = import ../pkgs pkgs;
 
   theme-backgrounds = {
     "" = "dark";
@@ -84,6 +83,6 @@ in
           "mocha";
     };
 
-    home.packages = [ mypkgs.test-fonts ];
+    home.packages = with pkgs; [ josh.test-fonts ];
   };
 }

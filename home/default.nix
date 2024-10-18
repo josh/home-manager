@@ -14,4 +14,8 @@ in
     ./theme.nix
     ./utils.nix
   ];
+
+  nixpkgs.overlays = [
+    (import ../overlay.nix)
+  ];
 }

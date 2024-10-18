@@ -1,7 +1,4 @@
 { pkgs, config, ... }:
-let
-  mypkgs = import ../pkgs pkgs;
-in
 {
   programs = {
     git = {
@@ -46,8 +43,8 @@ in
     "g" = "git";
   };
 
-  home.packages = [
-    mypkgs.git-branch-prune
-    mypkgs.git-track
+  home.packages = with pkgs; [
+    josh.git-branch-prune
+    josh.git-track
   ];
 }
