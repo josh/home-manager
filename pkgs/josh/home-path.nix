@@ -4,11 +4,13 @@
   lib,
   buildEnv,
   josh,
+  installationEnv ? null,
   cachix,
   deadnix,
   devenv,
   git,
   hello,
+  jujutsu,
   nh,
   nix-tree,
   nixd,
@@ -16,7 +18,6 @@
   nixos-generators,
   nurl,
   statix,
-  installationEnv ? null,
 }:
 assert lib.asserts.assertOneOf "installationEnv" installationEnv [
   null
@@ -36,6 +37,7 @@ buildEnv {
       git
       josh.git-branch-prune
       josh.git-track
+      josh.jujutsu
 
       # nix tools
       cachix
