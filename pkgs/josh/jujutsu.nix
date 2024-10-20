@@ -15,6 +15,8 @@ symlinkJoin {
       --set JJ_CONFIG ${josh.jujutsu-config}
   '';
 
+  meta.mainProgram = "jj";
+
   passthru.tests = {
     version = testers.testVersion {
       package = josh.jujutsu;
