@@ -1,8 +1,10 @@
 {
   symlinkJoin,
   makeWrapper,
+  runCommand,
   jujutsu,
   josh,
+  testers,
 }:
 symlinkJoin {
   name = "josh-jujutsu";
@@ -13,6 +15,26 @@ symlinkJoin {
       --set JJ_CONFIG ${josh.jujutsu-config}
   '';
 
-  # TODO: Add tests
-  # - Assert `jj config get user.name`
+  passthru.tests = {
+    version = testers.testVersion {
+      package = josh.jujutsu;
+      command = "jj version";
+      inherit (jujutsu) version;
+    };
+
+    config =
+      runCommand "test-jj-config"
+        {
+          nativeBuildInputs = [ josh.jujutsu ];
+        }
+        ''
+          expected="Joshua Peek"
+          actual="$(jj config get user.name)"
+          if [[ "$actual" != "$expected" ]]; then
+            echo "expected, '$expected' but was '$actual'"
+            return 1
+          fi
+          touch $out
+        '';
+  };
 }
