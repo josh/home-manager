@@ -68,8 +68,7 @@
         pkgs:
         let
           inherit (pkgs) lib;
-          isAvailable =
-            _: pkg: (lib.attrsets.isDerivation pkg) && (lib.meta.availableOn { inherit (pkgs) system; } pkg);
+          isAvailable = _: pkg: pkg.meta.available;
           pkgs' = pkgs.extend self.overlays.default;
           availablePkgs = lib.attrsets.filterAttrs isAvailable pkgs'.josh;
         in
