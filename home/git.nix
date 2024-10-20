@@ -3,6 +3,8 @@
   programs = {
     git = {
       enable = true;
+
+      package = pkgs.josh.git;
       includes = [
         { path = pkgs.josh.git-config; }
       ];
