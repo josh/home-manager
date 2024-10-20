@@ -3,16 +3,11 @@
   programs = {
     git = {
       enable = true;
-      userEmail = "josh@users.noreply.github.com";
-      userName = "Joshua Peek";
-      aliases = {
-        b = "branch";
-        ci = "commit";
-        co = "checkout";
-        st = "status";
-      };
+      includes = [
+        { path = pkgs.josh.git-config; }
+      ];
 
-      diff-so-fancy.enable = true;
+      # diff-so-fancy.enable = true;
       # other diff tools,
       # delta.enable = true;
       # difftastic.enable = true;
@@ -42,9 +37,4 @@
   home.shellAliases = {
     "g" = "git";
   };
-
-  home.packages = with pkgs; [
-    josh.git-branch-prune
-    josh.git-track
-  ];
 }

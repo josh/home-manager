@@ -33,10 +33,8 @@ buildEnv {
       josh.test-fonts
       josh.touch-cachedir-tag
 
-      # git
-      git
-      josh.git-branch-prune
-      josh.git-track
+      # vcs
+      josh.git
       josh.jujutsu
 
       # nix tools
