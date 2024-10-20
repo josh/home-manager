@@ -1,13 +1,15 @@
 final: prev:
 let
   inherit (final) lib;
-  lib' = import ./pkgs/lib.nix final;
+  private' = {
+    patchShellScript = import ./pkgs/patchShellScript.nix final;
+  };
   prev' = lib.attrsets.mapAttrs' (name: lib.attrsets.nameValuePair "${name}'") prev;
-  callPackage = lib.callPackageWith (final // prev' // lib');
+  callPackage = lib.callPackageWith (final // prev' // private');
 in
 {
   josh = lib.filesystem.packagesFromDirectoryRecursive {
     inherit callPackage;
-    directory = ./pkgs;
+    directory = ./pkgs/josh;
   };
 }
