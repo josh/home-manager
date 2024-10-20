@@ -87,7 +87,7 @@
           pkgs =
             nixpkgs.legacyPackages.${system}.runCommandLocal "pkgs"
               {
-                buildInputs = builtins.attrValues self.packages.${system};
+                all = builtins.attrValues self.packages.${system};
               }
               ''
                 echo "ok" >$out
