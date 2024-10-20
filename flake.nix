@@ -81,18 +81,23 @@
       formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
       checks =
-        eachSystem (system: {
-          treefmt = treefmtEval.${system}.config.build.check self;
-
-          pkgs =
-            nixpkgs.legacyPackages.${system}.runCommandLocal "pkgs"
-              {
-                all = builtins.attrValues self.packages.${system};
-              }
-              ''
-                echo "ok" >$out
-              '';
-        })
+        eachSystem (
+          system:
+          let
+            inherit (nixpkgs) lib;
+            pkgs = nixpkgs.legacyPackages.${system};
+            localPkgs = builtins.attrValues self.packages.${system};
+            localTests = lib.concatMap (
+              pkg:
+              if (builtins.hasAttr "tests" pkg.passthru) then (builtins.attrValues pkg.passthru.tests) else [ ]
+            ) localPkgs;
+          in
+          {
+            treefmt = treefmtEval.${system}.config.build.check self;
+            build = pkgs.runCommandLocal "build-packages" { inherit localPkgs; } "touch $out";
+            tests = pkgs.runCommand "run-tests" { inherit localTests; } "touch $out";
+          }
+        )
         // (
           let
             system = "x86_64-linux";
