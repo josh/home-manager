@@ -14,6 +14,7 @@ args@{
   home.packages = [
     (pkgs.josh.home-path.override {
       installationEnv = if (builtins.hasAttr "nixosConfig" args) then "nixos" else "home-manager";
+      useNerdFonts = config.my.nerd-fonts;
     })
   ];
 }
