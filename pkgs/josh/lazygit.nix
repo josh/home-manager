@@ -1,9 +1,10 @@
 {
+  useNerdFonts ? false,
   symlinkJoin,
   makeWrapper,
   lazygit,
   josh,
-  useNerdFonts ? false,
+  testers,
 }:
 symlinkJoin {
   name = "josh-lazygit";
@@ -18,4 +19,12 @@ symlinkJoin {
   '';
 
   meta.mainProgram = "lazygit";
+
+  passthru.tests = {
+    version = testers.testVersion {
+      package = josh.lazygit;
+      command = "lazygit --version";
+      inherit (lazygit) version;
+    };
+  };
 }
