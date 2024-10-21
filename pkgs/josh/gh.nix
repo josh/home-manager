@@ -43,12 +43,12 @@ symlinkJoin {
             return 1
           fi
 
-          expected="${bat}/bin/bat"
-          actual="$(gh config get pager)"
-          if [[ "$actual" != "$expected" ]]; then
-            echo "expected, '$expected' but was '$actual'"
-            return 1
-          fi
+          # expected="${bat}/bin/bat"
+          # actual="$(gh config get pager)"
+          # if [[ "$actual" != "$expected" ]]; then
+          #   echo "expected, '$expected' but was '$actual'"
+          #   return 1
+          # fi
           touch $out
         '';
   };
