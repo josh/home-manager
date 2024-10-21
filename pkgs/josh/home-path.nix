@@ -8,6 +8,7 @@
   cachix,
   deadnix,
   devenv,
+  gh,
   git,
   hello,
   jujutsu,
@@ -34,6 +35,7 @@ buildEnv {
       josh.touch-cachedir-tag
 
       # vcs
+      josh.gh
       josh.git
       josh.jujutsu
 

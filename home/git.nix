@@ -3,19 +3,9 @@
   programs = {
     git = {
       enable = true;
-
       package = pkgs.josh.git;
-      includes = [
-        { path = pkgs.josh.git-config; }
-      ];
-
-      # diff-so-fancy.enable = true;
-      # other diff tools,
-      # delta.enable = true;
-      # difftastic.enable = true;
+      includes = [ { path = pkgs.josh.git-config; } ];
     };
-
-    gh.enable = true;
 
     gitui = {
       enable = true;
