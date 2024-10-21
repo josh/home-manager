@@ -12,7 +12,6 @@
   gh,
   git,
   hello,
-  jujutsu,
   nh,
   nix-tree,
   nixd,
@@ -38,7 +37,6 @@ buildEnv {
       # vcs
       josh.gh
       josh.git
-      josh.jujutsu
       (josh.lazygit.override { inherit useNerdFonts; })
 
       # nix tools
