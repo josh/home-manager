@@ -5,6 +5,7 @@
   buildEnv,
   josh,
   installationEnv ? null,
+  useNerdFonts ? false,
   cachix,
   deadnix,
   devenv,
@@ -38,6 +39,7 @@ buildEnv {
       josh.gh
       josh.git
       josh.jujutsu
+      (josh.lazygit.override { inherit useNerdFonts; })
 
       # nix tools
       cachix
