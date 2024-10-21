@@ -15,9 +15,11 @@ symlinkJoin {
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
-    wrapProgram $out/bin/gh \
-      --set GH_CONFIG_DIR ${josh.gh-config}
+    wrapProgram $out/bin/gh
   '';
+  # Disabled GH_CONFIG_DIR for now
+  # --set GH_CONFIG_DIR ${josh.gh-config}
+  # gh wants to write "$GH_CONFIG_DIR/hosts.yml" with secrets
 
   meta.mainProgram = "gh";
 
