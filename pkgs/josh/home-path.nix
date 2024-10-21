@@ -11,7 +11,6 @@
   gh,
   git,
   hello,
-  jujutsu,
   nh,
   nix-tree,
   nixd,
@@ -37,7 +36,6 @@ buildEnv {
       # vcs
       josh.gh
       josh.git
-      josh.jujutsu
 
       # nix tools
       cachix
