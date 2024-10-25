@@ -11,6 +11,7 @@ symlinkJoin {
   paths = [
     git
     josh.git-branch-prune
+    josh.git-fetch-dir
     josh.git-track
   ];
   buildInputs = [ makeWrapper ];
