@@ -18,11 +18,11 @@
     "dotfiles": {
       "flake": false,
       "locked": {
-        "lastModified": 1730143580,
-        "narHash": "sha256-+r2zPil61NaISn2491mgA9Xm9y3C0o1X3zNP2UtyIyQ=",
+        "lastModified": 1730307853,
+        "narHash": "sha256-1aEZi+pp/knQqPxVZ+ERFp4RdOsYEqL+pajxeVRJTAA=",
         "owner": "josh",
         "repo": "dotfiles",
-        "rev": "ce4ef5f614fa0a4527bf5c15da8cfad36e7c9eda",
+        "rev": "d625e0a72182671f9a33af86eab124a9f2386d2c",
         "type": "github"
       },
       "original": {
@@ -133,11 +133,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1730174442,
-        "narHash": "sha256-5I3mgkFcBK5vh0DoO93yRauQ0pWKw7dLWArHDw+NlLI=",
+        "lastModified": 1730250120,
+        "narHash": "sha256-ICarkHC0LTk6s403NazemD7q270D3qJinfxeVRtPnP8=",
         "owner": "josh",
         "repo": "nurpkgs",
-        "rev": "a1ca2c831c07e0328e5bfded632ad333b1f645db",
+        "rev": "93bab422fb803f8a743be7567c32fd63cc7167e1",
         "type": "github"
       },
       "original": {
