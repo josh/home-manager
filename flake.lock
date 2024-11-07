@@ -74,11 +74,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1730873443,
-        "narHash": "sha256-v+YyYv3Hk6pPxpp4zk/21tCUF8WanZAK9MOxP89OA/g=",
+        "lastModified": 1730920291,
+        "narHash": "sha256-PDVxXcKVz0PN74ahL+IhYX/n9UJZr5MjqTvs0t3bTGU=",
         "owner": "josh",
         "repo": "lazy-nvim-nix",
-        "rev": "1dfe2e30d9875f385df1d6101c6093413a4965dc",
+        "rev": "2183d62d589507967ac675f5629247e34d9d7908",
         "type": "github"
       },
       "original": {
