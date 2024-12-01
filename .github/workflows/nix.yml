@@ -136,6 +136,9 @@ jobs:
       - name: Update channels
         run: nix-channel --update
 
+      - name: List channels
+        run: nix-channel --list
+
       - name: Install home-manager
         run: |
           nix-shell '<home-manager>' -A install
