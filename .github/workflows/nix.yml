@@ -121,12 +121,16 @@ jobs:
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            extra-nix-path = ""
+            extra-nix-path = x=
 
       - uses: cachix/cachix-action@v15
         with:
           name: josh
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
+
+      - name: Remove nixpkgs registry
+        run: |
+          nix registry remove nixpkgs
 
       - name: Add channels
         run: |
