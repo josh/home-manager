@@ -111,7 +111,8 @@
                 services.openssh.enable = true;
               };
               testScript = ''
-                machine.wait_for_unit("home-manager-josh.service")
+                machine.wait_for_unit("multi-user.target")
+                machine.require_unit_state("home-manager-josh.service", "inactive")
                 machine.succeed("su -- josh -c 'which hello'")
                 machine.succeed("su -- josh -c 'test -f /etc/ssh/authorized_keys.d/josh'")
               '';
