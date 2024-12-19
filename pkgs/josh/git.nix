@@ -3,6 +3,7 @@
   makeWrapper,
   runCommand,
   git,
+  nixbits,
   josh,
   testers,
 }:
@@ -12,7 +13,7 @@ symlinkJoin {
     git
     josh.git-branch-prune
     josh.git-fetch-dir
-    josh.git-track
+    nixbits.git-track
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
@@ -65,6 +66,7 @@ symlinkJoin {
         }
         ''
           git init
+          git commit --allow-empty -m "initial commit"
           git track
           touch $out
         '';
