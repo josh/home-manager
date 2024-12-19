@@ -107,6 +107,26 @@
         "type": "github"
       }
     },
+    "nixbits": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1734590014,
+        "narHash": "sha256-cCtOB/wkzgbypQkAYlpkZWcNvp9s/pwXk8AKSdK+2xA=",
+        "owner": "josh",
+        "repo": "nixbits",
+        "rev": "f1bd677989fc22a1bf74755467e202957ea2c453",
+        "type": "github"
+      },
+      "original": {
+        "owner": "josh",
+        "repo": "nixbits",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1734119587,
@@ -154,6 +174,7 @@
         "home-manager": "home-manager",
         "lazy-nvim-nix": "lazy-nvim-nix",
         "nix-index-database": "nix-index-database",
+        "nixbits": "nixbits",
         "nixpkgs": "nixpkgs",
         "nurpkgs": "nurpkgs",
         "treefmt-nix": "treefmt-nix_2"
