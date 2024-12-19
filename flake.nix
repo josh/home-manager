@@ -49,6 +49,7 @@
     inputs@{
       self,
       nixpkgs,
+      nixbits,
       treefmt-nix,
       home-manager,
       ...
@@ -61,7 +62,18 @@
         "x86_64-linux"
       ];
       eachSystem = nixpkgs.lib.genAttrs systems;
-      eachPkgs = f: nixpkgs.lib.genAttrs systems (system: f nixpkgs.legacyPackages.${system});
+      eachPkgs =
+        f:
+        nixpkgs.lib.genAttrs systems (
+          system:
+          let
+            pkgs = import nixpkgs {
+              inherit system;
+              overlays = [ nixbits.overlays.default ];
+            };
+          in
+          f pkgs
+        );
       mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
       treefmtEval = eachPkgs (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
     in
@@ -85,11 +97,11 @@
       formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
 
       checks =
-        eachSystem (
-          system:
+        eachPkgs (
+          pkgs:
           let
             inherit (nixpkgs) lib;
-            pkgs = nixpkgs.legacyPackages.${system};
+            inherit (pkgs) system;
             localPkgs = builtins.attrValues self.packages.${system};
             localTests = lib.concatMap (
               pkg:

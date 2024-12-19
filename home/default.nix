@@ -16,6 +16,7 @@ in
   ];
 
   nixpkgs.overlays = [
+    inputs.nixbits.overlays.default
     (import ../overlay.nix)
   ];
 }

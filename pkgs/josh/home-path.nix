@@ -3,6 +3,7 @@
 {
   lib,
   buildEnv,
+  nixbits,
   josh,
   installationEnv ? null,
   useNerdFonts ? false,
@@ -30,7 +31,7 @@ buildEnv {
   paths =
     [
       hello
-      josh.deadsymlinks
+      nixbits.deadsymlinks
       josh.test-fonts
       josh.touch-cachedir-tag
 

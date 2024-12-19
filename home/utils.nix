@@ -40,7 +40,7 @@
         # TODO: Find better way to no-op pkg
         hello
     )
-    josh.deadsymlinks
+    nixbits.deadsymlinks
     josh.touch-cachedir-tag
   ];
 
