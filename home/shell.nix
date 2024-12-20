@@ -40,27 +40,6 @@
         { plugin = vim-tmux-navigator; }
       ];
 
-      catppuccin.extraConfig = ''
-        set-option -g @catppuccin_window_left_separator ""
-        set-option -g @catppuccin_window_right_separator " "
-        set-option -g @catppuccin_window_middle_separator " █"
-        set-option -g @catppuccin_window_number_position "right"
-
-        set-option -g @catppuccin_window_default_fill "number"
-        set-option -g @catppuccin_window_default_text "#W"
-
-        set-option -g @catppuccin_window_current_fill "number"
-        set-option -g @catppuccin_window_current_text "#W"
-
-        set-option -g @catppuccin_status_modules_right "directory user host session"
-        set-option -g @catppuccin_status_left_separator  " "
-        set-option -g @catppuccin_status_right_separator ""
-        set-option -g @catppuccin_status_fill "icon"
-        set-option -g @catppuccin_status_connect_separator "no"
-
-        set-option -g @catppuccin_directory_text "#{pane_current_path}"
-      '';
-
       extraConfig = ''
         set-option -sa terminal-features "$TERM:RGB"
 
@@ -137,4 +116,25 @@
       enableZshIntegration = true;
     };
   };
+
+  catppuccin.tmux.extraConfig = ''
+    set-option -g @catppuccin_window_left_separator ""
+    set-option -g @catppuccin_window_right_separator " "
+    set-option -g @catppuccin_window_middle_separator " █"
+    set-option -g @catppuccin_window_number_position "right"
+
+    set-option -g @catppuccin_window_default_fill "number"
+    set-option -g @catppuccin_window_default_text "#W"
+
+    set-option -g @catppuccin_window_current_fill "number"
+    set-option -g @catppuccin_window_current_text "#W"
+
+    set-option -g @catppuccin_status_modules_right "directory user host session"
+    set-option -g @catppuccin_status_left_separator  " "
+    set-option -g @catppuccin_status_right_separator ""
+    set-option -g @catppuccin_status_fill "icon"
+    set-option -g @catppuccin_status_connect_separator "no"
+
+    set-option -g @catppuccin_directory_text "#{pane_current_path}"
+  '';
 }
