@@ -49,7 +49,6 @@
       self,
       nixpkgs,
       nixbits,
-      treefmt-nix,
       home-manager,
       ...
     }:
@@ -74,7 +73,7 @@
           f pkgs
         );
       mapMergeList = fn: lst: nixpkgs.lib.mergeAttrsList (builtins.map fn lst);
-      treefmtEval = eachPkgs (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      treefmt-nix = eachPkgs (pkgs: import ./internal/treefmt.nix pkgs);
     in
     {
       overlays.default = import ./overlay.nix;
@@ -93,7 +92,7 @@
         }
       );
 
-      formatter = eachSystem (system: treefmtEval.${system}.config.build.wrapper);
+      formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
 
       checks =
         eachPkgs (
@@ -108,7 +107,7 @@
             ) localPkgs;
           in
           {
-            treefmt = treefmtEval.${system}.config.build.check self;
+            treefmt = treefmt-nix.${system}.check self;
             build = pkgs.runCommandLocal "build-packages" { inherit localPkgs; } "touch $out";
             tests = pkgs.runCommand "run-tests" { inherit localTests; } "touch $out";
           }
