@@ -24,7 +24,6 @@
     nurpkgs = {
       url = "github:josh/nurpkgs";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
     };
     nixbits = {
       url = "github:josh/nixbits";
