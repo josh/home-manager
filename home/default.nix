@@ -8,7 +8,6 @@ in
     ./git.nix
     ./home.nix
     ./manager.nix
-    ./neovim.nix
     ./nix.nix
     ./shell.nix
     ./theme.nix
@@ -16,6 +15,7 @@ in
   ];
 
   nixpkgs.overlays = [
+    inputs.lazy-nvim-nix.overlays.default
     inputs.nixbits.overlays.default
     (import ../overlay.nix)
   ];

@@ -1,6 +1,17 @@
-{ pkgs, config, ... }:
+{
+  pkgs,
+  config,
+  inputs,
+  ...
+}:
+let
+  inherit (pkgs) system;
+  inherit (inputs.lazy-nvim-nix.packages.${system}) LazyVim;
+
+in
 {
   home.packages = with pkgs; [
+    LazyVim
     acl
     age
     age-plugin-tpm
@@ -14,6 +25,7 @@
     duf
     fastfetch
     file
+    helix
     hello
     htop
     ipfetch
