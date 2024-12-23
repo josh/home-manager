@@ -11,6 +11,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    # keep-sorted start
     LazyVim
     acl
     age
@@ -44,6 +45,7 @@ in
     unzip
     uv
     wget
+    # keep-sorted end
 
     (
       if config.home.username == "codespace" || config.home.username == "vscode" then
