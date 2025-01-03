@@ -63,14 +63,6 @@
         enable = config.my.powerline-fonts;
         settings = lib.mkMerge [
           (lib.mkIf (!config.my.nerd-fonts) (preset "no-nerd-font"))
-          (lib.mkIf config.catppuccin.enable (
-            # https://github.com/catppuccin/starship/blob/ca2fb06/starship.toml
-            {
-              directory.style = "bold lavender";
-              palette = "catppuccin_${config.catppuccin.flavor}";
-            }
-            // (lib.importTOML "${config.catppuccin.sources.starship}/themes/${config.catppuccin.flavor}.toml")
-          ))
         ];
       };
 
