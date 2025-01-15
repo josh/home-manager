@@ -11,8 +11,8 @@ symlinkJoin {
   name = "josh-git";
   paths = [
     git
-    josh.git-branch-prune
-    josh.git-fetch-dir
+    nixbits.git-branch-prune
+    nixbits.git-fetch-dir
     nixbits.git-track
   ];
   buildInputs = [ makeWrapper ];
