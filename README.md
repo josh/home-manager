@@ -4,15 +4,13 @@ My Nix Home Manager.
 
 ## Installation
 
-### Flakes
-
-#### Standalone
+### Standalone
 
 ```sh
 $ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/home-manager#josh@x86_64-linux-tui
 ```
 
-#### NixOS module
+### NixOS module
 
 ```nix
 {
@@ -32,22 +30,5 @@ $ nix run github:josh/home-manager#home-manager -- switch --flake github:josh/ho
         modules = [ josh-home-manager.nixosModules.default ];
       };
     };
-}
-```
-
-### Channels
-
-```sh
-$ sudo nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-$ sudo nix-channel --add https://github.com/josh/home-manager/archive/main.tar.gz josh-home-manager
-$ sudo nix-channel --update
-```
-
-#### NixOS module
-
-```nix
-{ config, pkgs, ... }:
-{
-  imports = [ <josh-home-manager/nixos.nix> ];
 }
 ```
