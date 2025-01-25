@@ -103,7 +103,10 @@
     },
     "home-manager": {
       "inputs": {
-        "nixpkgs": ["catppuccin", "nixpkgs"]
+        "nixpkgs": [
+          "catppuccin",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736508663,
@@ -121,7 +124,10 @@
     },
     "home-manager-stable": {
       "inputs": {
-        "nixpkgs": ["catppuccin", "nixpkgs-stable"]
+        "nixpkgs": [
+          "catppuccin",
+          "nixpkgs-stable"
+        ]
       },
       "locked": {
         "lastModified": 1736373539,
@@ -140,7 +146,9 @@
     },
     "home-manager_2": {
       "inputs": {
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736785676,
@@ -158,8 +166,16 @@
     },
     "ixx": {
       "inputs": {
-        "flake-utils": ["catppuccin", "nuscht-search", "flake-utils"],
-        "nixpkgs": ["catppuccin", "nuscht-search", "nixpkgs"]
+        "flake-utils": [
+          "catppuccin",
+          "nuscht-search",
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "catppuccin",
+          "nuscht-search",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1729958008,
@@ -178,7 +194,9 @@
     },
     "lazy-nvim-nix": {
       "inputs": {
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736820549,
@@ -196,7 +214,9 @@
     },
     "nix-index-database": {
       "inputs": {
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736652904,
@@ -214,7 +234,9 @@
     },
     "nixbits": {
       "inputs": {
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736955901,
@@ -264,11 +286,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1736798957,
-        "narHash": "sha256-qwpCtZhSsSNQtK4xYGzMiyEDhkNzOCz/Vfu4oL2ETsQ=",
+        "lastModified": 1737746512,
+        "narHash": "sha256-nU6AezEX4EuahTO1YopzueAXfjFfmCHylYEFCagduHU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9abb87b552b7f55ac8916b6fc9e5cb486656a2f3",
+        "rev": "825479c345a7f806485b7f00dbe3abb50641b083",
         "type": "github"
       },
       "original": {
@@ -280,7 +302,9 @@
     },
     "nurpkgs": {
       "inputs": {
-        "nixpkgs": ["nixpkgs"]
+        "nixpkgs": [
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1736955803,
@@ -300,7 +324,10 @@
       "inputs": {
         "flake-utils": "flake-utils",
         "ixx": "ixx",
-        "nixpkgs": ["catppuccin", "nixpkgs"]
+        "nixpkgs": [
+          "catppuccin",
+          "nixpkgs"
+        ]
       },
       "locked": {
         "lastModified": 1735854821,

@@ -18,26 +18,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        system:
-          - "aarch64-darwin"
-          - "aarch64-linux"
-          - "x86_64-linux"
+        include:
+          - system: "aarch64-darwin"
+            os: "macos-15"
+          - system: "aarch64-linux"
+            os: "ubuntu-24.04-arm"
+          - system: "x86_64-linux"
+            os: "ubuntu-24.04"
 
-    runs-on: ${{ endsWith(matrix.system, '-darwin') && 'macos-15' || 'ubuntu-24.04' }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@v4
 
-      - if: matrix.system == 'aarch64-linux'
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            system = ${{ matrix.system }}
             accept-flake-config = true
 
       - uses: cachix/cachix-action@v15
@@ -58,25 +55,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        system:
-          - "aarch64-linux"
-          - "x86_64-linux"
+        include:
+          - system: "aarch64-linux"
+            os: "ubuntu-24.04-arm"
+          - system: "x86_64-linux"
+            os: "ubuntu-24.04"
 
-    runs-on: ${{ endsWith(matrix.system, '-darwin') && 'macos-15' || 'ubuntu-24.04' }}
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 60
 
     steps:
       - uses: actions/checkout@v4
 
-      - if: matrix.system == 'aarch64-linux'
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: arm64
-
       - uses: DeterminateSystems/nix-installer-action@main
         with:
           extra-conf: |
-            system = ${{ matrix.system }}
             accept-flake-config = true
 
       - uses: cachix/cachix-action@v15
