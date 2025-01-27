@@ -76,11 +76,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1737999431,
-        "narHash": "sha256-hhNWuOTbZe6e4OslRogX2YopVoqXoJBjhPoVHItvF1k=",
+        "lastModified": 1738006316,
+        "narHash": "sha256-CUI2iFswfJiw1iMepby8f0ePRwFlyTnJERevurb6Cmg=",
         "owner": "josh",
         "repo": "lazy-nvim-nix",
-        "rev": "c2e437b19d06910da9c09af055deb85cbacc9672",
+        "rev": "7a89cb5a71b7a9bc2425f00e75c91ef73e22c738",
         "type": "github"
       },
       "original": {
