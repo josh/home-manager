@@ -37,7 +37,7 @@ buildEnv {
 
       # vcs
       josh.gh
-      josh.git
+      nixbits.git
       (josh.lazygit.override { inherit useNerdFonts; })
 
       # nix tools

@@ -4,6 +4,7 @@
   runCommand,
   bat,
   gh,
+  nixbits,
   josh,
   testers,
 }:
@@ -11,7 +12,7 @@ symlinkJoin {
   name = "josh-gh";
   paths = [
     gh
-    josh.git
+    nixbits.git
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''

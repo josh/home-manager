@@ -3,7 +3,7 @@
   programs = {
     git = {
       enable = true;
-      package = pkgs.josh.git;
+      package = pkgs.nixbits.git;
       includes = [ { path = pkgs.josh.git-config; } ];
     };
 

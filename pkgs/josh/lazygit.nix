@@ -3,6 +3,7 @@
   symlinkJoin,
   makeWrapper,
   lazygit,
+  nixbits,
   josh,
   testers,
 }:
@@ -10,7 +11,7 @@ symlinkJoin {
   name = "josh-lazygit";
   paths = [
     lazygit
-    josh.git
+    nixbits.git
   ];
   buildInputs = [ makeWrapper ];
   postBuild = ''
