@@ -84,7 +84,7 @@
         in
         availablePkgs
         // {
-          home-manager = home-manager.defaultPackage.${pkgs.system};
+          home-manager = home-manager.packages.${pkgs.system}.default;
         }
       );
 
