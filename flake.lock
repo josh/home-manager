@@ -117,11 +117,11 @@
         "nurpkgs": "nurpkgs"
       },
       "locked": {
-        "lastModified": 1740256451,
-        "narHash": "sha256-gVmHxeADPBs9Qkg9rO82QMa7ZAA8Sx5FDWs5dXEL894=",
+        "lastModified": 1740264403,
+        "narHash": "sha256-UfE3gJAlRvr9SuLTUckmxjNesRLIEel7OXz/rfZ98tg=",
         "owner": "josh",
         "repo": "nixbits",
-        "rev": "84c93b59e01c98e065781a7fffc01114c42797e8",
+        "rev": "942a2277cc19e6caa3c0c6c39ef7aabf0c53a69e",
         "type": "github"
       },
       "original": {

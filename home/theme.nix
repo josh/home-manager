@@ -83,6 +83,6 @@ in
           "mocha";
     };
 
-    home.packages = with pkgs; [ josh.test-fonts ];
+    home.packages = with pkgs; [ nixbits.test-fonts ];
   };
 }

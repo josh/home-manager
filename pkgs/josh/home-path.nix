@@ -32,7 +32,7 @@ buildEnv {
     [
       hello
       nixbits.deadsymlinks
-      josh.test-fonts
+      nixbits.test-fonts
       nixbits.touch-cachedir-tag
 
       # vcs
