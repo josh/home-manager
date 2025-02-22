@@ -4,7 +4,7 @@
     git = {
       enable = true;
       package = pkgs.nixbits.git;
-      includes = [ { path = pkgs.josh.git-config; } ];
+      includes = [ { path = pkgs.nixbits.git-config; } ];
     };
 
     gitui = {
