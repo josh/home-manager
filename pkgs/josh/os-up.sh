@@ -34,5 +34,4 @@ else
   x nh os switch "$nixos_flake" --update --out-link /tmp/os-up-result
 fi
 
-# x cachix-push /tmp/os-up-result
 rm /tmp/os-up-result

@@ -1,6 +1,5 @@
 {
   patchShellScript,
-  josh,
   coreutils,
   git,
   nh,
@@ -11,7 +10,6 @@ patchShellScript {
   runtimeInputs = [
     coreutils
     git
-    josh.cachix-push
     nh
     nix
   ];

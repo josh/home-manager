@@ -1,6 +1,5 @@
 {
   patchShellScript,
-  josh,
   coreutils,
   gh,
   git,
@@ -13,7 +12,6 @@ patchShellScript {
     coreutils
     gh
     git
-    josh.cachix-push
     nh
     nix
   ];
