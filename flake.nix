@@ -134,72 +134,20 @@
         default = lib.wrapImportInputs inputs ./home;
       };
 
-      homeConfigurations =
-        {
-          "codespace" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.default
-              {
-                home.username = "codespace";
-                my.graphical-desktop = false;
-                my.powerline-fonts = true;
-                my.nerd-fonts = false;
-              }
-            ];
-          };
-
-          "vscode" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.x86_64-linux;
-            modules = [
-              self.homeModules.default
-              {
-                home.username = "vscode";
-                my.graphical-desktop = false;
-                my.powerline-fonts = true;
-                my.nerd-fonts = false;
-              }
-            ];
-          };
-        }
-        // mapMergeList (system: {
-          "josh@${system}-tui" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [
-              self.homeModules.default
-              {
-                my.graphical-desktop = false;
-                my.powerline-fonts = false;
-                my.nerd-fonts = false;
-              }
-            ];
-          };
-
-          "josh@${system}-gui" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [
-              self.homeModules.default
-              {
-                my.graphical-desktop = true;
-                my.powerline-fonts = false;
-                my.nerd-fonts = false;
-              }
-            ];
-          };
-
-          # For GitHub Actions CI
-          "runner@${system}" = home-manager.lib.homeManagerConfiguration {
-            pkgs = nixpkgs.legacyPackages.${system};
-            modules = [
-              self.homeModules.default
-              {
-                home.username = "runner";
-                systemd.user.enable = false;
-                my.graphical-desktop = false;
-              }
-            ];
-          };
-        }) systems;
+      homeConfigurations = mapMergeList (system: {
+        # For GitHub Actions CI
+        "runner@${system}" = home-manager.lib.homeManagerConfiguration {
+          pkgs = nixpkgs.legacyPackages.${system};
+          modules = [
+            self.homeModules.default
+            {
+              home.username = "runner";
+              systemd.user.enable = false;
+              my.graphical-desktop = false;
+            }
+          ];
+        };
+      }) systems;
 
       nixosModules = {
         inherit (home-manager.nixosModules) home-manager;
