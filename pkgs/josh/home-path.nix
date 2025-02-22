@@ -28,33 +28,30 @@ assert lib.asserts.assertOneOf "installationEnv" installationEnv [
 ];
 buildEnv {
   name = "home-path";
-  paths =
-    [
-      hello
-      nixbits.deadsymlinks
-      nixbits.test-fonts
-      nixbits.touch-cachedir-tag
+  paths = [
+    hello
+    nixbits.deadsymlinks
+    nixbits.test-fonts
+    nixbits.touch-cachedir-tag
 
-      # vcs
-      gh
-      nixbits.git
-      (nixbits.lazygit.override { inherit useNerdFonts; })
+    # vcs
+    gh
+    nixbits.git
+    (nixbits.lazygit.override { inherit useNerdFonts; })
 
-      # nix tools
-      cachix
-      deadnix
-      devenv
-      nh
-      nix-tree
-      nixd
-      # nixfmt
-      nixfmt-rfc-style
-      nixos-generators
-      nurl
-      statix
-    ]
-    ++ (lib.lists.optional (installationEnv == "nixos") josh.os-up)
-    ++ (lib.lists.optional (installationEnv == "home-manager") josh.hm-up);
+    # nix tools
+    cachix
+    deadnix
+    devenv
+    nh
+    nix-tree
+    nixd
+    # nixfmt
+    nixfmt-rfc-style
+    nixos-generators
+    nurl
+    statix
+  ] ++ (lib.lists.optional (installationEnv == "nixos") josh.os-up);
 
   pathsToLink = [
     "/bin"
