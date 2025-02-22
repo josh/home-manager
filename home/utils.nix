@@ -1,6 +1,5 @@
 {
   pkgs,
-  config,
   inputs,
   ...
 }:
@@ -30,6 +29,8 @@ in
     hello
     htop
     ipfetch
+    josh.touch-cachedir-tag
+    nixbits.deadsymlinks
     nodePackages.prettier
     onefetch
     python3
@@ -46,16 +47,6 @@ in
     uv
     wget
     # keep-sorted end
-
-    (
-      if config.home.username == "codespace" || config.home.username == "vscode" then
-        josh.codespace-fix-tmp-permissions
-      else
-        # TODO: Find better way to no-op pkg
-        hello
-    )
-    nixbits.deadsymlinks
-    josh.touch-cachedir-tag
   ];
 
   programs = {
