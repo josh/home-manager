@@ -47,7 +47,8 @@ jobs:
               name = "all-packages";
               system = "x86_64-linux";
               builder = "/bin/sh";
-              inherit (flake.outputs) packages;
+              packages = flake.outputs.packages;
+              activationPackage = flake.outputs.homeConfigurations."runner@x86_64-linux".activationPackage;
             }
 
       - name: Get base SHA derivation path
