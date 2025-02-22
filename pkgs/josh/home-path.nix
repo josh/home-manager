@@ -33,7 +33,7 @@ buildEnv {
       hello
       nixbits.deadsymlinks
       josh.test-fonts
-      josh.touch-cachedir-tag
+      nixbits.touch-cachedir-tag
 
       # vcs
       josh.gh

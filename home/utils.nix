@@ -29,8 +29,8 @@ in
     hello
     htop
     ipfetch
-    josh.touch-cachedir-tag
     nixbits.deadsymlinks
+    nixbits.touch-cachedir-tag
     nodePackages.prettier
     onefetch
     python3
