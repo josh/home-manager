@@ -51,9 +51,9 @@
       '';
     };
 
-    zellij = {
-      enable = true;
-    };
+    # zellij = {
+    #   enable = true;
+    # };
 
     starship =
       let
