@@ -36,7 +36,7 @@ buildEnv {
       nixbits.touch-cachedir-tag
 
       # vcs
-      josh.gh
+      gh
       nixbits.git
       (nixbits.lazygit.override { inherit useNerdFonts; })
 
