@@ -16,6 +16,5 @@ in
   nixpkgs.overlays = [
     inputs.lazy-nvim-nix.overlays.default
     inputs.nixbits.overlays.default
-    (import ../overlay.nix)
   ];
 }

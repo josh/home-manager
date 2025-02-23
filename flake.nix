@@ -72,21 +72,9 @@
       treefmt-nix = eachPkgs (pkgs: import ./internal/treefmt.nix pkgs);
     in
     {
-      overlays.default = import ./overlay.nix;
-
-      packages = eachPkgs (
-        pkgs:
-        let
-          inherit (pkgs) lib;
-          isAvailable = _: pkg: pkg.meta.available;
-          pkgs' = pkgs.extend self.overlays.default;
-          availablePkgs = lib.attrsets.filterAttrs isAvailable pkgs'.josh;
-        in
-        availablePkgs
-        // {
-          home-manager = home-manager.packages.${pkgs.system}.default;
-        }
-      );
+      packages = eachPkgs (pkgs: {
+        home-manager = home-manager.packages.${pkgs.system}.default;
+      });
 
       formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
 
