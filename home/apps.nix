@@ -36,7 +36,7 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        terminal.shell.program = lib.getExe pkgs.josh.tmux-attach;
+        terminal.shell.program = lib.getExe pkgs.nixbits.tmux-attach;
 
         font.normal = {
           family = "JetBrains Mono";
