@@ -74,6 +74,7 @@
     {
       packages = eachPkgs (pkgs: {
         home-manager = home-manager.packages.${pkgs.system}.default;
+        home-manager-generation = self.homeConfigurations."runner@${pkgs.system}".activationPackage;
       });
 
       formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
