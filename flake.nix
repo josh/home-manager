@@ -79,45 +79,34 @@
 
       formatter = eachSystem (system: treefmt-nix.${system}.wrapper);
 
-      checks =
-        eachPkgs (
-          pkgs:
-          let
-            inherit (nixpkgs) lib;
-            inherit (pkgs) system;
-            localPkgs = builtins.attrValues self.packages.${system};
-            localTests = lib.concatMap (
-              pkg:
-              if (builtins.hasAttr "tests" pkg.passthru) then (builtins.attrValues pkg.passthru.tests) else [ ]
-            ) localPkgs;
-          in
-          {
-            treefmt = treefmt-nix.${system}.check self;
-            build = pkgs.runCommandLocal "build-packages" { inherit localPkgs; } "touch $out";
-            tests = pkgs.runCommand "run-tests" { inherit localTests; } "touch $out";
-          }
-        )
-        // (
-          let
-            system = "x86_64-linux";
-            pkgs = nixpkgs.legacyPackages.${system};
-          in
-          {
-            ${system}.nixos = pkgs.testers.runNixOSTest {
-              name = "nixos";
-              nodes.machine = {
-                imports = [ self.nixosModules.default ];
-                services.openssh.enable = true;
-              };
-              testScript = ''
-                machine.wait_for_unit("multi-user.target")
-                machine.require_unit_state("home-manager-josh.service", "inactive")
-                machine.succeed("su -- josh -c 'which hello'")
-                machine.succeed("su -- josh -c 'test -f /etc/ssh/authorized_keys.d/josh'")
-              '';
+      checks = {
+        aarch64-darwin = {
+          treefmt = treefmt-nix.aarch64-darwin.check self;
+          build-home-manager-generation = self.homeConfigurations."runner@aarch64-darwin".activationPackage;
+        };
+        aarch64-linux = {
+          treefmt = treefmt-nix.aarch64-linux.check self;
+          build-home-manager-generation = self.homeConfigurations."runner@aarch64-linux".activationPackage;
+        };
+        x86_64-linux = {
+          treefmt = treefmt-nix.x86_64-linux.check self;
+          build-home-manager-generation = self.homeConfigurations."runner@x86_64-linux".activationPackage;
+
+          nixos = nixpkgs.legacyPackages.x86_64-linux.testers.runNixOSTest {
+            name = "nixos";
+            nodes.machine = {
+              imports = [ self.nixosModules.default ];
+              services.openssh.enable = true;
             };
-          }
-        );
+            testScript = ''
+              machine.wait_for_unit("multi-user.target")
+              machine.require_unit_state("home-manager-josh.service", "inactive")
+              machine.succeed("su -- josh -c 'which hello'")
+              machine.succeed("su -- josh -c 'test -f /etc/ssh/authorized_keys.d/josh'")
+            '';
+          };
+        };
+      };
 
       homeModules = {
         default = lib.wrapImportInputs inputs ./home;
